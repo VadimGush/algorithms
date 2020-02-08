@@ -10,3 +10,9 @@ Implementation of different algorithms and data structures in C.
 | Invert array | `invert_array.c` | **O(N)** |
 | Eratosthenes sieve | `eratosthenes_sieve.c` | **O(N*log(log N))** |
 | Cylcic shift of array to right/left | `cyclic_shift.c` | **O(N)** |
+
+#### Structures
+
+| Structure | Source file |
+| --------- | ----------- |
+| Vector or dynamic array | `vector.c` |

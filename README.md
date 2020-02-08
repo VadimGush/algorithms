@@ -11,7 +11,7 @@ Implementation of different algorithms and data structures in C.
 | Eratosthenes sieve | `eratosthenes_sieve.c` | **O(N*log(log N))** |
 | Cylcic shift of array to right/left | `cyclic_shift.c` | **O(N)** |
 
-#### Structures
+### Structures
 
 | Structure | Source file |
 | --------- | ----------- |

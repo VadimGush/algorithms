@@ -8,7 +8,7 @@ Implementation of different algorithms and data structures in C.
 | --------- | ----------- | --------------- |
 | Linear search | `linear_find.c` | *O(N)* |
 | Invert array | `invert_array.c` | *O(N)* |
-| Eratosthenes sieve | `eratosthenes_sieve.c` | *O(N*log(log N))* |
+| Eratosthenes sieve | `eratosthenes_sieve.c` | *O(N log(log N))* |
 | Cylcic shift of array to right/left | `cyclic_shift.c` | *O(N)* |
 
 ### Structures

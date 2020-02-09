@@ -8,7 +8,10 @@ struct vector {
   int capacity;
 };
 
-struct vector create_vector_with_capacity(int capacity) {
+/**
+ * Creates vector with given capacity
+ */
+struct vector vector_create_with_capacity(int capacity) {
   struct vector result;
   
   result.capacity = capacity;
@@ -18,10 +21,17 @@ struct vector create_vector_with_capacity(int capacity) {
   return result;
 }
 
-struct vector create_vector() {
-  return create_vector_with_capacity(INITIAL_CAPACITY);
+/**
+ * Creates vector
+ */
+struct vector vector_create() {
+  return vector_create_with_capacity(INITIAL_CAPACITY);
 }
 
+/**
+ * Inserts an element at the back of the vector
+ * Time complexity: O(1)
+ */
 void vector_push(struct vector* vec, int element) {
   if (vec->size == vec->capacity) {
     int* temp = malloc(vec->capacity * 2 * sizeof(int));
@@ -37,6 +47,10 @@ void vector_push(struct vector* vec, int element) {
   vec->size++;
 }
 
+/**
+ * Removes last element from the back of the vector
+ * Time complexity: O(1)
+ */
 void vector_pop(struct vector* vec) {
   if (vec->size > 0) {
     vec->size--;
@@ -53,7 +67,7 @@ void print_vector(struct vector* vec) {
 
 int main(void) {
 
-  struct vector v = create_vector();
+  struct vector v = vector_create();
   print_vector(&v);
   vector_push(&v, 5);
   vector_push(&v, 3);

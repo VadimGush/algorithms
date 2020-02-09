@@ -69,5 +69,5 @@ int main(void) {
   vector_pop(&v);
   print_vector(&v);
 
-
+  return 0;
 }

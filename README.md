@@ -16,3 +16,4 @@ Implementation of different algorithms and data structures in C.
 | Structure | Source file |
 | --------- | ----------- |
 | Vector or dynamic array | `vector.c` |
+| Doubly-linked list | `list.c` |

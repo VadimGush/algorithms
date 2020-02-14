@@ -12,21 +12,5 @@ void sieve(bool array[], int size) {
       }
     }
   }
-
-}
-
-int main(void) {
-  const int size = 20;
-  bool array[size];
-  fill_with_true(array, size);
-
-  sieve(array, size);
-
-  for (int i = 0; i < size; ++i) {
-    if (array[i])
-      printf("%d ", i);
-  }
-  printf("\n");
-  return 0;
 }
 

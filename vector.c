@@ -1,7 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "functions.h"
 #define INITIAL_CAPACITY 4
 
+/*
+ * Dynamic array of integers
+ */
 struct vector {
   int* data;
   int size;
@@ -10,6 +14,9 @@ struct vector {
 
 /**
  * Creates vector with given capacity
+ *
+ * @param capacity capacity of new vector
+ * @return new vector with given capacity
  */
 struct vector vector_create_with_capacity(int capacity) {
   struct vector result;
@@ -23,6 +30,8 @@ struct vector vector_create_with_capacity(int capacity) {
 
 /**
  * Creates vector
+ *
+ * @return new vector
  */
 struct vector vector_create() {
   return vector_create_with_capacity(INITIAL_CAPACITY);
@@ -31,6 +40,9 @@ struct vector vector_create() {
 /**
  * Inserts an element at the back of the vector
  * Time complexity: O(1)
+ *
+ * @param vec vector
+ * @param element new element
  */
 void vector_push(struct vector* vec, int element) {
   if (vec->size == vec->capacity) {
@@ -50,6 +62,8 @@ void vector_push(struct vector* vec, int element) {
 /**
  * Removes last element from the back of the vector
  * Time complexity: O(1)
+ *
+ * @param vec vector
  */
 void vector_pop(struct vector* vec) {
   if (vec->size > 0) {
@@ -57,7 +71,12 @@ void vector_pop(struct vector* vec) {
   }
 }
 
-void print_vector(struct vector* vec) {
+/**
+ * Prints content of the vector
+ *
+ * @param vec vector
+ */
+void vector_print(struct vector* vec) {
   printf("[ ");
   for (int i = 0; i < vec->size; ++i) {
     printf("%d ", vec->data[i]);
@@ -65,23 +84,64 @@ void print_vector(struct vector* vec) {
   printf("] siz = %d, cap = %d\n", vec->size, vec->capacity);
 }
 
-int main(void) {
-
-  struct vector v = vector_create();
-  print_vector(&v);
-  vector_push(&v, 5);
-  vector_push(&v, 3);
-  print_vector(&v);
-  
-  vector_push(&v, 10);
-  vector_push(&v, 13);
-  print_vector(&v);
-
-  vector_push(&v, -47);
-  print_vector(&v);
-
-  vector_pop(&v);
-  print_vector(&v);
-
-  return 0;
+/**
+ * Returns index of given element or -1 if element is not found
+ * Time complexity: O(N)
+ *
+ * @param this vector
+ * @param element searched element
+ * @return index of element in vector
+ */
+int vector_find(struct vector* this, int element) {
+    for (int i = 0; i < this->size; ++i) {
+        if (this->data[i] == element)
+            return i;
+    }
+    return -1;
 }
+
+/**
+ * Inverts vector
+ * Time complexity: O(N/2)
+ *
+ * @param this vector
+ */
+void vector_invert(struct vector* this) {
+    for (int i = 0; i < this->size / 2; i++) {
+        swap(&this->data[i], &this->data[this->size - 1 - i]);
+    }
+}
+
+/**
+ * Shifts all elements of vector to left
+ * Time complexity: O(N)
+ *
+ * @param this vector
+ */
+void vector_shift_left(struct vector* this) {
+    if (this->size == 0) return;
+
+    int temp = this->data[0];
+    for (int i = 0; i < this->size - 1; ++i) {
+        this->data[i] = this->data[i + 1];
+    }
+    this->data[this->size - 1] = temp;
+}
+
+/**
+ * Shifts all elements of vector to right
+ * Time complexity: O(N)
+ *
+ * @param this vector
+ */
+void vector_shift_right(struct vector* this) {
+    int size = this->size;
+    if (size == 0) return;
+
+    int temp = this->data[size-1];
+    for (int i = size-1; i >= 1; --i) {
+        this->data[i] = this->data[i-1];
+    }
+    this->data[0] = temp;
+}
+

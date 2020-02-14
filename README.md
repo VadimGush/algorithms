@@ -4,12 +4,12 @@ Implementation of different algorithms and data structures in C.
 
 ### Algorithms
 
-| Algorithm | Source file | Time complexity |
-| --------- | ----------- | --------------- |
-| Linear search | `linear_find.c` | *O(N)* |
-| Invert array | `invert_array.c` | *O(N)* |
-| Eratosthenes sieve | `eratosthenes_sieve.c` | *O(N log(log N))* |
-| Cylcic shift of array to right/left | `cyclic_shift.c` | *O(N)* |
+| Algorithm | Source file | Function name | Time complexity |
+| --------- | ----------- | ------------- | --------------- |
+| Linear search | `vector.c` | `vector_find()` | *O(N)* |
+| Invert array | `vector.c` | `vector_invert()` | *O(N)* |
+| Eratosthenes sieve | `eratosthenes_sieve.c` |   | *O(N log(log N))* |
+| Cyclic shift of array to right/left | `vector.c` | `vector_shift_...()` | *O(N)* |
 
 ### Structures
 

@@ -184,9 +184,13 @@ void vector_choice_sort(struct vector* this) {
  */
 void vector_bubble_sort(struct vector* this) {
   for (int i = 0; i < this->size; i++) {
+    bool was_swap = false;
     for (int c = 0; c < this->size - 1; c++) {
-      if (this->data[c + 1] < this->data[c])
+      if (this->data[c + 1] < this->data[c]) {
         swap(&this->data[c + 1], &this->data[c]);
+        was_swap = true;
+      }
     }
+    if (!was_swap) return;
   }
 }

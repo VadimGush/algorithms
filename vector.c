@@ -145,3 +145,18 @@ void vector_shift_right(struct vector* this) {
     this->data[0] = temp;
 }
 
+/**
+ * Insert sort
+ * Time complexity: O(N^2)
+ *
+ * @param this vector
+ */
+void vector_insert_sort(struct vector* this) {
+  for (int i = 0; i < this->size; i++) {
+    for (int c = i; c >= 1; c--) {
+      if (this->data[c] < this->data[c - 1])
+        swap(&this->data[c], &this->data[c - 1]);
+      else break;
+    }
+  }
+}

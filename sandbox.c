@@ -3,14 +3,16 @@
 #include "string.c"
 
 int main() {
-  struct string text = string_from("Hello world! How are you?", 25);
-  string_print(&text);
+  struct vector v = vector_create();
+  vector_push(&v, 5);
+  vector_push(&v, 1);
+  vector_push(&v, 3);
+  vector_push(&v, 2);
+  vector_push(&v, 4);
+  vector_print(&v);
 
-  struct string find = string_from("world! How", 10);
-  string_print_find_result(&text, string_find_string(&text, &find), find.size - 1);
+  vector_insert_sort(&v);
+  vector_print(&v);
 
-  string_append(&text, " Maybe another time?", 20);
-
-  string_print_find_result(&text, string_find(&text, "are", 3), 3);
   return 0;
 }

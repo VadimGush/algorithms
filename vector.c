@@ -160,3 +160,33 @@ void vector_insert_sort(struct vector* this) {
     }
   }
 }
+
+/**
+ * Choice sort
+ * Time complexity: O(N^2)
+ *
+ * @param this vector
+ */
+void vector_choice_sort(struct vector* this) {
+  for (int i = 0; i < this->size - 1; i++) {
+    for (int c = i + 1; c < this->size; c++) {
+      if (this->data[c] < this->data[i])
+        swap(&this->data[c], &this->data[i]);
+    }
+  }
+}
+
+/**
+ * Bubble sort
+ * Time complexity: O(N^2)
+ *
+ * @param this vector
+ */
+void vector_bubble_sort(struct vector* this) {
+  for (int i = 0; i < this->size; i++) {
+    for (int c = 0; c < this->size - 1; c++) {
+      if (this->data[c + 1] < this->data[c])
+        swap(&this->data[c + 1], &this->data[c]);
+    }
+  }
+}

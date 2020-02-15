@@ -12,6 +12,8 @@ Implementation of different algorithms and data structures in C.
 | Cyclic shift of array to right/left | `vector.c` | `vector_shift_...()` | ``O(N)`` |
 | Search in text | `string.c` | `string_find()` | ``O(N*I)`` |
 | Insert sort | `vector.c` | `vector_insert_sort()` | ``O(N^2)`` |
+| Choice sort | `vector.c` | `vector_choice_sort()` | ``O(N^2)`` |
+| Bubble sort | `vector.c` | `vector_bubble_sort()` | ``O(N^2)`` |
 
 ### Structures
 

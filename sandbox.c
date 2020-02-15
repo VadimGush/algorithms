@@ -11,7 +11,7 @@ int main() {
   vector_push(&v, 4);
   vector_print(&v);
 
-  vector_insert_sort(&v);
+  vector_bubble_sort(&v);
   vector_print(&v);
 
   return 0;

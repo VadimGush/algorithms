@@ -17,3 +17,4 @@ Implementation of different algorithms and data structures in C.
 | --------- | ----------- |
 | Vector or dynamic array | `vector.c` |
 | Doubly-linked list | `list.c` |
+| String | `string.c` |

@@ -6,10 +6,11 @@ Implementation of different algorithms and data structures in C.
 
 | Algorithm | Source file | Function name | Time complexity |
 | --------- | ----------- | ------------- | --------------- |
-| Linear search | `vector.c` | `vector_find()` | *O(N)* |
-| Invert array | `vector.c` | `vector_invert()` | *O(N)* |
-| Eratosthenes sieve | `eratosthenes_sieve.c` |   | *O(N log(log N))* |
-| Cyclic shift of array to right/left | `vector.c` | `vector_shift_...()` | *O(N)* |
+| Linear search | `vector.c` | `vector_find()` | ``O(N)`` |
+| Invert array | `vector.c` | `vector_invert()` | ``O(N)`` |
+| Eratosthenes sieve | `eratosthenes_sieve.c` |   | ``O(N*log(log N))`` |
+| Cyclic shift of array to right/left | `vector.c` | `vector_shift_...()` | ``O(N)`` |
+| Search in text | `string.c` | `string_find()` | ``O(N*I)`` |
 
 ### Structures
 

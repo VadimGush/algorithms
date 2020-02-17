@@ -2,7 +2,7 @@
 
 Implementation of different algorithms and data structures in C.
 
-### Algorithms
+### Sequential algorithms
 
 | Algorithm | Source file | Function name | Time complexity |
 | --------- | ----------- | ------------- | --------------- |

@@ -15,6 +15,10 @@ Implementation of different algorithms and data structures in C.
 | Choice sort | `vector.c` | `vector_choice_sort()` | ``O(N^2)`` |
 | Bubble sort | `vector.c` | `vector_bubble_sort()` | ``O(N^2)`` |
 
+### Parallel algorithms
+
+**TODO:** Reduce, scan.
+
 ### Structures
 
 | Structure | Source file |

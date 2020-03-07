@@ -105,7 +105,31 @@ struct node* list_insert_after(struct list* list, struct node* node, int value) 
     list->last = new_node;
   }
 
-  return node;
+  return new_node;
+}
+
+/**
+ * Inserts element before this node and returns new node
+ * Time complexity: O(1)
+ *
+ * @param list list
+ * @param node current node
+ * @param value value of new node
+ * @return pointer to the new node
+ */
+struct node* list_insert_before(struct list* list, struct node* node, int value) {
+  struct node* new_node = node_create(node, node->prev, value);
+  if (new_node->prev != NULL) {
+    struct node* prev_node = new_node->prev;
+    prev_node->next = new_node;
+  }
+  node->prev = new_node;
+
+  if (node == list->first) {
+    list->first = new_node;
+  }
+
+  return new_node;
 }
 
 /**

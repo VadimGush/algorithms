@@ -194,3 +194,65 @@ void vector_bubble_sort(struct vector* this) {
     if (!was_swap) return;
   }
 }
+
+/**
+ * Finds value of maximum element in the vector
+ * Time complexity: O(N)
+ *
+ * @param this vector
+ * @return max value
+ */
+int vector_max(struct vector* this) {
+  int max = this->data[0];
+  for (int i = 1; i < this->size; ++i) {
+    if (this->data[i] > max) max = this->data[i];
+  }
+  return max;
+}
+
+/**
+ * Finds value of minimum element in the vector
+ * Time complexity: O(N)
+ *
+ * @param this vector
+ * @return min value
+ */
+int vector_min(struct vector* this) {
+  int min = this->data[0];
+  for (int i = 1; i < this->size; ++i) {
+    if (this->data[i] < min) min = this->data[i];
+  }
+  return min;
+}
+
+/**
+ * Count sort
+ * Time complexity: O(N)
+ * Space complexity: O(max - min)
+ *
+ * @param this vector
+ */
+void vector_count_sort(struct vector* this) {
+  int min = vector_min(this);
+  int max = vector_max(this);
+  int stats_size = max - min + 1;
+  int* stats = malloc(sizeof(int) * stats_size);
+
+  // initialize array with zeros
+  for (int i = 0; i < stats_size; ++i) {
+    stats[i] = 0;
+  }
+
+  // calculate stats
+  for (int i = 0; i < this->size; ++i) {
+    stats[this->data[i] - min]++;
+  }
+
+  int last_insert = 0;
+  for (int i = 0; i < stats_size; ++i) {
+    for (int x = 0; x < stats[i]; x++) {
+      this->data[last_insert] = min + i;
+      last_insert++;
+    }
+  }
+}

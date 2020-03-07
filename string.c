@@ -61,8 +61,8 @@ struct string string_from(const char text[], const int size) {
  * @param size size of given text
  */
 void string_append(struct string* this, const char text[], const int size) {
-  if (this->size + size - 1 > this->capacity) {
-    int new_capacity = this->size - 1 + size;
+  if (this->size + size > this->capacity) {
+    int new_capacity = this->size + size;
     char* data = malloc(new_capacity * sizeof(char));
     for (int i = 0; i < this->size; ++i) {
       data[i] = this->data[i];
@@ -72,11 +72,11 @@ void string_append(struct string* this, const char text[], const int size) {
     this->capacity = new_capacity;
   }
 
-  for (int i = 0; i < size - 1; i++) {
+  for (int i = 0; i < size; i++) {
     this->data[this->size - 1 + i] = text[i];
   }
-  this->data[this->size - 1 + size - 1] = 0;
-  this->size = this->size - 1 + size;
+  this->data[this->size - 1 + size] = 0;
+  this->size = this->size - 1 + size + 1;
 }
 
 /**
@@ -119,7 +119,7 @@ void string_print_hex(const struct string* this) {
 }
 
 void string_print_find_result(const struct string* this, const int index, const int size) {
-  for (int i = 0; i < this->size; ++i) {
+  for (int i = 0; i < this->size - 1; ++i) {
     if (i == index) printf("[[");
     printf("%c", this->data[i]);
     if (i == index + size - 1) printf("]]");

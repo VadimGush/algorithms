@@ -20,21 +20,42 @@ struct vector {
  */
 struct vector vector_create_with_capacity(int capacity) {
   struct vector result;
-  
   result.capacity = capacity;
   result.size = 0;
   result.data = malloc(result.capacity * sizeof(int));
-
   return result;
 }
 
 /**
- * Creates vector
+ * Creates a vector with initial capacity and returns pointer to it
+ *
+ * @param capacity capacity of new vector
+ * @return pointer to new vector
+ */
+struct vector* vector_create_with_capacity_ptr(int capacity) {
+  struct vector* result = malloc(sizeof(struct vector));
+  result->capacity = capacity;
+  result->size = 0;
+  result->data = malloc(result->capacity * sizeof(int));
+  return result;
+}
+
+/**
+ * Creates a vector and returns it
  *
  * @return new vector
  */
 struct vector vector_create() {
   return vector_create_with_capacity(INITIAL_CAPACITY);
+}
+
+/**
+ * Creates a vector and returns pointer to it
+ *
+ * @return pointer to new vector
+ */
+struct vector* vector_create_ptr() {
+  return vector_create_with_capacity_ptr(INITIAL_CAPACITY);
 }
 
 /**
@@ -226,6 +247,46 @@ int vector_min(struct vector* this) {
 }
 
 /**
+ * Deletes current vector
+ * Warning: do not use passed pointer after this!
+ *
+ * @param this vector
+ */
+void vector_delete(struct vector* this) {
+  free(this->data);
+}
+
+/**
+ * Check if vector contains passed element
+ *
+ * @param this vector
+ * @param element element
+ * @return true if contains otherwise false
+ */
+bool vector_contains(struct vector* this, int element) {
+  for (int i = 0; i < this->size; ++i)
+    if (this->data[i] == element) return true;
+  return false;
+}
+
+/**
+ * Check if vector contains duplicate elements
+ * Time complexity: O(N^2)
+ *
+ * @param this vector
+ * @return true if contains otherwise false
+ */
+bool vector_contains_duplicates(struct vector* this) {
+  for (int i = 0; i < this->size; i++) {
+    for (int x = 0; x < this->size; x++) {
+      if (x != i && this->data[i] == this->data[x])
+        return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Count sort
  * Time complexity: O(N)
  * Space complexity: O(max - min)
@@ -256,3 +317,35 @@ void vector_count_sort(struct vector* this) {
     }
   }
 }
+
+void __vector_print_permutations(struct vector* this, struct vector* exclude) {
+  if (exclude->size == this->size) {
+    vector_print(exclude);
+    return;
+  }
+
+  for (int i = 0; i < this->size; ++i) {
+    if (!vector_contains(exclude, this->data[i])) {
+      vector_push(exclude, this->data[i]);
+      __vector_print_permutations(this, exclude);
+      vector_pop(exclude);
+    }
+  }
+}
+
+/**
+ * Prints all possible permutations of given numbers
+ *
+ * @param this vector
+ */
+void vector_print_permutations(struct vector* this) {
+  if (vector_contains_duplicates(this)) {
+    printf("Error: vector contains duplicate elements!");
+    return;
+  }
+
+  struct vector exclude = vector_create();
+  __vector_print_permutations(this, &exclude);
+  vector_delete(&exclude);
+}
+

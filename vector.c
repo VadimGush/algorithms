@@ -3,8 +3,8 @@
 #include "functions.h"
 #define INITIAL_CAPACITY 4
 
-/*
- * Dynamic array of integers
+/**
+ * Vector of integers
  */
 struct vector {
   int* data;
@@ -13,7 +13,7 @@ struct vector {
 };
 
 /**
- * Creates vector with given capacity
+ * Creates a vector with initial capacity and returns it
  *
  * @param capacity capacity of new vector
  * @return new vector with given capacity
@@ -106,7 +106,7 @@ void vector_print(struct vector* vec) {
 }
 
 /**
- * Returns index of given element or -1 if element is not found
+ * Returns an index of given element or -1 if the element is not found
  * Time complexity: O(N)
  *
  * @param this vector
@@ -122,7 +122,7 @@ int vector_find(struct vector* this, int element) {
 }
 
 /**
- * Inverts vector
+ * Inverts a vector
  * Time complexity: O(N/2)
  *
  * @param this vector
@@ -134,7 +134,7 @@ void vector_invert(struct vector* this) {
 }
 
 /**
- * Shifts all elements of vector to left
+ * Shifts all elements of the vector to left
  * Time complexity: O(N)
  *
  * @param this vector
@@ -217,7 +217,7 @@ void vector_bubble_sort(struct vector* this) {
 }
 
 /**
- * Finds value of maximum element in the vector
+ * Returns a value of maximum element
  * Time complexity: O(N)
  *
  * @param this vector
@@ -232,7 +232,21 @@ int vector_max(struct vector* this) {
 }
 
 /**
- * Finds value of minimum element in the vector
+ * Returns index of max element in the vector
+ *
+ * @param this vector
+ * @return index of max element
+ */
+int vector_max_id(struct vector* this) {
+  int id = 0;
+  for (int i = 1; i < this->size; ++i) {
+    if (this->data[i] > this->data[id]) id = i;
+  }
+  return id;
+}
+
+/**
+ * Returns a value of minimum element
  * Time complexity: O(N)
  *
  * @param this vector
@@ -247,13 +261,28 @@ int vector_min(struct vector* this) {
 }
 
 /**
- * Deletes current vector
- * Warning: do not use passed pointer after this!
+ * Returns an index to minimum element in the vector
+ *
+ * @param this vector
+ * @return index to the smallest element
+ */
+int vector_min_id(struct vector* this) {
+  int min = 0;
+  for (int i = 1; i < this->size; ++i) {
+    if (this->data[i] < min) min = i;
+  }
+  return min;
+}
+
+/**
+ * Deletes content of given vector
  *
  * @param this vector
  */
 void vector_delete(struct vector* this) {
   free(this->data);
+  this->size = 0;
+  this->capacity = 0;
 }
 
 /**

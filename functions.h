@@ -2,12 +2,19 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void print_int_array(int array[], int size) {
+void array_print(int array[], int size) {
   printf("[");
   for (int i = 0; i < size; ++i) {
     printf(" %d", array[i]);
   }
   printf(" ]");
+}
+
+bool array_equals(const int left[], const int right[], const int size) {
+  for (int i = 0; i < size; ++i) {
+    if (left[i] != right[i]) return false;
+  }
+  return true;
 }
 
 int max(int first, int second) {
@@ -67,4 +74,40 @@ void swap(int* a, int* b) {
   int temp = *b;
   *b = *a;
   *a = temp;
+}
+
+/**
+ * The slowest implementation of algorithm for calculating fib numbers
+ * Time complexity: O(fib(n)) ~ O(N^2)
+ *
+ * @param n given number
+ * @return fib number
+ */
+int slow_fib(int n) {
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+  return slow_fib(n - 1) + slow_fib(n - 2);
+}
+
+/**
+ * Fast algorithm for calculating fib numbers
+ * Time complexity: O(N)
+ * Space complexity: O(N)
+ *
+ * @param n given number
+ * @return fib number
+ */
+int fast_fib(int n) {
+  if (n == 0) return 0;
+  if (n == 1) return 1;
+
+  int* data = malloc(sizeof(int) * (n + 1));
+  data[0] = 0;
+  data[1] = 1;
+  for (int i = 2; i <= n; ++i) {
+    data[i] = data[i - 1] + data[i - 2];
+  }
+  const int result = data[n];
+  free(data);
+  return result;
 }

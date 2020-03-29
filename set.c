@@ -83,6 +83,24 @@ void set_delete(struct naive_set* this) {
   vector_delete(&this->data);
 }
 
+/**
+ * Get size of the set
+ * @param this set
+ * @return size of the set
+ */
+int set_size(const struct naive_set* const this) {
+  return this->data.size;
+}
+
+/**
+ * Checks if set is empty
+ * @param this set
+ * @return if set is empty returns true otherwise false
+ */
+bool set_empty(const struct naive_set* const this) {
+  return set_size(this) == 0;
+}
+
 void set_print(struct naive_set* set) {
   printf("set > ");
   vector_print(&set->data);

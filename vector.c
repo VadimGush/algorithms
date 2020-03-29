@@ -234,6 +234,15 @@ void vector_remove(struct vector* const this, const int id) {
 }
 
 /**
+ * Clears content of the vector
+ *
+ * @param this vector
+ */
+void vector_clear(struct vector* const this) {
+  this->size = 0;
+}
+
+/**
  * Returns an index of given element or -1 if the element is not found
  * Time complexity: O(N)
  *

@@ -29,4 +29,4 @@ int test_failed = 0;
   assert_false_imp(__FILE__, __LINE__, a);
 
 #define result() \
-  { printf(" ==> %d passed, %d failed\n", test_passed, test_failed); }
+  { printf(" ==> %d passed, %d failed\n", test_passed, test_failed); if (test_failed > 0) { exit(1); } }

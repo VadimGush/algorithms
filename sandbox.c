@@ -1,4 +1,8 @@
-#include "set.c"
+#include <stdlib.h>
+#include <stdio.h>
+#include "functions.h"
+#include "vector.h"
+#include "set.h"
 #include "test.h"
 
 void test_vector() {
@@ -85,39 +89,37 @@ void test_binary_search() {
   struct vector vector = vector_create();
   vector_push_array(&vector, sorted, 7);
 
-  // below
   assert(0, vector_lower_bound(&vector, -2))
   assert(0, vector_lower_bound(&vector, 0))
-  //
   assert(0, vector_lower_bound(&vector, 1))
   assert(1, vector_lower_bound(&vector, 2))
   assert(3, vector_lower_bound(&vector, 3))
-  // not in the set
   assert(4, vector_lower_bound(&vector, 4))
   assert(4, vector_lower_bound(&vector, 5))
-  //
   assert(4, vector_lower_bound(&vector, 6))
   assert(6, vector_lower_bound(&vector, 7))
-  // above
   assert(7, vector_lower_bound(&vector, 8))
   assert(7, vector_lower_bound(&vector, 10))
 
-  // below
   assert(0, vector_upper_bound(&vector, -5))
-  //
   assert(1,vector_upper_bound(&vector, 1))
   assert(3, vector_upper_bound(&vector, 2))
-  // not in the set
   assert(4, vector_upper_bound(&vector, 4))
   assert(4, vector_upper_bound(&vector, 5))
-  //
   assert(7, vector_upper_bound(&vector, 7))
   assert(7, vector_upper_bound(&vector, 10))
+
+  assert(4, vector_find_first(&vector, 6))
+  assert(5, vector_find_last(&vector, 6))
+  assert(7, vector_find_first(&vector, 4))
+  assert(7, vector_find_last(&vector, 4))
+  assert(7, vector_find_first(&vector, -1))
+  assert(7, vector_find_last(&vector, -1))
 
   passed()
 }
 
-void test_framework() {
+void run_tests() {
   test_vector();
   test_set();
   test_sort();
@@ -126,8 +128,7 @@ void test_framework() {
 }
 
 int main() {
-  test_framework();
-
+  run_tests();
 
   return 0;
 }

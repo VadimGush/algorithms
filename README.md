@@ -34,4 +34,4 @@ Implementation of different algorithms and data structures in C.
 | String                    | `string.c` |
 | Naive set                 | `set.c`    |
 
-**TODO:** Set
+**TODO:** HashSet

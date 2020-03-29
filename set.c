@@ -1,44 +1,90 @@
 #include "vector.c"
 
 /**
- * Naive implementation (and painfully slow) of unordered set based on doubly-linked list
+ * Naive implementation (and painfully slow) of ordered set based on dynamic array
  */
-struct set {
+struct naive_set {
   struct vector data;
 };
 
-struct set set_create() {
-  struct set result;
+/**
+ * Creates empty set
+ * @return a new set
+ */
+struct naive_set set_create() {
+  struct naive_set result;
   result.data = vector_create();
   return result;
 }
 
-
 /**
- * Insert element to the set
+ * Inserts element into the set
  * Time complexity: O(N)
  *
- * @param set set
- * @param element element to insert
+ * @param this set
+ * @param value value
  */
-void set_insert(struct set* set, int element) {
+void set_insert(struct naive_set* this, int value) {
+  const int lower = vector_lower_bound(&this->data, value);
+  if (this->data.data[lower] == value)
+    return;
+  else
+    vector_push(&this->data, lower, value);
+}
 
+/**
+ * Finds element in the set
+ * Time complexity: O(log N)
+ *
+ * @param this set
+ * @param value value
+ * @return if element is found then index of element otherwise size of the set
+ */
+int set_find(const struct naive_set* const this, const int value) {
+  const int lower = vector_lower_bound(&this->data, value);
+  if (lower < this->data.size && this->data.data[lower] == value) {
+    return lower;
+  } else {
+    return this->data.size;
+  }
+}
+
+/**
+ * Removes element from the set
+ * Time complexity: O(N)
+ *
+ * @param this set
+ * @param value value of an element
+ */
+void set_remove(struct naive_set* const this, const int value) {
+  const int id = set_find(this, value);
+  if (id != this->data.size)
+    vector_remove(&this->data, id);
 }
 
 /**
  * Check if set contains given element
- * Time complexity: O(N)
+ * Time complexity: O(log N)
  *
- * @param set set
- * @param element element to find
- * @return true if contains otherwise false
+ * @param this set
+ * @param value value
+ * @return if set contains this element then true otherwise false
  */
-bool set_contains(struct set* set, int element) {
-  // in not-naive implementation this should work with O(log N) time complexity
-  return false;
+bool set_contains(const struct naive_set* const this, const int value) {
+  const int lower = vector_lower_bound(&this->data, value);
+  return lower < this->data.size && this->data.data[lower] == value;
 }
 
-void set_print(struct set* set) {
+/**
+ * Deletes all data
+ * @param this set
+ */
+void set_delete(struct naive_set* this) {
+  vector_delete(&this->data);
+}
+
+void set_print(struct naive_set* set) {
+  printf("set > ");
   vector_print(&set->data);
 }
 

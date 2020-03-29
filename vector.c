@@ -166,18 +166,23 @@ void vector_push_back(struct vector* vec, int element) {
  * @param element element to insert
  * @param id where to insert
  */
-void vector_push(struct vector* vec, int id, int element) {
-  if (vec->size == vec->capacity) {
-    vector_allocate_more(vec);
+void vector_push(struct vector* const this, const int id, const int element) {
+  if (this->size == this->capacity) {
+    vector_allocate_more(this);
+  }
+
+  if (id == this->size) {
+    vector_push_back(this, element);
+    return;
   }
 
   int prev = element;
-  for (int i = id; i <= vec->size; ++i) {
-    int temp = vec->data[i];
-    vec->data[i] = prev;
+  for (int i = id; i <= this->size; ++i) {
+    int temp = this->data[i];
+    this->data[i] = prev;
     prev = temp;
   }
-  vec->size += 1;
+  this->size += 1;
 }
 
 /**
@@ -195,14 +200,37 @@ void vector_pop_back(struct vector* vec) {
 /**
  * Prints content of the vector
  *
- * @param vec vector
+ * @param this vector
  */
-void vector_print(struct vector* vec) {
+void vector_print(const struct vector* const this) {
   printf("[ ");
-  for (int i = 0; i < vec->size; ++i) {
-    printf("%d ", vec->data[i]);
+  for (int i = 0; i < this->size; ++i) {
+    printf("%d ", this->data[i]);
   }
-  printf("] siz = %d, cap = %d\n", vec->size, vec->capacity);
+  printf("] siz = %d, cap = %d\n", this->size, this->capacity);
+}
+
+void vector_print_with_ids(const struct vector* const this) {
+  vector_print(this);
+  printf("[ ");
+  for (int i = 0; i < this->size; ++i) {
+    printf("%d ", i);
+  }
+  printf("]\n");
+}
+
+
+/**
+ * Removes element from vector
+ *
+ * @param this vector
+ * @param id id of an element
+ */
+void vector_remove(struct vector* const this, const int id) {
+  for (int i = id; i < this->size - 1; ++i) {
+    this->data[i] = this->data[i + 1];
+  }
+  this->size -= 1;
 }
 
 /**
@@ -357,6 +385,8 @@ void __merge(struct vector* this, int start, int end) {
     ++bi;
   }
 
+  // in case when start = 0 and end = end of array
+  // we can just swap pointer to the data between this and temp
   for (int i = start; i <= end; ++i) {
     this->data[i] = temp.data[i - start];
   }
@@ -375,6 +405,50 @@ void vector_merge_sort(struct vector* this) {
 }
 
 /**
+ * Finds id of an element that equal or greater than given element
+ * Time complexity: O(log N)
+ *
+ * @param this vector
+ * @param value value
+ * @return index of an element
+ */
+int vector_lower_bound(const struct vector* const this, const int value) {
+  int left = 0;
+  int size = this->size;
+  while (size > 0) {
+    int step = size / 2;
+    int middle = left + step;
+    if (this->data[middle] < value && middle < this->size) {
+      left = middle + 1;
+    }
+    size = step;
+  }
+  return left;
+}
+
+/**
+ * Finds id of an element that greater than given element
+ * Time complexity: O(log N)
+ *
+ * @param this vector
+ * @param value value
+ * @return index of an element
+ */
+int vector_upper_bound(const struct vector* const this, const int value) {
+  int left = 0;
+  int size = this->size;
+  while (size > 0) {
+    int step = size / 2;
+    int middle = left + step;
+    if (this->data[middle] <= value && middle < this->size) {
+      left = middle + 1;
+    }
+    size = step;
+  }
+  return left;
+}
+
+/**
  * Returns a value of maximum element
  * Time complexity: O(N)
  *
@@ -387,6 +461,21 @@ int vector_max(struct vector* this) {
     if (this->data[i] > max) max = this->data[i];
   }
   return max;
+}
+
+/**
+ * Checks if vector is sorted
+ * Time complexity: O(N)
+ *
+ * @param this vector
+ * @return true if sorted otherwise false
+ */
+bool vector_is_sorted(const struct vector* this) {
+  for (int i = 1; i < this->size; ++i) {
+    if (this->data[i - 1] > this->data[i])
+      return false;
+  }
+  return true;
 }
 
 /**

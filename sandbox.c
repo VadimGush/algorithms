@@ -1,34 +1,36 @@
 #include "set.c"
 
-void test_sort() {
-
+void check(const struct vector* this) {
+  if (vector_is_sorted(this))
+    printf("Vector is sorted!\n");
+  else
+    printf("Vector is not sorted ;C\n");
 }
 
 int main() {
 
-  struct vector first = vector_create();
-  vector_push_back(&first, 5);
-  vector_push_back(&first, 3);
-  vector_push_back(&first, 4);
-  vector_merge_sort(&first);
-  vector_print(&first);
-
-  struct vector second = vector_create();
-  vector_push_back(&second, 3);
-  vector_push_back(&second, 2);
-  vector_merge_sort(&second);
-  vector_print(&second);
-
-  struct vector third = vector_create();
-  int array[] = {6, 5, 4, 3, 2, 7, 1};
-  vector_push_array(&third, array, 7);
-  vector_merge_sort(&third);
-  vector_print(&third);
-
-  struct vector last = vector_create();
-  vector_push_back(&last, 3);
-  vector_merge_sort(&last);
-  vector_print(&last);
+  struct vector data = vector_create();
+  // vector_push_array(&data, elements, 6);
+  struct naive_set set = {data};
+  set_print(&set);
+  set_insert(&set, 2);
+  set_insert(&set, 4);
+  set_insert(&set, -1);
+  set_insert(&set, 3);
+  set_insert(&set, 0);
+  set_insert(&set, 1);
+  set_insert(&set, 13);
+  set_insert(&set, 2);
+  set_insert(&set, 3);
+  set_print(&set);
+  set_remove(&set, -1);
+  set_remove(&set, 13);
+  set_print(&set);
+  set_remove(&set, 1);
+  set_remove(&set, 3);
+  set_print(&set);
+  set_insert(&set, 3);
+  set_print(&set);
 
   return 0;
 }

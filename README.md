@@ -15,7 +15,8 @@ Implementation of different algorithms and data structures in C.
 | Choice sort                           | `vector.c / vector_choice_sort()`         | ``O(N^2)``            | ``O(1)``          |
 | Bubble sort                           | `vector.c / vector_bubble_sort()`         | ``O(N^2)``            | ``O(1)``          |
 | Count sort                            | `vector.c / vector_count_sort()`          | ``O(N)``              | ``O(max - min)``  |
-| Generate permutations                 | `vector.c / vector_print_permutations()`  | ``O(N!*N)``           | ``O(N)``          |
+| Merge sort                            | `vector.c / vector_merge_sort()`          | ``O(N*log N)``        | ``O(N)``          |
+| Generate all permutations             | `vector.c / vector_print_permutations()`  | ``O(N!*N)``           | ``O(N)``          |
 
 ### Parallel algorithms
 
@@ -25,6 +26,9 @@ Implementation of different algorithms and data structures in C.
 
 | Structure | Source file |
 | --------- | ----------- |
-| Vector or dynamic array   | `vector.c` |
-| Doubly-linked list        | `list.c` |
+| Vector / dynamic array    | `vector.c` |
+| Doubly-linked list        | `list.c`   |
 | String                    | `string.c` |
+| Naive set                 | `set.c`    |
+
+**TODO:** Set

@@ -13,6 +13,25 @@ struct vector {
 };
 
 /**
+ * View of vector
+ */
+struct vector_view {
+  const int* data;
+  const int size;
+};
+
+/**
+ * Deletes content of given vector
+ *
+ * @param this vector
+ */
+void vector_delete(struct vector* this) {
+  free(this->data);
+  this->size = 0;
+  this->capacity = 0;
+}
+
+/**
  * Creates a vector with initial capacity and returns it
  *
  * @param capacity capacity of new vector
@@ -23,6 +42,19 @@ struct vector vector_create_with_capacity(int capacity) {
   result.capacity = capacity;
   result.size = 0;
   result.data = malloc(result.capacity * sizeof(int));
+  return result;
+}
+
+/**
+ * Creates part of vector from given position with given size
+ *
+ * @param this vector
+ * @param start start of a new part
+ * @param size size of a new part
+ * @return part of vector
+ */
+struct vector_view vector_get_part(struct vector* this, int start, int size) {
+  struct vector_view result = { this->data + start, size};
   return result;
 }
 
@@ -50,6 +82,18 @@ struct vector vector_create() {
 }
 
 /**
+ * Creates vector with given size (all elements are not initialized)
+ *
+ * @param size given size
+ * @return new vector
+ */
+struct vector vector_create_with_size(int size) {
+  struct vector result = vector_create_with_capacity(size);
+  result.size = size;
+  return result;
+}
+
+/**
  * Creates a vector and returns pointer to it
  *
  * @return pointer to new vector
@@ -59,25 +103,81 @@ struct vector* vector_create_ptr() {
 }
 
 /**
+ * Inserts array of ints to the vector
+ * @param vec vector
+ * @param elements pointer to array of ints
+ * @param size size of input array
+ */
+void vector_push_array(struct vector* vec, const int* const elements, const int size) {
+  const int new_capacity = vec->size + size;
+  if (new_capacity >= vec->capacity) {
+    int* temp = malloc(sizeof(int) * new_capacity);
+    for (int i = 0; i < vec->size; ++i) {
+      temp[i] = vec->data[i];
+    }
+    free(vec->data);
+    vec->data = temp;
+    vec->capacity = new_capacity;
+  }
+
+  for (int i = 0; i < size; ++i) {
+    vec->data[vec->size + i] = elements[i];
+  }
+  vec->size += size;
+}
+
+/**
+ * Increase vector capacity
+ * Time complexity: O(N)
+ *
+ * @param vec vector
+ */
+void vector_allocate_more(struct vector* vec) {
+  int* temp = malloc(vec->capacity * 2 * sizeof(int));
+  for (int i = 0; i < vec->capacity; i++) {
+    temp[i] = vec->data[i];
+  }
+  free(vec->data);
+  vec->data = temp;
+  vec->capacity *= 2;
+}
+
+/**
  * Inserts an element at the back of the vector
  * Time complexity: O(1)
  *
  * @param vec vector
  * @param element new element
  */
-void vector_push(struct vector* vec, int element) {
+void vector_push_back(struct vector* vec, int element) {
   if (vec->size == vec->capacity) {
-    int* temp = malloc(vec->capacity * 2 * sizeof(int));
-    for (int i = 0; i < vec->capacity; i++) {
-      temp[i] = vec->data[i];
-    }
-    free(vec->data);
-    vec->data = temp;
-    vec->capacity *= 2;
+    vector_allocate_more(vec);
   }
 
   vec->data[vec->size] = element;
   vec->size++;
+}
+
+/**
+ * Inserts element in the given position
+ * Time complexity: O(N)
+ *
+ * @param vec vector
+ * @param element element to insert
+ * @param id where to insert
+ */
+void vector_push(struct vector* vec, int id, int element) {
+  if (vec->size == vec->capacity) {
+    vector_allocate_more(vec);
+  }
+
+  int prev = element;
+  for (int i = id; i <= vec->size; ++i) {
+    int temp = vec->data[i];
+    vec->data[i] = prev;
+    prev = temp;
+  }
+  vec->size += 1;
 }
 
 /**
@@ -86,7 +186,7 @@ void vector_push(struct vector* vec, int element) {
  *
  * @param vec vector
  */
-void vector_pop(struct vector* vec) {
+void vector_pop_back(struct vector* vec) {
   if (vec->size > 0) {
     vec->size--;
   }
@@ -216,6 +316,64 @@ void vector_bubble_sort(struct vector* this) {
   }
 }
 
+void __merge(struct vector* this, int start, int end) {
+  const int size = end - start + 1;
+  if (size == 1) {
+    return;
+  } else if (size == 2) {
+    if (this->data[start] > this->data[end]) {
+      int temp = this->data[start];
+      this->data[start] = this->data[end];
+      this->data[end] = temp;
+    }
+    return;
+  }
+
+  const int middle = start + size / 2;
+  __merge(this, start, middle - 1);
+  __merge(this, middle, end);
+
+  int ai = 0;
+  int bi = 0;
+  const int left_size = middle - 1 - start + 1;
+  const int right_size = end - middle + 1;
+
+  struct vector temp = vector_create_with_capacity(size);
+  while (ai < left_size && bi < right_size) {
+    if (this->data[start + ai] <= this->data[middle + bi]) {
+      vector_push_back(&temp, this->data[start + ai]);
+      ++ai;
+    } else {
+      vector_push_back(&temp, this->data[middle + bi]);
+      ++bi;
+    }
+  }
+  while (ai < left_size) {
+    vector_push_back(&temp, this->data[start + ai]);
+    ++ai;
+  }
+  while (bi < right_size) {
+    vector_push_back(&temp, this->data[middle + bi]);
+    ++bi;
+  }
+
+  for (int i = start; i <= end; ++i) {
+    this->data[i] = temp.data[i - start];
+  }
+  vector_delete(&temp);
+}
+
+/**
+ * Merge sort
+ * Time complexity: O(N*log N)
+ * Space complexity: O(N)
+ *
+ * @param this vector
+ */
+void vector_merge_sort(struct vector* this) {
+  __merge(this, 0, this->size - 1);
+}
+
 /**
  * Returns a value of maximum element
  * Time complexity: O(N)
@@ -272,17 +430,6 @@ int vector_min_id(struct vector* this) {
     if (this->data[i] < min) min = i;
   }
   return min;
-}
-
-/**
- * Deletes content of given vector
- *
- * @param this vector
- */
-void vector_delete(struct vector* this) {
-  free(this->data);
-  this->size = 0;
-  this->capacity = 0;
 }
 
 /**
@@ -355,9 +502,9 @@ void __vector_print_permutations(struct vector* this, struct vector* exclude) {
 
   for (int i = 0; i < this->size; ++i) {
     if (!vector_contains(exclude, this->data[i])) {
-      vector_push(exclude, this->data[i]);
+      vector_push_back(exclude, this->data[i]);
       __vector_print_permutations(this, exclude);
-      vector_pop(exclude);
+      vector_pop_back(exclude);
     }
   }
 }
@@ -368,13 +515,16 @@ void __vector_print_permutations(struct vector* this, struct vector* exclude) {
  * @param this vector
  */
 void vector_print_permutations(struct vector* this) {
+  // permutations works only with sets
   if (vector_contains_duplicates(this)) {
     printf("Error: vector contains duplicate elements!");
     return;
   }
 
-  struct vector exclude = vector_create();
-  __vector_print_permutations(this, &exclude);
-  vector_delete(&exclude);
+  // for generating permutations we need some collection
+  // for storing prefix of previous positions
+  struct vector prefix = vector_create();
+  __vector_print_permutations(this, &prefix);
+  vector_delete(&prefix);
 }
 

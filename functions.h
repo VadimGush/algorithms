@@ -10,6 +10,10 @@ void print_int_array(int array[], int size) {
   printf(" ]");
 }
 
+int max(int first, int second) {
+  return first > second ? first : second;
+}
+
 void print_bool_array(bool array[], int size) {
   printf("[");
   for (int i = 0; i < size; ++i) {

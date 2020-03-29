@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct node {
   struct node* next;
@@ -106,6 +107,23 @@ struct node* list_insert_after(struct list* list, struct node* node, int value) 
   }
 
   return new_node;
+}
+
+/**
+ * Finds element in the list
+ * Time complexity: O(N)
+ *
+ * @param list list
+ * @param element element to find
+ * @return true if found otherwise false
+ */
+bool list_contains(struct list* list, int element) {
+  struct node* current = list->first;
+  while (current != NULL) {
+    if (current->value == element) return true;
+    current = current->next;
+  }
+  return false;
 }
 
 /**

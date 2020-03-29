@@ -80,10 +80,48 @@ void test_set() {
   passed()
 }
 
+void test_binary_search() {
+  const int sorted[] = {1, 2, 2, 3, 6, 6, 7};
+  struct vector vector = vector_create();
+  vector_push_array(&vector, sorted, 7);
+
+  // below
+  assert(0, vector_lower_bound(&vector, -2))
+  assert(0, vector_lower_bound(&vector, 0))
+  //
+  assert(0, vector_lower_bound(&vector, 1))
+  assert(1, vector_lower_bound(&vector, 2))
+  assert(3, vector_lower_bound(&vector, 3))
+  // not in the set
+  assert(4, vector_lower_bound(&vector, 4))
+  assert(4, vector_lower_bound(&vector, 5))
+  //
+  assert(4, vector_lower_bound(&vector, 6))
+  assert(6, vector_lower_bound(&vector, 7))
+  // above
+  assert(7, vector_lower_bound(&vector, 8))
+  assert(7, vector_lower_bound(&vector, 10))
+
+  // below
+  assert(0, vector_upper_bound(&vector, -5))
+  //
+  assert(1,vector_upper_bound(&vector, 1))
+  assert(3, vector_upper_bound(&vector, 2))
+  // not in the set
+  assert(4, vector_upper_bound(&vector, 4))
+  assert(4, vector_upper_bound(&vector, 5))
+  //
+  assert(7, vector_upper_bound(&vector, 7))
+  assert(7, vector_upper_bound(&vector, 10))
+
+  passed()
+}
+
 void test_framework() {
   test_vector();
   test_set();
   test_sort();
+  test_binary_search();
   result();
 }
 

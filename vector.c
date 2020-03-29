@@ -219,7 +219,6 @@ void vector_print_with_ids(const struct vector* const this) {
   printf("]\n");
 }
 
-
 /**
  * Removes element from vector
  *

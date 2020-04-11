@@ -119,11 +119,43 @@ void test_binary_search() {
   passed()
 }
 
+void test_size_lseq() {
+
+  {
+    int array[] = {1, 3, 7, 9, 0, 4, 11};
+    struct vector first = vector_create();
+    vector_push_array(&first, array, 7);
+
+    int other[] = {1, 7, 11};
+    struct vector second = vector_create();
+    vector_push_array(&second, other, 3);
+
+    int result = vector_size_of_largest_subsequence(&first, &second);
+    assert(3, result);
+  }
+
+  {
+    int array[] = {1, 3, 4, 6};
+    struct vector first = vector_create();
+    vector_push_array(&first, array, 4);
+
+    int other[] = {1, 7, 11, 0, -1, 3, 6, 7, 7, 4};
+    struct vector second = vector_create();
+    vector_push_array(&second, other, 10);
+
+    int result = vector_size_of_largest_subsequence(&first, &second);
+    assert(3, result);
+  }
+
+  passed();
+}
+
 void run_tests() {
   test_vector();
   test_set();
   test_sort();
   test_binary_search();
+  test_size_lseq();
   result();
 }
 

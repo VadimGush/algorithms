@@ -219,4 +219,50 @@ bool vector_contains_duplicates(const struct vector*);
  */
 void vector_print_permutations(const struct vector*);
 
+/**
+ * Two-dimensional array of ints
+ */
+struct vector2d {
+  struct vector vector;
+  size_t columns;
+  size_t rows;
+};
+
+/**
+ * Creates 2-dimensional vector with given number of columns and rows
+ * @param columns columns
+ * @param rows rows
+ * @return new vector
+ */
+struct vector2d vector2d_create(size_t columns, size_t rows);
+
+/**
+ * Gets element from 2-dimensional vector
+ * @return value of an element
+ */
+int vector2d_get(const struct vector2d*, size_t, size_t);
+
+/**
+ * Inserts an element in the given position
+ */
+void vector2d_push(struct vector2d*, size_t, size_t, int);
+
+/**
+ * Deletes all vector data
+ */
+void vector2d_delete(struct vector2d*);
+
+/**
+ * Prints content of 2-dimensional vector
+ */
+void vector2d_print(const struct vector2d*);
+
+/**
+ * Finds size of largest common subsequence
+ * As an example of dynamic programming
+ *
+ * @return size of largest common subsequence
+ */
+size_t vector_size_of_largest_subsequence(const struct vector*, const struct vector*);
+
 #endif //ALGORITHMS_VECTOR_H

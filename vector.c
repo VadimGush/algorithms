@@ -387,3 +387,60 @@ size_t vector_find_last(const struct vector* const this, const int value) {
     return this->size;
 }
 
+size_t vector_size_of_largest_subsequence(const struct vector* const this, const struct vector* const other) {
+  struct vector2d grid = vector2d_create(this->size + 1, other->size + 1);
+  // fill rows
+  for (size_t x = 0; x <= this->size; ++x) {
+    vector2d_push(&grid, x, 0, 0);
+  }
+  // fill columns
+  for (size_t y = 0; y <= other->size; ++y) {
+    vector2d_push(&grid, 0, y, 0);
+  }
+
+  for (size_t y = 1; y <= other->size; y++) {
+    for (size_t x = 1; x <= this->size; x++) {
+      if (this->data[x - 1] == other->data[y - 1]) {
+        int result = 1 + vector2d_get(&grid, x - 1, y - 1);
+        vector2d_push(&grid, x, y, result);
+      } else {
+        int result = max(
+            vector2d_get(&grid, x - 1, y),
+            vector2d_get(&grid, x, y - 1));
+        vector2d_push(&grid, x, y, result);
+      }
+    }
+  }
+
+  int result = vector2d_get(&grid, this->size, other->size);
+  vector2d_delete(&grid);
+  return result;
+}
+
+struct vector2d vector2d_create(const size_t columns, const size_t rows) {
+  struct vector2d result = { vector_create_with_size(rows * columns), columns, rows};
+  return result;
+}
+
+int vector2d_get(const struct vector2d* const this, const size_t column, const size_t row) {
+  return this->vector.data[row * this->columns + column];
+}
+
+void vector2d_push(struct vector2d* const this, const size_t column, const size_t row, const int value) {
+  this->vector.data[row * this->columns + column] = value;
+}
+
+void vector2d_delete(struct vector2d* const this) {
+  vector_delete(&this->vector);
+}
+
+void vector2d_print(const struct vector2d* const this) {
+  for (size_t y = 0; y < this->rows; y++) {
+    for (size_t x = 0; x < this->columns; x++) {
+      printf("%d ", vector2d_get(this, x, y));
+    }
+    printf("\n");
+  }
+}
+
+

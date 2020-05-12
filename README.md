@@ -21,8 +21,7 @@ Implementation of different algorithms and data structures in C.
 | Binary search (lower bound)           | `vector.c / vector_lower_bound()`         | ``O(log N)``          | ``O(1)``          |
 | Binary search (upper bound)           | `vector.c / vector_upper_bound()`         | ``O(log N)``          | ``O(1)``          |
 
-**TODO:** Shunting yard
-**TODO:** Quadtree
+**TODO:** Shunting yard, Quadtree
 
 ### Parallel algorithms
 

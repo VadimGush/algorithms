@@ -4,13 +4,13 @@ Implementation of different algorithms and data structures in C.
 
 ### Sequential algorithms
 
-| Algorithm | Source file / function name | Time complexity | Space complexity |
-| --------- | --------------------------- | --------------- | ---------------- |
-| Linear search                         | `vector.c / vector_find()`                | ``O(N)``              | |
-| Invert array                          | `vector.c / vector_invert()`              | ``O(N)``              | |
-| Eratosthenes sieve                    | `eratosthenes_sieve.c`                    | ``O(N*log(log N))``   | |
-| Cyclic shift of array to right/left   | `vector.c / vector_shift_...()`           | ``O(N)``              | |
-| Search in text                        | `string.c / string_find()`                | ``O(N*I)``            | |
+| Algorithm                             | Source file / function name               | Time complexity       | Space complexity  |
+| ------------------------------------- | ----------------------------------------- | --------------------- | ----------------- |
+| Linear search                         | `vector.c / vector_find()`                | ``O(N)``              |                   |
+| Invert array                          | `vector.c / vector_invert()`              | ``O(N)``              |                   |
+| Eratosthenes sieve                    | `eratosthenes_sieve.c`                    | ``O(N*log(log N))``   |                   |
+| Cyclic shift of array to right/left   | `vector.c / vector_shift_...()`           | ``O(N)``              |                   |
+| Search in text                        | `string.c / string_find()`                | ``O(N*I)``            |                   |
 | Insert sort                           | `vector.c / vector_insert_sort()`         | ``O(N^2)``            | ``O(1)``          |
 | Choice sort                           | `vector.c / vector_choice_sort()`         | ``O(N^2)``            | ``O(1)``          |
 | Bubble sort                           | `vector.c / vector_bubble_sort()`         | ``O(N^2)``            | ``O(1)``          |
@@ -20,6 +20,7 @@ Implementation of different algorithms and data structures in C.
 | Check if sorted                       | `vector.c / vector_is_sorted()`           | ``O(N)``              | ``O(1)``          |
 | Binary search (lower bound)           | `vector.c / vector_lower_bound()`         | ``O(log N)``          | ``O(1)``          |
 | Binary search (upper bound)           | `vector.c / vector_upper_bound()`         | ``O(log N)``          | ``O(1)``          |
+| Size of LCS                           | `vector.c / vector_size_of_largest_subsequence() | ``O(F*S)``     | ``O(F*S)``        |
 
 **TODO:** Shunting yard, Quadtree
 
@@ -37,3 +38,7 @@ Implementation of different algorithms and data structures in C.
 | Naive set                 | `set.c`    |
 
 **TODO:** HashSet, Singly-Linked list (Lock-free version)
+
+### Sync primitives 
+
+**TODO:** Mutex, RwLock

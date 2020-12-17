@@ -199,7 +199,7 @@ static void __merge(struct vector* this, size_t start, size_t end) {
 
   const size_t middle = start + size / 2;
   __merge(this, start, middle - 1);
-  __merge(this, middle, end);
+  __merge(this, middle, end); //other
 
   size_t ai = 0;
   size_t bi = 0;
@@ -387,6 +387,7 @@ size_t vector_find_last(const struct vector* const this, const int value) {
     return this->size;
 }
 
+// TODO: Review this piece of code
 size_t vector_size_of_largest_subsequence(const struct vector* const this, const struct vector* const other) {
   struct vector2d grid = vector2d_create(this->size + 1, other->size + 1);
   // fill rows

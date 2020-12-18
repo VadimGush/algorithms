@@ -64,3 +64,8 @@ size_t str_len(char*);
  */
 size_t str_char_len(char*);
 
+/**
+ * Compares two arrays of data
+ */
+bool data_compare(void*, void*, size_t);
+

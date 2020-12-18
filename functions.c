@@ -70,6 +70,17 @@ int fast_fib(int n) {
   return result;
 }
 
+bool data_compare(void* first, void* second, size_t size) {
+  char* f = (char*) first;
+  char* s = (char*) second;
+  for (size_t id = 0; id < size; id++) {
+    if (f[id] != s[id]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 bool compare_str(char* first, char* second) {
   while (*first != 0) {
     if (*first != *second || *second == 0) {

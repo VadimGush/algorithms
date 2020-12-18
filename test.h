@@ -1,8 +1,7 @@
 /**
  * Small test framework for C lang.
- *
- * TODO: Create a new counter for every set of tests
  */
+#pragma once
 
 unsigned int test_passed = 0;
 unsigned int test_failed = 0;
@@ -22,7 +21,6 @@ unsigned int test_failed = 0;
   { print_fail(); printf("expected %d but was %d\n", (a), (b)); test_failed++; } }
 #define assert(a, b) \
   assert_imp(a, b);
-
 
 /**
  * assert_true(a)

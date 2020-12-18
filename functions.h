@@ -1,6 +1,7 @@
+#pragma once
 #include <stdio.h>
 #include <stdbool.h>
-#pragma once
+#include <stdlib.h>
 
 /**
  * Prints content of the array
@@ -47,4 +48,19 @@ int slow_fib(int);
  * Space complexity: O(N)
  */
 int fast_fib(int);
+
+/**
+ * Compares two strings
+ */
+bool compare_str(char*, char*);
+
+/** 
+ * Finds the length of given string (with zero char)
+ */
+size_t str_len(char*);
+
+/**
+ * Finds the length of given string (without zero char)
+ */
+size_t str_char_len(char*);
 

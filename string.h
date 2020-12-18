@@ -1,3 +1,4 @@
+#pragma once
 
 /**
  * Simple string
@@ -7,7 +8,6 @@ struct string {
   int size;
   int capacity;
 };
-
 
 /**
  * Creates string with given capacity

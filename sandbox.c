@@ -155,10 +155,21 @@ void test_size_lseq() {
 
 void test_string() {
   struct string string = string_create();
-  assert(0, string.size);
-  assert_true(0);
-  assert_false(1);
-  
+  assert(1, string.size);
+
+  string_append(&string, "Hello world!", 12);
+  assert_true(compare_str("Hello world!", string.data));
+
+  string_append(&string, "!!", 2);
+  assert_true(compare_str("Hello world!!!", string.data));
+
+  assert(6, string_find(&string, "world", 5));
+  assert(-1, string_find(&string, "milk", 4));
+
+  struct string tofind = string_create();
+  string_append(&tofind, "world", 5);
+  assert(6, string_find_string(&string, &tofind));
+
   passed();
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+// TODO: Change int to size_t
 
 /**
  * Simple string
@@ -36,44 +37,44 @@ struct string string_from(const char text[], const int size);
 /**
  * Inserts given text to the back of the string
  *
- * @param this string
+ * @param th string
  * @param text text to insert
  * @param size size of given text
  */
-void string_append(struct string* this, const char text[], const int size);
+void string_append(struct string* th, const char text[], const int size);
 
 /**
  * Finds text inside the string
  * Time complexity: O(N*I) (where I is size of input text)
  *
- * @param this string
+ * @param th string
  * @param text text to find
  * @param size size of searched text
  * @return index or -1 if text is not found
  */
-int string_find(const struct string* this, const char text[], const int size);
+int string_find(const struct string* th, const char text[], const int size);
 
 
 /**
  * Finds position of given substring in the current string
  *
- * @param this string
+ * @param th string
  * @param other substring to find
  * @return position of that string
  */
-int string_find_string(const struct string* this, const struct string* other);
+int string_find_string(const struct string* th, const struct string* other);
 
 /**
  * Prints content of the string
  *
- * @param this string
+ * @param th string
  */
-void string_print(const struct string* this);
+void string_print(const struct string* th);
 
 /**
  * Print content of the string in HEX format
  */
-void string_print_hex(const struct string* this);
+void string_print_hex(const struct string* th);
 
-void string_print_find_result(const struct string* this, const int index, const int size);
+void string_print_find_result(const struct string* th, const int index, const int size);
 

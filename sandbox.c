@@ -4,15 +4,18 @@
 #include "vector.h"
 #include "set.h"
 #include "test.h"
+#include "string.h"
 
 void test_vector() {
   struct vector vector = vector_create();
-  assert(0, vector.size)
+  assert(0, vector.size);
+
   vector_push_back(&vector, 3);
-  assert(1, vector.size)
+  assert(1, vector.size);
+
   assert(3, vector.data[0])
   vector_push_back(&vector, 4);
-  assert(2, vector.size)
+  assert(2, vector.size);
   assert(4, vector.data[1])
   vector_push_back(&vector, 2);
   vector_push_back(&vector, 1);
@@ -150,12 +153,23 @@ void test_size_lseq() {
   passed();
 }
 
+void test_string() {
+  struct string string = string_create();
+  assert(0, string.size);
+  assert_true(0);
+  assert_false(1);
+  
+  passed();
+}
+
 void run_tests() {
   test_vector();
   test_set();
   test_sort();
   test_binary_search();
   test_size_lseq();
+  test_string();
+
   result();
 }
 

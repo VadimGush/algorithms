@@ -1,25 +1,8 @@
-// TODO: String should have it's own header file
-
 #include <stdio.h>
 #include <stdlib.h>
+#include "string.h"
 #define STR_INITIAL_CAPACITY 10
 
-
-/**
- * just string without SSO
- */
-struct string {
-  char* data;
-  int size;
-  int capacity;
-};
-
-/**
- * Creates string with given capacity
- *
- * @param capacity capacity of a new string
- * @return new string
- */
 struct string string_create_with_capacity(const int capacity) {
   struct string str;
   str.capacity = capacity;
@@ -29,22 +12,10 @@ struct string string_create_with_capacity(const int capacity) {
   return str;
 }
 
-/**
- * Creates empty string
- *
- * @return new string
- */
 struct string string_create() {
   return string_create_with_capacity(STR_INITIAL_CAPACITY);
 }
 
-/**
- * Creates new string and copies given text to it
- *
- * @param text content of new string
- * @param size size of given text
- * @return new string
- */
 struct string string_from(const char text[], const int size) {
   struct string str;
   str.capacity = size + 1;
@@ -57,13 +28,6 @@ struct string string_from(const char text[], const int size) {
   return str;
 }
 
-/**
- * Inserts given text to the back of the string
- *
- * @param this string
- * @param text text to insert
- * @param size size of given text
- */
 void string_append(struct string* this, const char text[], const int size) {
   if (this->size + size > this->capacity) {
     int new_capacity = this->size + size;
@@ -83,15 +47,6 @@ void string_append(struct string* this, const char text[], const int size) {
   this->size = this->size - 1 + size + 1;
 }
 
-/**
- * Finds text inside the string
- * Time complexity: O(N*I) (where I is size of input text)
- *
- * @param this string
- * @param text text to find
- * @param size size of searched text
- * @return index or -1 if text is not found
- */
 int string_find(const struct string* this, const char text[], const int size) {
   for (int i = 0; i < this->size; ++i) {
     for (int c = 0; c < size; ++c) {
@@ -106,11 +61,6 @@ int string_find_string(const struct string* this, const struct string* other) {
   return string_find(this, other->data, other->size - 1);
 }
 
-/**
- * Prints content of the string
- *
- * @param this string
- */
 void string_print(const struct string* this) {
   printf("%s [siz = %d, cap = %d] \n", this->data, this->size, this->capacity);
 }

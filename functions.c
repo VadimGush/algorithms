@@ -69,3 +69,31 @@ int fast_fib(int n) {
   free(data);
   return result;
 }
+
+bool compare_str(char* first, char* second) {
+  while (*first != 0) {
+    if (*first != *second || *second == 0) {
+      return false;
+    }
+    first++;
+    second++;
+  }
+  return *second == 0;
+}
+
+size_t str_len(char* str) {
+  size_t size = 0;
+  for (; *str != 0; str++) {
+    size++;
+  }
+  return size + 1;
+}
+
+size_t str_char_len(char* str) {
+  size_t size = 0;
+  for (; *str != 0; str++) {
+    size++;
+  }
+  return size;
+
+}

@@ -4,15 +4,15 @@ int test_failed = 0;
 
 #define assert_imp(function, line, a, b) \
   { if ((a) == (b)) { test_passed++; } else \
-  { printf(" - FAILED > %s:%d > expected %d but was %d\n", (function), (line), (a), (b)); test_failed++; } }
+  { printf(" - FAILED > %s:%ld > expected %ld but was %ld\n", (function), (line), (a), (b)); test_failed++; } }
 
 #define assert_true_imp(function, line, a) \
   { if (a) { test_passed++; } else \
-  { printf(" - FAILED > %s:%d > expected true\n", (function), (line)); test_failed++; } }
+  { printf(" - FAILED > %s:%ld > expected true\n", (function), (line)); test_failed++; } }
 
 #define assert_false_imp(function, line, a) \
   { if (!a) { test_passed++; } else \
-  { printf(" - FAILED > %s:%d > expected false\n", (function), (line)); test_failed++; } }
+  { printf(" - FAILED > %s:%ld > expected false\n", (function), (line)); test_failed++; } }
 
 #define passed_imp(function) \
   { if (test_failed == 0) printf(" > passed %s() \n", (function)); }
@@ -29,4 +29,4 @@ int test_failed = 0;
   assert_false_imp(__FILE__, __LINE__, a);
 
 #define result() \
-  { printf(" ==> %d passed, %d failed\n", test_passed, test_failed); if (test_failed > 0) { exit(1); } }
+  { printf(" ==> %ld passed, %ld failed\n", test_passed, test_failed); if (test_failed > 0) { exit(1); } }

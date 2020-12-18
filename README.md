@@ -20,7 +20,7 @@ Implementation of different algorithms and data structures in C.
 | Check if sorted                       | `vector.c / vector_is_sorted()`           | ``O(N)``              | ``O(1)``          |
 | Binary search (lower bound)           | `vector.c / vector_lower_bound()`         | ``O(log N)``          | ``O(1)``          |
 | Binary search (upper bound)           | `vector.c / vector_upper_bound()`         | ``O(log N)``          | ``O(1)``          |
-| Size of LCS                           | `vector.c / vector_size_of_largest_subsequence()` | ``O(F*S)``     | ``O(F*S)``        |
+| Size of LCS                           | `vector.c / vector_size_of_largest_subsequence()` | ``O(F*S)``    | ``O(F*S)``        |
 
 **TODO:** Shunting yard, Quadtree
 
@@ -30,15 +30,19 @@ Implementation of different algorithms and data structures in C.
 
 ### Structures
 
-| Structure | Source file |
-| --------- | ----------- |
-| Vector / dynamic array    | `vector.c` |
-| Doubly-linked list        | `list.c`   |
-| String                    | `string.c` |
-| Naive set                 | `set.c`    |
+| Structure                 | Source file |
+| ------------------------- | ----------- |
+| Vector / dynamic array    | `vector.c`  |
+| Doubly-linked list        | `list.c`    |
+| String                    | `string.c`  |
+| Naive set                 | `set.c`     |
 
 **TODO:** HashSet, Singly-Linked list (Lock-free version)
 
 ### Sync primitives 
 
 **TODO:** Mutex, RwLock
+
+### System programming
+
+**TODO:** Simple HTTP webserver on async sockets, TCP/UDP packets listener

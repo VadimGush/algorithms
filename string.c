@@ -1,5 +1,9 @@
+// TODO: String should have it's own header file
+
 #include <stdio.h>
+#include <stdlib.h>
 #define STR_INITIAL_CAPACITY 10
+
 
 /**
  * just string without SSO

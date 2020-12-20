@@ -59,6 +59,8 @@ int fast_fib(int n) {
   if (n == 0) return 0;
   if (n == 1) return 1;
 
+  // We'll create just an array with all number
+  // and iterate over it
   int* data = malloc(sizeof(int) * (n + 1));
   data[0] = 0;
   data[1] = 1;
@@ -100,7 +102,7 @@ size_t str_len(char* str) {
   return size + 1;
 }
 
-size_t str_char_len(char* str) {
+size_t str_size(char* str) {
   size_t size = 0;
   for (; *str != 0; str++) {
     size++;

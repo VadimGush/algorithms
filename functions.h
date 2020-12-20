@@ -62,7 +62,7 @@ size_t str_len(char*);
 /**
  * Finds the length of given string (without zero char)
  */
-size_t str_char_len(char*);
+size_t str_size(char*);
 
 /**
  * Compares two arrays of data

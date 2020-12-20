@@ -1,1 +1,8 @@
 .idea
+CMakeFiles/
+*.out
+*.cmake
+CMakeCache.txt
+compile_commands.json
+bin/
+Makefile

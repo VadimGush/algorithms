@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
-project(algorithms)
 
-set(CMAKE_CXX_STANDARD 17)
+project(Algorithms)
 
-add_executable(algo sandbox.c vector.c set.c functions.c)
-set_target_properties(algo PROPERTIES LINKER_LANGUAGE C)
-target_compile_options(algo PRIVATE -Wno-format)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
+set(EXECUTABLE_OUTPUT_PATH "bin")
 
-add_executable(functional functional/main.cpp)
+add_executable(algo sandbox.c string.c functions.c set.c vector.c list.c)
+

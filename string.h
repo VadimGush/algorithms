@@ -77,4 +77,7 @@ void string_print_hex(const struct string* th);
 
 void string_print_find_result(const struct string* th, const int index, const int size);
 
+/**
+ * Returns size of the string (number of characters)
+ */
 int string_len(const struct string*);

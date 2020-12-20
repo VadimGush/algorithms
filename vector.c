@@ -387,7 +387,7 @@ size_t vector_find_last(const struct vector* const this, const int value) {
     return this->size;
 }
 
-// TODO: Review this piece of code
+// TODO: Write explanetion for this algorithm
 size_t vector_size_of_largest_subsequence(const struct vector* const this, const struct vector* const other) {
   struct vector2d grid = vector2d_create(this->size + 1, other->size + 1);
   // fill rows

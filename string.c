@@ -85,4 +85,7 @@ void string_print_find_string_result(const struct string* this, const struct str
   string_print_find_result(this, index, other->size - 1);
 }
 
+int string_len(const struct string* string) {
+  return string->size - 1;
+}
 

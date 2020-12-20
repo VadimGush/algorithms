@@ -1,5 +1,4 @@
 #pragma once
-// TODO: Change int to size_t
 
 /**
  * Simple string
@@ -78,3 +77,4 @@ void string_print_hex(const struct string* th);
 
 void string_print_find_result(const struct string* th, const int index, const int size);
 
+int string_len(const struct string*);

@@ -155,10 +155,12 @@ void test_size_lseq() {
 
 void test_string() {
   struct string string = string_create();
-  assert(1, string.size);
+  assert(1, string.size); // because of zero character at the end
+  assert(0, string_len(&string));
 
   string_append(&string, "Hello world!", 12);
   assert_true(compare_str("Hello world!", string.data));
+  assert(12, string_len(&string));
 
   string_append(&string, "!!", 2);
   assert_true(compare_str("Hello world!!!", string.data));

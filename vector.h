@@ -1,6 +1,8 @@
 #ifndef ALGORITHMS_VECTOR_H
 #define ALGORITHMS_VECTOR_H
 
+#include <stdlib.h>
+
 struct vector {
   int* data;
   size_t size;

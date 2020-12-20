@@ -1,6 +1,7 @@
 #ifndef ALGORITHMS_SET_H
 #define ALGORITHMS_SET_H
 
+#include <stdbool.h>
 #include "vector.h"
 
 /**

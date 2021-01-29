@@ -22,7 +22,7 @@ Implementation of different algorithms and data structures in C.
 | Binary search (upper bound)           | `vector.c / vector_upper_bound()`         | ``O(log N)``          | ``O(1)``          |
 | Size of LCS                           | `vector.c / vector_size_of_largest_subsequence()` | ``O(F*S)``    | ``O(F*S)``        |
 
-**TODO:** Shunting yard, Quadtree
+**TODO:** Quicksort, Heapsort, Shunting yard, Quadtree
 
 ### Parallel algorithms
 

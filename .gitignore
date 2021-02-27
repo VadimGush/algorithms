@@ -2,7 +2,9 @@
 CMakeFiles/
 *.out
 *.cmake
+.cache/
 CMakeCache.txt
 compile_commands.json
 bin/
 Makefile
+*.swp

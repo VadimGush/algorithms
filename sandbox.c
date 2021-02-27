@@ -5,6 +5,7 @@
 #include "set.h"
 #include "test.h"
 #include "string.h"
+#include "list.h"
 
 void test_vector() {
   struct vector vector = vector_create();
@@ -175,6 +176,35 @@ void test_string() {
   passed();
 }
 
+void test_list() {
+  struct list list = list_create();
+  list_push_back(&list, 4);
+  list_push_front(&list, 5);
+
+  assert(5, list_get(&list, 0)->value);
+  assert(4, list_get(&list, 1)->value);
+  assert(2, list.size);
+
+  list_insert_after(&list, list.first, 7);
+  list_insert_before(&list, list.last, 8);
+
+  assert(7, list_get(&list, 1)->value);
+  assert(8, list_get(&list, 2)->value);
+  assert(4, list.size);
+
+  list_pop_front(&list);
+
+  assert(7, list_get(&list, 0)->value);
+  assert(3, list.size);
+
+  list_pop_back(&list);
+
+  assert(8, list_get(&list, 1)->value);
+  assert(2, list.size);
+
+  passed();
+}
+
 void run_tests() {
   test_vector();
   test_set();
@@ -182,6 +212,7 @@ void run_tests() {
   test_binary_search();
   test_size_lseq();
   test_string();
+  test_list();
 
   result();
 }

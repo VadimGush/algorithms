@@ -1,27 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "list.h"
 
-struct node {
-  struct node* next;
-  struct node* prev;
-  int value;
-};
+void list_init(struct list* list) {
+  list->first = NULL;
+  list->last = NULL;
+  list->size = 0;
+}
 
-struct list {
-  struct node* first;
-  struct node* last;
-};
-
-/**
- * Creates empty list
- *
- * @return new list
- */
 struct list list_create() {
   struct list result;
   result.first = NULL;
   result.last = NULL;
+  result.size = 0;
   return result;
 }
 
@@ -41,59 +33,38 @@ struct node* node_create(struct node* next, struct node* prev, int value) {
   return result;
 }
 
-/**
- * Inserts an element at the back of the list
- * Time complexity: O(1)
- *
- * @param list list
- * @param value value of element
- */
 void list_push_back(struct list* list, int value) {
   // if list is empty
   if (list->first == NULL && list->first == list->last) {
     struct node* node = node_create(NULL, NULL, value);
     list->first = node;
     list->last = node;
-    return;
+  } else {
+    struct node* prev_node = list->last;
+    struct node* next_node = node_create(NULL, prev_node, value);
+    prev_node->next = next_node;
+    list->last = next_node;
   }
 
-  struct node* prev_node = list->last;
-  struct node* next_node = node_create(NULL, prev_node, value);
-  prev_node->next = next_node;
-  list->last = next_node;
+  list->size += 1;
 }
 
-/**
- * Inserts an element at the front of the list
- * Time complexity: O(1)
- *
- * @param list list
- * @param value value of element
- */
 void list_push_front(struct list* list, int value) {
   // if list is empty
   if (list->first == NULL && list->first == list->last) {
     struct node* node = node_create(NULL, NULL, value);
     list->first = node;
     list->last = node;
-    return;
+  } else {
+    struct node* prev_node = node_create(list->first, NULL, value);
+    struct node* next_node = list->first;
+    next_node->prev = prev_node;
+    list->first = prev_node;
   }
 
-  struct node* prev_node = node_create(list->first, NULL, value);
-  struct node* next_node = list->first;
-  next_node->prev = prev_node;
-  list->first = prev_node;
+  list->size += 1;
 }
 
-/**
- * Inserts element after this node and returns new node
- * Time complexity: O(1)
- *
- * @param list list
- * @param node current node
- * @param value value of new node
- * @return pointer to new node
- */
 struct node* list_insert_after(struct list* list, struct node* node, int value) {
   struct node* new_node = node_create(node->next, node, value);
   if (node->next != NULL) {
@@ -106,17 +77,10 @@ struct node* list_insert_after(struct list* list, struct node* node, int value) 
     list->last = new_node;
   }
 
+  list->size += 1;
   return new_node;
 }
 
-/**
- * Finds element in the list
- * Time complexity: O(N)
- *
- * @param list list
- * @param element element to find
- * @return true if found otherwise false
- */
 bool list_contains(struct list* list, int element) {
   struct node* current = list->first;
   while (current != NULL) {
@@ -126,15 +90,6 @@ bool list_contains(struct list* list, int element) {
   return false;
 }
 
-/**
- * Inserts element before this node and returns new node
- * Time complexity: O(1)
- *
- * @param list list
- * @param node current node
- * @param value value of new node
- * @return pointer to the new node
- */
 struct node* list_insert_before(struct list* list, struct node* node, int value) {
   struct node* new_node = node_create(node, node->prev, value);
   if (new_node->prev != NULL) {
@@ -147,17 +102,10 @@ struct node* list_insert_before(struct list* list, struct node* node, int value)
     list->first = new_node;
   }
 
+  list->size += 1;
   return new_node;
 }
 
-/**
- * Removes element from the list and returns next node
- * Time complexity: O(1)
- *
- * @param list list
- * @param node node to delete
- * @return pointer to next node after deleted
- */
 struct node* list_remove(struct list* list, struct node* node) {
   struct node* prev_node = node->prev;
   struct node* next_node = node->next;
@@ -177,40 +125,19 @@ struct node* list_remove(struct list* list, struct node* node) {
     list->last = prev_node;
   }
 
+  list->size -= 1;
   free(node);
   return next_node;
 }
 
-/**
- * Removes last element from the list
- * Time complexity: O(1)
- *
- * @param list list
- */
 void list_pop_back(struct list* list) {
   list_remove(list, list->last);
 }
 
-/**
- * Removes first element from the list
- * Time complexity: O(1)
- *
- * @param list list
- */
 void list_pop_front(struct list* list) {
   list_remove(list, list->first);
 }
 
-
-/**
- * Get node by index
- * If node doesn't exists then returns NULL
- * Time complexity: O(N)
- *
- * @param list list
- * @param index index
- * @return pointer to the node with given index
- */
 struct node* list_get(struct list* list, int index) {
   struct node* current = list->first;
   for (int i = 1; i <= index; ++i) {
@@ -256,9 +183,6 @@ struct node* node_step_backwards(struct node* node, int steps) {
   return current;
 }
 
-/**
- * Prints list
- */
 void list_print(struct list* list) {
   printf("[ ");
   struct node* current = list->first;
@@ -269,9 +193,6 @@ void list_print(struct list* list) {
   printf("]\n");
 }
 
-/**
- * Prints list in reverse order
- */
 void list_print_reverse(struct list* list) {
   printf("[ ");
   struct node *current = list->last;
@@ -281,4 +202,3 @@ void list_print_reverse(struct list* list) {
   }
   printf("] reverse order\n");
 }
-

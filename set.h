@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "vector.h"
+#include "list.h"
 
 /**
  * Naive implementation (and painfully slow) of ordered
@@ -13,8 +14,22 @@ struct naive_set {
 };
 
 /**
+ * Chained hash table
+ */
+struct chset {
+  struct list* data;
+  int n;
+};
+
+/**
  * Creates an empty set
- * @return new set
+ * @return a new set
+ */
+struct chset chset_create();
+
+/**
+ * Creates an empty set
+ * @return a new set
  */
 struct naive_set set_create();
 
@@ -25,7 +40,7 @@ struct naive_set set_create();
  * @param this set
  * @param value value
  */
-void set_insert(struct naive_set* this, int);
+void set_insert(struct naive_set*, int);
 
 /**
  * Finds element in the set

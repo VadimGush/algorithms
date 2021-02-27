@@ -3,6 +3,20 @@
 #include "vector.h"
 #include "set.h"
 
+struct chset chset_create() {
+  struct chset result;
+  // initial size
+  result.n = 16;
+  
+  // initialize all lists (buckets)
+  result.data = (struct list*) malloc(sizeof(struct list) * result.n);
+  for (int i = 0; i < result.n; i++) {
+    list_init(&result.data[i]);
+  }
+
+  return result;
+}
+
 struct naive_set set_create() {
   struct naive_set result;
   result.data = vector_create();

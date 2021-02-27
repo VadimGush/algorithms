@@ -38,6 +38,19 @@ Implementation of different algorithms and data structures in C.
 | Naive set                 | `set.c    / set`     | set based on integer vector           |
 | Chained set               | `set.c    / chset`   | chained hash table                    |
 
+| Operation         | vector   | list     | set         |
+| ----------------- | -------- | -------- | ----------- |
+| push_front        | ``O(N)`` | ``O(1)`` |             |
+| push back         | ``O(1)`` | ``O(1)`` |             |
+| pop front         |          | ``O(1)`` |             |
+| pop back          | ``O(1)`` | ``O(1)`` |             |
+| get               | ``O(1)`` | ``O(N)`` |             |
+| remove at         |          | ``O(1)`` |             |
+| insert at         | ``O(N)`` | ``O(1)`` |             |
+| remove            |          |          | ``O(N)``    |
+| insert            |          |          | ``O(N)``    |
+| contains          | ``O(N)`` | ``O(N)`` | ``O(logN)`` |
+
 **TODO:** HashSet, Singly-Linked list (Lock-free version)
 
 ### Sync primitives 

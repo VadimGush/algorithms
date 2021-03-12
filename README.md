@@ -1,3 +1,5 @@
+![](https://github.com/vadimgush/algorithms/workflows/CMake/badge.svg)
+
 # Algorithms and data structures
 
 Implementation of different algorithms and data structures in C.

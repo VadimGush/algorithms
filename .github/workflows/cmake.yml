@@ -40,4 +40,4 @@ jobs:
     - name: Test
       working-directory: ${{github.workspace}}/build
       shell: bash
-      run: ls
+      run: ./bin/algo

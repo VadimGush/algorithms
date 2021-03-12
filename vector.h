@@ -2,6 +2,7 @@
 #define ALGORITHMS_VECTOR_H
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct vector {
   int* data;
@@ -55,7 +56,7 @@ void vector_pop_back(struct vector*);
  * position to right
  * Time complexity: O(N)
  */
-void vector_insert(struct vector*, size_t, int);
+void vector_insert(struct vector*, size_t position, int value);
 
 /**
  * Prints content of the vector
@@ -67,7 +68,7 @@ void vector_print(const struct vector*);
  * position to left
  * Time complexity: O(N)
  */
-void vector_remove(struct vector*, size_t);
+void vector_remove(struct vector*, size_t position);
 
 /**
  * Clears content of the vector
@@ -80,7 +81,7 @@ void vector_clear(struct vector*);
  * Time complexity: O(N)
  * @return index of searched element
  */
-size_t vector_find(struct vector*, int);
+size_t vector_find(struct vector*, int value);
 
 /**
  * Inverts the vector

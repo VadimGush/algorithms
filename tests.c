@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
+
+#include "test/test.h"
+
 #include "functions.h"
 #include "vector.h"
 #include "set.h"
-#include "test.h"
 #include "string.h"
 #include "list.h"
 

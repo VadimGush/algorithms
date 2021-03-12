@@ -8,7 +8,6 @@ Implementation of different algorithms and data structures in C.
 | ------------------------------------- | --------------------------------------------------- | --------------------- | ----------------- |
 | Linear search                         | `vector.c / vector_find()`                          | ``O(N)``              |                   |
 | Invert array                          | `vector.c / vector_invert()`                        | ``O(N)``              |                   |
-| Eratosthenes sieve                    | `eratosthenes_sieve.c`                              | ``O(N*log(log N))``   |                   |
 | Cyclic shift of array to right/left   | `vector.c / vector_shift_...()`                     | ``O(N)``              |                   |
 | Search in text                        | `string.c / string_find()`                          | ``O(N*I)``            |                   |
 | Insert sort                           | `vector.c / vector_insert_sort()`                   | ``O(N^2)``            | ``O(1)``          |
@@ -40,16 +39,16 @@ Implementation of different algorithms and data structures in C.
 
 | Operation         | vector   | list     | set         |
 | ----------------- | -------- | -------- | ----------- |
-| push_front        | ``O(N)`` | ``O(1)`` |             |
-| push back         | ``O(1)`` | ``O(1)`` |             |
-| pop front         |          | ``O(1)`` |             |
-| pop back          | ``O(1)`` | ``O(1)`` |             |
-| get               | ``O(1)`` | ``O(N)`` |             |
-| remove at         |          | ``O(1)`` |             |
-| insert at         | ``O(N)`` | ``O(1)`` |             |
-| remove            |          |          | ``O(N)``    |
-| insert            |          |          | ``O(N)``    |
-| contains          | ``O(N)`` | ``O(N)`` | ``O(logN)`` |
+| `push_front(v)`   | ``O(N)`` | ``O(1)`` |             |
+| `push_back(v)`    | ``O(1)`` | ``O(1)`` |             |
+| `pop_fron(v)`     |          | ``O(1)`` |             |
+| `pop_back(v)`     | ``O(1)`` | ``O(1)`` |             |
+| `get(i)`          | ``O(1)`` | ``O(N)`` |             |
+| `remove(i)`       |          | ``O(1)`` |             |
+| `insert(i,v)`     | ``O(N)`` | ``O(1)`` |             |
+| `remove(v)`       |          |          | ``O(N)``    |
+| `insert(v)`       |          |          | ``O(N)``    |
+| `contains(v)`     | ``O(N)`` | ``O(N)`` | ``O(logN)`` |
 
 **TODO:** HashSet, Singly-Linked list (Lock-free version)
 

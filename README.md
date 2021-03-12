@@ -30,13 +30,13 @@ Implementation of different algorithms and data structures in C.
 
 ### Structures
 
-| Interface        | Structure                 | Source file          | Description                           |
-| ---------------- | ------------------------- | -------------------- | ------------------------------------- |
-| List             | Vector                    | `vector.c / vector`  | dynamic array of integers             |
-| List             | Doubly-linked list        | `list.c   / list`    | doubly-linked list of integers        |
-|                  | String                    | `string.c / string`  | dynamic ASCII string                  |
-| Set              | Naive set                 | `set.c    / set`     | set based on integer vector           |
-| Set              | Chained set               | `set.c    / chset`   | chained hash table                    |
+| Interface        | Structure                 | Name      | Source file       | Description                           |
+| ---------------- | ------------------------- | --------- | ----------------- | ------------------------------------- |
+| List             | Vector                    | `vector`  | `vector.c`        | dynamic array of integers             |
+| List             | Doubly-linked list        | `list`    | `list.c`          | doubly-linked list of integers        |
+|                  | String                    | `string`  | `string.c`        | dynamic ASCII string                  |
+| Set              | Naive set                 | `set`     | `set.c`           | set based on integer vector           |
+| Set              | Chained set               | `chset`   | `set.c`           | chained hash table                    |
 
 | Operation         | vector   | list     | set         |
 | ----------------- | -------- | -------- | ----------- |

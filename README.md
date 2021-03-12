@@ -32,7 +32,7 @@ Implementation of different algorithms and data structures in C.
 
 | Structure                 | Source file          | Description                           |
 | ------------------------- | -------------------- | ------------------------------------- |
-| Vector / dynamic array    | `vector.c / vector`  | dynamic array of integers             |
+| Vector                    | `vector.c / vector`  | dynamic array of integers             |
 | Doubly-linked list        | `list.c   / list`    | doubly-linked list of integers        |
 | String                    | `string.c / string`  | dynamic ASCII string                  |
 | Naive set                 | `set.c    / set`     | set based on integer vector           |

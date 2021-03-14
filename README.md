@@ -41,18 +41,18 @@ Implementation of different algorithms and data structures in C.
 | Set              | Naive set                 | `set`     | `set.c`           | set based on integer vector           |
 | Set              | Chained set               | `chset`   | `set.c`           | chained hash table                    |
 
-| Operation         | vector   | list     | set         |
-| ----------------- | -------- | -------- | ----------- |
-| `push_front(v)`   | ``O(N)`` | ``O(1)`` |             |
-| `push_back(v)`    | ``O(1)`` | ``O(1)`` |             |
-| `pop_fron(v)`     |          | ``O(1)`` |             |
-| `pop_back(v)`     | ``O(1)`` | ``O(1)`` |             |
-| `get(i)`          | ``O(1)`` | ``O(N)`` |             |
-| `remove(i)`       |          | ``O(1)`` |             |
-| `insert(i,v)`     | ``O(N)`` | ``O(1)`` |             |
-| `remove(v)`       |          |          | ``O(N)``    |
-| `insert(v)`       |          |          | ``O(N)``    |
-| `contains(v)`     | ``O(N)`` | ``O(N)`` | ``O(logN)`` |
+| Operation         | vector   | list     | set         | stack     | queue     |
+| ----------------- | -------- | -------- | ----------- | --------- | --------- |
+| `push_front(v)`   | ``O(N)`` | ``O(1)`` |             |           |           |
+| `pop_front(v)`    |          | ``O(1)`` |             |           | ``O(1)``  |
+| `push_back(v)`    | ``O(1)`` | ``O(1)`` |             | ``O(1)``  | ``O(1)``  |
+| `pop_back(v)`     | ``O(1)`` | ``O(1)`` |             | ``O(1)``  |           |
+| `get(i)`          | ``O(1)`` | ``O(N)`` |             |           |           |
+| `remove(i)`       |          | ``O(1)`` |             |           |           |
+| `insert(i,v)`     | ``O(N)`` | ``O(1)`` |             |           |           |
+| `remove(v)`       |          |          | ``O(N)``    |           |           |
+| `insert(v)`       |          |          | ``O(N)``    |           |           |
+| `contains(v)`     | ``O(N)`` | ``O(N)`` | ``O(logN)`` |           |           |
 
 **TODO:** HashSet, Singly-Linked list (Lock-free version)
 

@@ -59,7 +59,7 @@ int fast_fib(int n) {
   if (n == 0) return 0;
   if (n == 1) return 1;
 
-  // We'll create just an array with all number
+  // We'll create just an array with all numbers
   // and iterate over it
   int* data = malloc(sizeof(int) * (n + 1));
   data[0] = 0;

@@ -9,5 +9,5 @@ set(EXECUTABLE_OUTPUT_PATH "bin")
 
 add_compile_options(-Wformat=0)
 
-add_executable(algo tests.c string.c functions.c set.c vector.c list.c)
+add_executable(algo queue.c tests.c string.c functions.c set.c vector.c list.c)
 

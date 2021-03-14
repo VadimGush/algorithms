@@ -8,6 +8,7 @@
 #include "set.h"
 #include "string.h"
 #include "list.h"
+#include "queue.h"
 
 void test_vector() {
   struct vector vector = vector_create();
@@ -207,6 +208,90 @@ void test_list() {
   passed();
 }
 
+void test_stack() {
+  struct stack stack = stack_create();
+
+  stack_push(&stack, 3);
+  stack_push(&stack, 4);
+
+  assert(2, stack_size(&stack));
+
+  assert(4, stack_pop(&stack));
+  assert(1, stack_size(&stack));
+
+  stack_push(&stack, 7);
+  
+  assert(7, stack_pop(&stack));
+  assert(1, stack_size(&stack));
+
+  assert(3, stack_pop(&stack));
+  assert(0, stack_size(&stack));
+
+
+  passed();
+}
+
+void test_queue() {
+  struct queue queue = queue_create();
+
+  queue_push_back(&queue, 3);
+  queue_push_back(&queue, 5);
+  queue_push_back(&queue, 7);
+  queue_push_back(&queue, 8);
+  assert(4, queue_size(&queue));
+  // 3 5 7 8
+
+  assert(3, queue_pop_front(&queue));
+  assert(3, queue_size(&queue));
+  // 5 7 8
+
+  queue_push_back(&queue, 9);
+  assert(4, queue_size(&queue));
+  // 5 7 8 9
+
+  assert(5, queue_pop_front(&queue));
+  assert(3, queue_size(&queue));
+  // 7 8 9
+
+  queue_push_back(&queue, 6);
+  assert(4, queue_size(&queue));
+  // 7 8 9 6
+
+  passed();
+}
+
+void test_queue2() {
+  struct queue queue = queue_create();
+
+  queue_push_back(&queue, 3);
+  queue_push_back(&queue, 5);
+  queue_push_back(&queue, 7);
+  queue_push_back(&queue, 8);
+  assert(4, queue_size(&queue));
+  // 3 5 7 8 
+
+  assert(3, queue_pop_front(&queue));
+  assert(5, queue_pop_front(&queue));
+  assert(7, queue_pop_front(&queue));
+  assert(1, queue_size(&queue));
+  // 8
+
+  queue_push_back(&queue, 4);
+  queue_push_back(&queue, 5);
+  assert(3, queue_size(&queue));
+  // 8 4 5
+
+  assert(8, queue_pop_front(&queue));
+  assert(2, queue_size(&queue));
+  // 4 5
+
+  assert(4, queue_pop_front(&queue));
+  assert(1, queue_size(&queue));
+  // 5
+
+  passed();
+}
+
 void run_tests() {
   test_vector();
   test_set();
@@ -215,12 +300,16 @@ void run_tests() {
   test_size_lseq();
   test_string();
   test_list();
+  test_stack();
+  test_queue();
+  test_queue2();
 
   result();
 }
 
 int main() {
   run_tests();
+
 
   return 0;
 }

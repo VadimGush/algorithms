@@ -13,12 +13,11 @@ struct stack {
 
 struct stack stack_create();
 
-void stack_push(struct stack* this, int value);
+void stack_push(struct stack*, int value);
 
-// TODO: We should return something other then value in case if stack is empty
-int stack_pop(struct stack* this);
+int stack_pop(struct stack*);
 
-size_t stack_size(struct stack* this);
+size_t stack_size(struct stack*);
 
 /**
  * FIFO queue
@@ -32,7 +31,7 @@ struct queue {
 
 struct queue queue_create();
 
-void queue_push_back(struct queue* this, int value);
+void queue_push_back(struct queue*, int value);
 
 /**
  * Returns an element from the front of the queue
@@ -49,10 +48,10 @@ void queue_push_back(struct queue* this, int value);
  *     ^
  *     head
  */
-int queue_pop_front(struct queue* this);
+int queue_pop_front(struct queue*);
 
-size_t queue_size(struct queue* this);
+size_t queue_size(struct queue*);
 
-void debug_print(struct queue* this);
+void queue_debug_print(struct queue*);
 
 

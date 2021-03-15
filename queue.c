@@ -91,7 +91,7 @@ size_t queue_size(struct queue* this) {
   return this->size;
 }
 
-void debug_print(struct queue* this) {
+void queue_debug_print(struct queue* this) {
   // [3] [4] [5] [6] [ ] 
   //  h       t
 

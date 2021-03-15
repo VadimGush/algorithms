@@ -1,5 +1,4 @@
-#ifndef ALGORITHMS_SET_H
-#define ALGORITHMS_SET_H
+#pragma once
 
 #include <stdbool.h>
 #include "vector.h"
@@ -91,5 +90,3 @@ bool set_empty(const struct naive_set*);
  * Prints content of the set
  */
 void set_print(struct naive_set* set);
-
-#endif //ALGORITHMS_SET_H

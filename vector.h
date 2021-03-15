@@ -1,5 +1,4 @@
-#ifndef ALGORITHMS_VECTOR_H
-#define ALGORITHMS_VECTOR_H
+#pragma once
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -267,5 +266,3 @@ void vector2d_print(const struct vector2d*);
  * @return size of largest common subsequence
  */
 size_t vector_size_of_largest_subsequence(const struct vector*, const struct vector*);
-
-#endif //ALGORITHMS_VECTOR_H

@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "functions.h"
 #include "vector.h"
+
 #define INITIAL_CAPACITY 4
 
 void vector_delete(struct vector* const this) {
@@ -387,7 +389,6 @@ size_t vector_find_last(const struct vector* const this, const int value) {
     return this->size;
 }
 
-// TODO: Write explanetion for this algorithm
 size_t vector_size_of_largest_subsequence(const struct vector* const this, const struct vector* const other) {
   struct vector2d grid = vector2d_create(this->size + 1, other->size + 1);
   // fill rows

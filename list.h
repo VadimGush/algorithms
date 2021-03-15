@@ -1,6 +1,4 @@
-#ifndef ALGORITHMS_LIST_H
-#define ALGORITHMS_LIST_H
-
+#pragma once
 #include "stdbool.h"
 
 struct node {
@@ -9,6 +7,9 @@ struct node {
   int value;
 };
 
+/**
+ * Doubly linked list
+ */
 struct list {
   struct node* first;
   struct node* last;
@@ -123,5 +124,3 @@ void list_print(struct list* list);
  * Prints list in reverse order
  */
 void list_print_reverse(struct list* list);
-
-#endif

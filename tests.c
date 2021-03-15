@@ -3,12 +3,11 @@
 
 #include "test/test.h"
 
-#include "functions.h"
-#include "vector.h"
-#include "set.h"
-#include "string.h"
-#include "list.h"
-#include "queue.h"
+#include "structures/vector.h"
+#include "structures/set.h"
+#include "structures/string.h"
+#include "structures/list.h"
+#include "structures/queue.h"
 
 void test_vector() {
   struct vector vector = vector_create();

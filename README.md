@@ -4,7 +4,7 @@
 
 Implementation of different algorithms and data structures in C.
 
-### Sequential algorithms
+### Algorithms
 
 | Algorithm                             | Source file / function name                         | Time complexity       | Space complexity  |
 | ------------------------------------- | --------------------------------------------------- | --------------------- | ----------------- |
@@ -22,12 +22,6 @@ Implementation of different algorithms and data structures in C.
 | Binary search (lower bound)           | `vector.c / vector_lower_bound()`                   | ``O(log N)``          | ``O(1)``          |
 | Binary search (upper bound)           | `vector.c / vector_upper_bound()`                   | ``O(log N)``          | ``O(1)``          |
 | Size of LCS                           | `vector.c / vector_size_of_largest_subsequence()`   | ``O(F*S)``            | ``O(F*S)``        |
-
-**TODO:** Quicksort, Heapsort, Shunting yard, Quadtree
-
-### Parallel algorithms
-
-**TODO:** Reduce, scan.
 
 ### Structures
 
@@ -54,12 +48,20 @@ Implementation of different algorithms and data structures in C.
 | `insert(v)`       |          |          | ``O(N)``    |           |           |
 | `contains(v)`     | ``O(N)`` | ``O(N)`` | ``O(logN)`` |           |           |
 
-**TODO:** HashSet, Singly-Linked list (Lock-free version)
-
-### Sync primitives 
-
-**TODO:** Mutex, RwLock
 
 ### System programming
 
-**TODO:** Simple HTTP webserver on async sockets, TCP/UDP packets listener
+| Name                 | File                     | Description                                   |
+| -------------------- | ------------------------ | --------------------------------------------- |
+|                      |                          |                                               |
+
+### TODO 
+ * Sync: Mutex, RwLock
+ * HashSet, Singly-Linked list (lock-free version)
+ * Parallel algorithms: reduce, scan
+ * Quicksort, heapsort, shunting yard, queadtree
+ * HTTP server
+
+### Literature
+ * "Open Data Structures" by Pat Morin
+

@@ -1,4 +1,5 @@
 #pragma once
+#include "stdbool.h"
 
 /**
  * Simple string
@@ -81,3 +82,9 @@ void string_print_find_result(const struct string* th, const int index, const in
  * Returns size of the string (number of characters)
  */
 int string_len(const struct string*);
+
+/**
+ * Returns TRUE if char* is equal to NULL or contains zero characters
+ */
+bool str_is_empty(const char*);
+

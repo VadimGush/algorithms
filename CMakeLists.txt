@@ -9,5 +9,18 @@ set(EXECUTABLE_OUTPUT_PATH "bin")
 
 add_compile_options(-Wformat=0)
 
-add_executable(algo tests.c structures/queue.c structures/string.c structures/functions.c structures/set.c structures/vector.c structures/list.c)
+add_executable(algo 
+  tests.c 
+  structures/queue.c 
+  structures/string.c 
+  structures/functions.c 
+  structures/set.c 
+  structures/vector.c 
+  structures/list.c
+)
+
+add_executable(sys
+  structures/string.c
+  system/errors.c
+)
 

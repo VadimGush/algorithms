@@ -89,3 +89,6 @@ int string_len(const struct string* string) {
   return string->size - 1;
 }
 
+bool str_is_empty(const char* text) {
+  return text == NULL || *text == '\0';
+}

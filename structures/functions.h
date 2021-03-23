@@ -54,16 +54,6 @@ int fast_fib(int);
  */
 bool compare_str(char*, char*);
 
-/** 
- * Finds the length of given string (with zero char)
- */
-size_t str_len(char*);
-
-/**
- * Finds the length of given string (without zero char)
- */
-size_t str_size(char*);
-
 /**
  * Compares two arrays of data
  */

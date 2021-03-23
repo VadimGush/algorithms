@@ -93,20 +93,3 @@ bool compare_str(char* first, char* second) {
   }
   return *second == 0;
 }
-
-size_t str_len(char* str) {
-  size_t size = 0;
-  for (; *str != 0; str++) {
-    size++;
-  }
-  return size + 1;
-}
-
-size_t str_size(char* str) {
-  size_t size = 0;
-  for (; *str != 0; str++) {
-    size++;
-  }
-  return size;
-
-}

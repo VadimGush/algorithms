@@ -1,5 +1,4 @@
 #pragma once
-// TODO: Rename those functions because naming is awfull
 
 /*
  * That means that every function with such attribute
@@ -31,7 +30,7 @@ void err_msg_num_exit(int errnum, const char* format, ...) NORETURN;
  * Prints error message without flashing standart output before printing a new message.
  * Also doesn't flush before terminating
  *
- * Useful for multithreaded applications
+ * Useful for multithreaded applications (uses _exit(2) syscall)
  */
 void err_exit(const char* format, ...) NORETURN;
 

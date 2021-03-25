@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include "utils.h"
 #include "errors.h"
-#include "ename.h"
+#include "ename.c"
 
 int main(void) {
   printf("Hello world");

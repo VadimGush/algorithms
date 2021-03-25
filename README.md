@@ -35,6 +35,8 @@ Implementation of different algorithms and data structures in C.
 | Set              | Naive set                 | `set`     | `set.c`           | set based on integer vector           |
 | Set              | Chained set               | `chset`   | `set.c`           | chained hash table                    |
 
+### Operations
+
 | Operation         | vector   | list     | set         | stack     | queue     |
 | ----------------- | -------- | -------- | ----------- | --------- | --------- |
 | `push_front(v)`   | ``O(N)`` | ``O(1)`` |             |           |           |
@@ -47,13 +49,6 @@ Implementation of different algorithms and data structures in C.
 | `remove(v)`       |          |          | ``O(N)``    |           |           |
 | `insert(v)`       |          |          | ``O(N)``    |           |           |
 | `contains(v)`     | ``O(N)`` | ``O(N)`` | ``O(logN)`` |           |           |
-
-
-### System programming
-
-| Name                 | File                     | Description                                   |
-| -------------------- | ------------------------ | --------------------------------------------- |
-|                      |                          |                                               |
 
 ### TODO 
  * Sync: Mutex, RwLock

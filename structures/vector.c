@@ -6,6 +6,25 @@
 
 #define INITIAL_CAPACITY 4
 
+static void vector_resize(struct vector* const vec, size_t size) {
+  int* temp = malloc(size * sizeof(int));
+  for (size_t i = 0; i < vec->capacity && i < size; i++) {
+    temp[i] = vec->data[i];
+  }
+  free(vec->data);
+  vec->data = temp;
+  vec->capacity = size;
+
+  // in case if someone make a mistake and made vector even smaller
+  if (vec->size > size) {
+    vec->size = size;
+  }
+}
+
+static void vector_allocate_more(struct vector* const vec) {
+  vector_resize(vec, vec->capacity * 2);
+}
+
 void vector_delete(struct vector* const this) {
   free(this->data);
   this->size = 0;
@@ -56,15 +75,6 @@ void vector_push_array(struct vector* vec, const int* const elements, const size
   vec->size += size;
 }
 
-static void vector_allocate_more(struct vector* const vec) {
-  int* temp = malloc(vec->capacity * 2 * sizeof(int));
-  for (size_t i = 0; i < vec->capacity; i++) {
-    temp[i] = vec->data[i];
-  }
-  free(vec->data);
-  vec->data = temp;
-  vec->capacity *= 2;
-}
 
 void vector_push_back(struct vector* vec, int element) {
   if (vec->size == vec->capacity) {
@@ -94,10 +104,17 @@ void vector_insert(struct vector* const this, const size_t id, const int element
   this->size += 1;
 }
 
-void vector_pop_back(struct vector* vec) {
+int vector_pop_back(struct vector* vec) {
+  int value = 0;
   if (vec->size > 0) {
-    vec->size--;
+    value = vec->data[vec->size - 1];
+    vec->size -= 1;
+
+    if (vec->capacity > 3 * vec->size) {
+      vector_resize(vec, vec->capacity / 2);
+    }
   }
+  return value;
 }
 
 void vector_print(const struct vector* const this) {

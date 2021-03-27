@@ -48,7 +48,7 @@ void vector_push_back(struct vector*, int);
  * Removes one element from the end of the vector
  * Time complexity: O(1)
  */
-void vector_pop_back(struct vector*);
+int vector_pop_back(struct vector*);
 
 /**
  * Inserts element at the given position and shift all elements after this

@@ -17,20 +17,32 @@ void test_vector() {
   assert(1, vector.size);
 
   assert(3, vector.data[0])
+
   vector_push_back(&vector, 4);
   assert(2, vector.size);
   assert(4, vector.data[1])
+
   vector_push_back(&vector, 2);
   vector_push_back(&vector, 1);
   int array[] = {3, 4, 2, 1};
   assert_true(array_equals(array, vector.data, vector.size))
+
   int sorted[] = {1, 2, 3, 4};
   vector_merge_sort(&vector);
   assert_true(array_equals(sorted, vector.data, vector.size))
+
   vector_remove(&vector, 1);
   int removed[] = {1, 3, 4};
   assert_true(array_equals(removed, vector.data, vector.size))
   assert(3, vector.size)
+
+  int removed_value = vector_pop_back(&vector);
+  assert(4, removed_value);
+  assert(2, vector.size);
+
+  removed_value = vector_pop_back(&vector);
+  assert(3, removed_value);
+  assert(1, vector.size);
 
   passed()
 }
@@ -268,7 +280,7 @@ void test_queue2() {
   queue_push_back(&queue, 8);
   assert(4, queue_size(&queue));
   // 3 5 7 8 
-
+  
   assert(3, queue_pop_front(&queue));
   assert(5, queue_pop_front(&queue));
   assert(7, queue_pop_front(&queue));
@@ -308,7 +320,6 @@ void run_tests() {
 
 int main() {
   run_tests();
-
 
   return 0;
 }

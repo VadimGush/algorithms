@@ -29,9 +29,9 @@ Implementation of different algorithms and data structures in C.
 | ---------------- | ------------------------- | --------- | ----------------- | ------------------------------------- |
 | List             | Vector                    | `vector`  | `vector.c`        | dynamic array of integers             |
 | List             | Doubly-linked list        | `list`    | `list.c`          | doubly-linked list of integers        |
-| Queue            | ArrayStack                | `stack`   | `queue.c`         | stack on array                        |
+| Stack            | ArrayStack                | `stack`   | `queue.c`         | stack on array                        |
 | Queue            | ArrayQueue                | `queue`   | `queue.c`         | FIFO queue on array                   |
-| Queue            | ArrayDeque                | `deque`   | `queue.c`         | Deque on array                        |
+| Deque            | ArrayDeque                | `deque`   | `queue.c`         | Deque on array                        |
 |                  | String                    | `string`  | `string.c`        | dynamic ASCII string                  |
 | Set              | Naive set                 | `set`     | `set.c`           | set based on integer vector           |
 | Set              | Chained set               | `chset`   | `set.c`           | chained hash table                    |

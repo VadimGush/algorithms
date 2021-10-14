@@ -27,7 +27,7 @@ Implementation of different algorithms and data structures in C.
 
 | Interface        | Structure                 | Name      | Source file       | Description                           |
 | ---------------- | ------------------------- | --------- | ----------------- | ------------------------------------- |
-| List             | Vector                    | `vector`  | `vector.c`        | dynamic array of integers             |
+| List             | vector                    | `vector`  | `vector.c`        | dynamic array of integers             |
 | List             | Doubly-linked list        | `list`    | `list.c`          | doubly-linked list of integers        |
 | Stack            | ArrayStack                | `stack`   | `queue.c`         | stack on array                        |
 | Queue            | ArrayQueue                | `queue`   | `queue.c`         | FIFO queue on array                   |

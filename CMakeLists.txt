@@ -1,26 +1,10 @@
 # RUN: cmake --configure .
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.20)
 
 project(Algorithms)
+set(CMAKE_CXX_STANDARD 20)
 
-# will create compile_commands.json to enable code complete 
-set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(EXECUTABLE_OUTPUT_PATH "bin")
-
 add_compile_options(-Wformat=0)
 
-add_executable(algo 
-  tests.c 
-  structures/queue.c 
-  structures/string.c 
-  structures/functions.c 
-  structures/set.c 
-  structures/vector.c 
-  structures/list.c
-)
-
-add_executable(sys
-  structures/string.c
-  system/errors.c
-)
-
+add_executable(algo src/main.cpp src/structure/vector.h)

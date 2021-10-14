@@ -11,6 +11,27 @@ namespace gush {
     explicit list_node_(const T& value): value(value) {}
   };
 
+  template <class T>
+  class iterator {
+  public:
+    explicit iterator(const list_node_<T>* ptr): current_(ptr) {}
+
+    bool operator==(const iterator<T>& other) {
+      return other.current_ == current_;
+    }
+
+    iterator& operator++() {
+      if (current_ == nullptr) {
+        return;
+      }
+      current_ = current_->next;
+      return *this;
+    }
+
+  private:
+    const list_node_<T>* current_;
+  };
+
   /**
    * Doubly linked list.
    * @tparam T - type of stored values.

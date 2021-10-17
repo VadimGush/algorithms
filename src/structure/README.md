@@ -3,5 +3,6 @@
 
 | Class name | Source file | Description |
 | --- | --- | --- |
-| `list<T>` | list.h | Doubly-linked-list |
-| `vector<T>` | vector.h | Vectot based on array |
+| `gush::DList<T>` | DList.h | Doubly-linked list |
+| `gush::Vector<T>` | Vector.h | Dynamic array |
+| `gush::ArrayStack<T>` | ArrayStack.h | Stack based on array

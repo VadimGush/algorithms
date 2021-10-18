@@ -1,5 +1,4 @@
 #pragma once
-
 #include <utility>
 #include <optional>
 #define INITIAL_CAPACITY 4
@@ -68,6 +67,11 @@ namespace gush {
       other.capacity_ = 0;
     }
 
+    /**
+     * Inserts and element to the end of the vector.
+     * Time complexity: amortized O(1)
+     * @param value - value to insert
+     */
     template <class V = T>
     void push_back(V&& value) {
       insert(size_, std::forward<V>(value));
@@ -93,7 +97,13 @@ namespace gush {
       size_ += 1;
     }
 
-    const T& get(const size_t& id) {
+    /**
+     * Returns reference to the element in the vector by id
+     * Time complexity: O(1)
+     * @param id - id of the element
+     * @return const reference to that element
+     */
+    const T& get(const size_t& id) const {
       return data_[id];
     }
 
@@ -105,6 +115,11 @@ namespace gush {
       return &data_[size_];
     }
 
+    /**
+     * Removes element from the end of the vector
+     * Time complexity: O(1)
+     * @return removed element
+     */
     std::optional<T> pop_back() {
       return remove(size_ - 1);
     }
@@ -127,12 +142,12 @@ namespace gush {
 
     /**
      * Clears content of the current vector.
-     * Vector will not be resized!
      */
     void clear() {
       // don't forget to call destructors
       for (size_t i = 0; i < size_; i++) { data_[i].~T(); }
       size_ = 0;
+      resize();
     }
 
     /**

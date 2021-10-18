@@ -47,7 +47,7 @@ namespace gush {
       sentinel_ = new N{};
     }
 
-    [[nodiscard]] size_t size() {
+    [[nodiscard]] size_t size() const {
       return size_;
     }
 
@@ -111,11 +111,7 @@ namespace gush {
       const int z = rand();
       int k = 0;
       int m = 1;
-      // count number of trailing 1 in generated number
-      while ((z & m) != 0) {
-        k++;
-        m <<= 1;
-      }
+      while ((z & m) != 0) { k++; m <<= 1; }
       return k;
     }
 

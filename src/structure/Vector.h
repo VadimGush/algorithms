@@ -17,10 +17,8 @@ namespace gush {
 
     Vector(): Vector(INITIAL_CAPACITY) {}
 
-    Vector(const std::initializer_list<I> elements): Vector(elements.size()) {
-      for (const auto& item : elements) {
-        push_back(item);
-      }
+    Vector(const std::initializer_list<I> l): Vector(l.size()) {
+      std::for_each(l.begin(), l.end(), [this](const auto& i){ push_back(i); });
     }
 
     explicit Vector(const size_t capacity): size_(0) {
@@ -40,6 +38,8 @@ namespace gush {
       capacity_ = other.capacity_;
 
       other.data_ = nullptr;
+      other.size_ = 0;
+      other.capacity_ = 0;
     }
 
     Vector& operator=(const Vector<T>& other) {
@@ -56,31 +56,45 @@ namespace gush {
     Vector& operator=(Vector<T>&& other) noexcept {
       if (&other == this) return *this;
 
-      free(data_);
+      // Remove current data completely
+      freeData();
+
       data_ = other.data_;
       size_ = other.size_;
       capacity_ = other.capacity_;
 
       other.data_ = nullptr;
+      other.size_ = 0;
+      other.capacity_ = 0;
     }
 
-    void push_back(const T& value) {
-      insert(size_, value);
+    template <class V = T>
+    void push_back(V&& value) {
+      insert(size_, std::forward<V>(value));
     }
 
-    void insert(const size_t id, const T& value) {
-      if (id > size_) {
-        return;
-      }
-
+    /**
+     * Inserts a value into the vector
+     * Time complexity: O(N - i), where N - number of stored elements, i - position to insert to
+     * @param pos - position to insert a value to
+     * @param value - value to insert
+     */
+    template <class V = T>
+    void insert(const size_t pos, V&& value) {
+      if (pos > size_) { return; }
       resize();
-      auto insert = value;
-      for (size_t i = id; i <= size_; i++) {
-        auto old_value = data_[i];
-        data_[i] = insert;
-        insert = old_value;
+
+      auto insert{std::forward<V>(value)};
+      for (size_t i = pos; i <= size_; i++) {
+        auto old_value = std::move(data_[i]);
+        data_[i] = std::move(insert);
+        insert = std::move(old_value);
       }
       size_ += 1;
+    }
+
+    const T& get(const size_t& id) {
+      return data_[id];
     }
 
     const T* begin() const {
@@ -92,28 +106,41 @@ namespace gush {
     }
 
     std::optional<T> pop_back() {
-      resize();
-      if (size_ > 0) {
-        const T& value = data_[size_ - 1];
-        size_ -= 1;
-        return value;
-      }
-      return {};
+      return remove(size_ - 1);
     }
 
-    T remove(const size_t id) {
-      auto result = data_[id];
+    /**
+     * Removes an element from the vector and returns it.
+     * Time complexity: O(N - i), where N - number of stored elements, i - position to remove value from
+     * @param id - position from which we want to remove a value
+     * @return optional with removed value, or empty optional if id out of bound
+     */
+    std::optional<T> remove(const size_t id) {
+      if (id < 0 || id >= size_) return {};
+      T&& result = std::move(data_[id]);
       for (size_t i = id; i < size_ - 1; i++) {
-        data_[i] = data_[i + 1];
+        data_[i] = std::move(data_[i + 1]);
       }
       size_ -= 1;
-      return result;
+      return std::move(result);
     }
 
+    /**
+     * Clears content of the current vector.
+     * Vector will not be resized!
+     */
     void clear() {
+      // don't forget to call destructors
+      for (size_t i = 0; i < size_; i++) { data_[i].~T(); }
       size_ = 0;
     }
 
+    /**
+     * Checks if the vector contains such element
+     * Time complexity: O(N), where N - number of stored elements
+     * @param element - element to find
+     * @return true if this vector contains such element, otherwise false
+     */
     bool contains(const T& element) {
       for (size_t id = 0; id < size_; id++) {
         if (data_[id] == element) return true;
@@ -170,16 +197,22 @@ namespace gush {
       return size_;
     }
 
-    ~Vector() {
-      free(data_);
-      size_ = 0;
-      capacity_ = 0;
-    }
+    ~Vector() { freeData(); }
 
   protected:
     T* data_;
     size_t size_;
     size_t capacity_;
+
+    /**
+     * Calls destructors for all initialized elements and deallocates memory
+     */
+    void freeData() {
+      for (size_t i = 0; i < size_; i++) { data_[i].~T(); }
+      free(data_);
+      capacity_ = 0;
+      size_ = 0;
+    }
 
     /**
      * Checks if capacity of the vector is enough to store one more element.
@@ -205,13 +238,11 @@ namespace gush {
      * @param capacity - required capacity for the current vector.
      */
     void resize_to(const size_t capacity) {
-      if (capacity <= size_) {
-        return;
-      }
+      if (capacity <= size_) { return; }
 
-      T* new_data = static_cast<T*>(malloc(sizeof(T) * capacity));
+      T* const new_data = static_cast<T*>(malloc(sizeof(T) * capacity));
       for (size_t id = 0; id < size_; id++) {
-        new_data[id] = data_[id];
+        new_data[id] = std::move(data_[id]);
       }
       free(data_);
       data_ = new_data;

@@ -8,6 +8,7 @@ namespace gush {
    * Stack implementation based on dynamic array.
    * @tparam T - type of stored values.
    */
+  // TODO: Add support for non-copy objects (like unique_ptr<>)
   template <class T>
   class ArrayStack {
   public:

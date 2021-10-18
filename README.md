@@ -30,7 +30,7 @@ Implementation of different algorithms and data structures in C.
 | List             | Vector                    | `Vector`  | `Vector.c`        | dynamic array of integers             |
 | List             | Doubly-linked DList        | `DList`    | `DList.c`          | doubly-linked DList of integers        |
 | Stack            | ArrayStack                | `stack`   | `queue.c`         | stack on array                        |
-| Queue            | ArrayQueue                | `queue`   | `queue.c`         | FIFO queue on array                   |
+| Queue            | ArrayDeque                | `queue`   | `queue.c`         | FIFO queue on array                   |
 | Deque            | ArrayDeque                | `deque`   | `queue.c`         | Deque on array                        |
 |                  | String                    | `string`  | `string.c`        | dynamic ASCII string                  |
 | Set              | Naive set                 | `set`     | `set.c`           | set based on integer Vector           |

@@ -12,10 +12,10 @@ More documentation and list of methods you can hopefully find in source code.
 | Class name | Source file  | Description |
 | --- | --- | --- |
 | `gush::DList<T>` | [DList.h](structures/DList.h) | Doubly-linked list |
-| `gush::Vector<T>` | Vector.h | Dynamic array |
-| `gush::ArrayStack<T>` | ArrayStack.h | Stack based on array |
-| `gush::ArrayDeque<T>` | ArrayDeque.h | Deque based on array |
-| `gush::SkiplistSet<T>` | SkiplistSet.h | Set implemented with skiplist |
+| `gush::Vector<T>` | [Vector.h](structures/Vector.h) | Dynamic array |
+| `gush::ArrayStack<T>` | [ArrayStack.h](structures/ArrayStack.h) | Stack based on array |
+| `gush::ArrayDeque<T>` | [ArrayDeque.h](structures/ArrayDeque.h) | Deque based on array |
+| `gush::SkiplistSet<T>` | [SkiplistSet.h](structures/SkiplistSet.h) | Set implemented with skiplist |
 
 ### Literature and sources
 

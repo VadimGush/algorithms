@@ -8,13 +8,27 @@ namespace gush {
    * Stack implementation based on dynamic array.
    * @tparam T - type of stored values.
    */
-  // TODO: Add support for non-copy objects (like unique_ptr<>)
   template <class T>
   class ArrayStack {
   public:
 
-    void push(const T& value){
-      data_.push_back(value);
+    /**
+     * Inserts value at the front of the stack.
+     * Time complexity: amortized O(1)
+     * @param value - value to insert
+     */
+    template <class U = T>
+    void push(U&& value){
+      data_.push_back(std::forward<U>(value));
+    }
+
+    /**
+     * Removes value from the front of the stack.
+     * Time complexity: amortized O(1)
+     * @return - removed value
+     */
+    std::optional<T> pop() {
+      return data_.pop_back();
     }
 
     const T* begin() const {
@@ -23,10 +37,6 @@ namespace gush {
 
     const T* end() const {
       return data_.end();
-    }
-
-    std::optional<T> pop() {
-      return data_.pop_back();
     }
 
     [[nodiscard]] size_t size() const {

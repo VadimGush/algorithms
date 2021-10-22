@@ -6,7 +6,7 @@
 namespace gush {
 
   /**
-   * Simple Vector implementation.
+   * Dynamically sized array.
    * @tparam I - type of stored values.
    */
   template<class I>
@@ -88,7 +88,7 @@ namespace gush {
       if (pos > size_) { return; }
       resize();
 
-      auto insert{std::forward<V>(value)};
+      T insert{std::forward<V>(value)};
       for (size_t i = pos; i <= size_; i++) {
         auto old_value = std::move(data_[i]);
         data_[i] = std::move(insert);
@@ -103,16 +103,8 @@ namespace gush {
      * @param id - id of the element
      * @return const reference to that element
      */
-    const T& get(const size_t& id) const {
+    T& get(const size_t& id) const {
       return data_[id];
-    }
-
-    const T* begin() const {
-      return &data_[0];
-    }
-
-    const T* end() const {
-      return &data_[size_];
     }
 
     /**
@@ -161,6 +153,14 @@ namespace gush {
         if (data_[id] == element) return true;
       }
       return false;
+    }
+
+    const T* begin() const {
+      return &data_[0];
+    }
+
+    const T* end() const {
+      return &data_[size_];
     }
 
     void invert() {
@@ -215,9 +215,9 @@ namespace gush {
     ~Vector() { freeData(); }
 
   protected:
-    T* data_;
-    size_t size_;
-    size_t capacity_;
+    T* data_ = nullptr;
+    size_t size_ = 0;
+    size_t capacity_ = 0;
 
     /**
      * Calls destructors for all initialized elements and deallocates memory

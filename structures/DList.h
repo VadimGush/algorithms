@@ -1,4 +1,6 @@
 #pragma once
+#include <optional>
+#include <utility>
 
 namespace gush {
 
@@ -9,26 +11,25 @@ namespace gush {
     Node* next = nullptr;
     T value;
 
-    explicit list_node_(const T& value, Node* prev, Node* next)
-      : value(value), prev(prev), next(next) {}
+    template <class U = T>
+    list_node_(U&& value, Node* prev, Node* next)
+    : value(std::forward<U>(value)), prev(prev), next(next) {}
+
   };
 
   template <class T>
-  class iterator {
+  class dlist_iterator {
   public:
     using Node = list_node_<T>;
 
-    explicit iterator(const Node* ptr): current_(ptr) {}
+    explicit dlist_iterator(const Node* ptr): current_(ptr) {}
 
-    bool operator!=(const iterator<T>& other) {
+    bool operator!=(const dlist_iterator<T>& other) {
       return other.current_ != current_;
     }
 
-    iterator& operator++() {
-      if (current_ == nullptr) {
-        return *this;
-      }
-      current_ = current_->next;
+    dlist_iterator& operator++() {
+      if (current_ != nullptr) { current_ = current_->next; }
       return *this;
     }
 
@@ -44,47 +45,60 @@ namespace gush {
    * Doubly linked DList.
    * @tparam T - type of stored values.
    */
-  // TODO: Add support for non-copy objects (like unique_ptr<>)
   template <class T>
   class DList {
   public:
     using Node = list_node_<T>;
-    using Iterator = iterator<T>;
+    using Iterator = dlist_iterator<T>;
 
     DList() =default;
 
-    void push_back(const T& value) {
-      Node* const node = new Node{value, end_, nullptr};
+    DList(std::initializer_list<T> values) {
+      for (const auto& value : values) { push_back(value); }
+    }
+
+    /**
+     * Inserts a value at the and of list
+     * Time complexity: O(1)
+     * @param value - value to insert
+     */
+    template <class U = T>
+    void push_back(U&& value) {
+      auto* node = new Node{std::forward<U>(value), end_, nullptr};
       if (end_ != nullptr) {
-        // DList is not empty
         end_->next = node;
       } else {
-        // DList is empty
         begin_ = node;
       }
       size_ += 1;
       end_ = node;
     }
 
-    void push_front(const T& value) {
-      Node* const node = new Node{value, nullptr, begin_};
+    /**
+     * Inserts a value at the beginning of the list
+     * Time complexity: O(1)
+     * @param value - value to insert
+     */
+    template <class U = T>
+    void push_front(U&& value) {
+      auto* node = new Node{std::forward<U>(value), nullptr, begin_};
       if (begin_ != nullptr) {
-        // DList is empty
         begin_->prev = node;
       } else {
-        // DList is empty
         end_ = node;
       }
       size_ += 1;
       begin_ = node;
     }
 
+    /**
+     * Removes a value from the beginning of the list and returns it.
+     * @return optional with value if list is not empty, otherwise empty optional
+     */
     std::optional<T> pop_front() {
-      if (size_ == 0) {
-        return {};
-      }
+      if (size_ == 0) { return {}; }
 
-      const Node* current = begin_;
+      Node* current = begin_;
       if (size_ == 1) {
         begin_ = nullptr;
         end_ = nullptr;
@@ -92,17 +106,22 @@ namespace gush {
         begin_ = current->next;
         begin_->prev = nullptr;
       }
-      const T result = current->value;
+      size_ -= 1;
+      T result = std::move(current->value);
       delete current;
-      return result;
+      return std::move(result);
     }
 
+    /**
+     * Removes a value from the end of the list and returns it.
+     * @return optional with value if list is not empty, otherwise empty optional
+     */
     std::optional<T> pop_back() {
       if (size_ == 0) {
         return {};
       }
 
-      const Node* current = end_;
+      Node* current = end_;
       if (size_ == 1) {
         end_ = nullptr;
         begin_ = nullptr;
@@ -110,9 +129,10 @@ namespace gush {
         end_ = current->prev;
         end_->next = nullptr;
       }
-      const T result = current->value;
+      size_ -= 1;
+      T result = std::move(current->value);
       delete current;
-      return result;
+      return std::move(result);
     }
 
     [[nodiscard]] size_t size() const {

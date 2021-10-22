@@ -15,16 +15,15 @@ namespace gush {
    */
   template <class T>
   class ArrayDeque {
-  public:
 
-    struct Iterator {
-      Iterator(const ArrayDeque<T>& queue, const size_t id): queue_(queue), id_(id) {}
+    struct iterator {
+      iterator(const ArrayDeque<T>& queue, const size_t id): queue_(queue), id_(id) {}
 
       void operator++() {
         id_ += 1;
       }
 
-      bool operator!=(const Iterator iterator) {
+      bool operator!=(const iterator iterator) {
         return iterator.id_ != id_;
       }
 
@@ -36,6 +35,8 @@ namespace gush {
       const ArrayDeque<T>& queue_;
       size_t id_;
     };
+
+  public:
 
     ArrayDeque() {
       resizeTo(capacity_);
@@ -81,11 +82,11 @@ namespace gush {
       size_ += 1;
     }
 
-    Iterator begin() {
+    iterator begin() {
       return {*this, 0};
     }
 
-    Iterator end() {
+    iterator end() {
       return {*this, size_};
     }
 

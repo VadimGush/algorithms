@@ -4,52 +4,43 @@
 
 namespace gush {
 
-  template <class T>
-  struct list_node_ {
-    using Node = list_node_<T>;
-    Node* prev = nullptr;
-    Node* next = nullptr;
-    T value;
-
-    template <class U = T>
-    list_node_(U&& value, Node* prev, Node* next)
-    : value(std::forward<U>(value)), prev(prev), next(next) {}
-
-  };
-
-  template <class T>
-  class dlist_iterator {
-  public:
-    using Node = list_node_<T>;
-
-    explicit dlist_iterator(const Node* ptr): current_(ptr) {}
-
-    bool operator!=(const dlist_iterator<T>& other) {
-      return other.current_ != current_;
-    }
-
-    dlist_iterator& operator++() {
-      if (current_ != nullptr) { current_ = current_->next; }
-      return *this;
-    }
-
-    const T& operator*() {
-      return current_->value;
-    }
-
-  private:
-    const Node* current_;
-  };
-
   /**
    * Doubly linked DList.
    * @tparam T - type of stored values.
    */
   template <class T>
   class DList {
+
+    struct node {
+      node* prev = nullptr;
+      node* next = nullptr;
+      T value;
+
+      template <class U = T>
+      node(U&& value, node* const prev, node* const next)
+      : value(std::forward<U>(value)), prev(prev), next(next) {}
+    };
+
+    struct iterator {
+      explicit iterator(const node* ptr): current_(ptr) {}
+
+      bool operator!=(const iterator& other) {
+        return other.current_ != current_;
+      }
+
+      iterator& operator++() {
+        if (current_ != nullptr) { current_ = current_->next; }
+        return *this;
+      }
+
+      const T& operator*() {
+        return current_->value;
+      }
+
+      const node* current_;
+    };
+
   public:
-    using Node = list_node_<T>;
-    using Iterator = dlist_iterator<T>;
 
     DList() =default;
 
@@ -64,14 +55,14 @@ namespace gush {
      */
     template <class U = T>
     void push_back(U&& value) {
-      auto* node = new Node{std::forward<U>(value), end_, nullptr};
+      auto* n = new node{std::forward<U>(value), end_, nullptr};
       if (end_ != nullptr) {
-        end_->next = node;
+        end_->next = n;
       } else {
-        begin_ = node;
+        begin_ = n;
       }
       size_ += 1;
-      end_ = node;
+      end_ = n;
     }
 
     /**
@@ -81,14 +72,14 @@ namespace gush {
      */
     template <class U = T>
     void push_front(U&& value) {
-      auto* node = new Node{std::forward<U>(value), nullptr, begin_};
+      auto* n = new node{std::forward<U>(value), nullptr, begin_};
       if (begin_ != nullptr) {
-        begin_->prev = node;
+        begin_->prev = n;
       } else {
-        end_ = node;
+        end_ = n;
       }
       size_ += 1;
-      begin_ = node;
+      begin_ = n;
     }
 
     /**
@@ -98,7 +89,7 @@ namespace gush {
     std::optional<T> pop_front() {
       if (size_ == 0) { return {}; }
 
-      Node* current = begin_;
+      node* current = begin_;
       if (size_ == 1) {
         begin_ = nullptr;
         end_ = nullptr;
@@ -121,7 +112,7 @@ namespace gush {
         return {};
       }
 
-      Node* current = end_;
+      node* current = end_;
       if (size_ == 1) {
         end_ = nullptr;
         begin_ = nullptr;
@@ -139,26 +130,26 @@ namespace gush {
       return size_;
     }
 
-    Iterator begin() {
-      return Iterator{begin_};
+    iterator begin() {
+      return iterator{begin_};
     }
 
-    Iterator end() {
-      return Iterator{nullptr};
+    iterator end() {
+      return iterator{nullptr};
     }
 
     ~DList() {
-      Node* current_node = begin_;
+      node* current_node = begin_;
       while (current_node != nullptr) {
-        Node* next = current_node->next;
+        node* next = current_node->next;
         delete current_node;
         current_node = next;
       }
     }
 
   private:
-    Node* begin_ = nullptr;
-    Node* end_ = nullptr;
+    node* begin_ = nullptr;
+    node* end_ = nullptr;
     size_t size_ = 0;
   };
 }

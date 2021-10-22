@@ -2,6 +2,7 @@
 #include <utility>
 #include <array>
 #include "Vector.h"
+static constexpr int MAX_HEIGHT = 32;
 
 namespace gush {
 
@@ -11,65 +12,64 @@ namespace gush {
     T value;
   };
 
-  template <class T>
-  struct Node {
-    Node() {
-      nodes_.push_back(nullptr);
-    }
-
-    explicit Node(const T& value) {
-      value_.value = value;
-      nodes_.push_back(nullptr);
-    }
-
-    void setHeight(const size_t height) {
-      size_t size = nodes_.size();
-      for (size_t i = 0; i < (height - size); i++) {
-        nodes_.push_back(nullptr);
-      }
-    }
-
-    [[nodiscard]] size_t height() const {
-      return nodes_.size();
-    }
-
-    V<T> value_{0};
-    Vector<Node*> nodes_{};
-  };
-
-  template <class T>
-  struct sl_iterator{
-    using N = Node<T>;
-    explicit sl_iterator(N* const n): current_(n) {};
-
-    sl_iterator& operator++() {
-      if (current_ != nullptr) { current_ = current_->nodes_.get(0); }
-      return *this;
-    }
-
-    bool operator!=(const sl_iterator& other) {
-      return other.current_ != current_;
-    }
-
-    const T& operator*() {
-      return current_->value_.value;
-    }
-
-    N* current_ = nullptr;
-  };
-
   /**
    * Implementation of Set based on skiplist structures.
-   * @tparam T - type of stored values.
+   * @tparam T - type of stored values. Type should support comparison operators "<" and "==".
    */
   template <class T>
   class SkiplistSet {
   public:
-    using N = Node<T>;
+
+    struct Node {
+      Node() {
+        nodes_.push_back(nullptr);
+      }
+
+      explicit Node(const T& value) {
+        value_.value = value;
+        nodes_.push_back(nullptr);
+      }
+
+      void setHeight(const size_t height) {
+        size_t size = nodes_.size();
+        for (size_t i = 0; i < (height - size); i++) {
+          nodes_.push_back(nullptr);
+        }
+      }
+
+      [[nodiscard]] size_t height() const {
+        return nodes_.size();
+      }
+
+      V<T> value_{0};
+      Vector<Node*> nodes_{};
+    };
+
+    using N = Node;
+
+    struct iterator {
+      explicit iterator(N* const n): current_(n) {};
+
+      iterator& operator++() {
+        if (current_ != nullptr) { current_ = current_->nodes_.get(0); }
+        return *this;
+      }
+
+      bool operator!=(const iterator& other) {
+        return other.current_ != current_;
+      }
+
+      const T& operator*() {
+        return current_->value_.value;
+      }
+
+      N* current_ = nullptr;
+    };
+
 
     SkiplistSet() {
-      sentinel_ = new Node<T>{};
-      sentinel_->setHeight(32);
+      sentinel_ = new N{};
+      sentinel_->setHeight(MAX_HEIGHT);
     }
 
     [[nodiscard]] size_t size() const {
@@ -78,11 +78,13 @@ namespace gush {
 
     /**
      * Inserts value to the set.
-     * Time complexity: O(logN)
+     * Time complexity:
+     *   > Best case: O(logN)
+     *   > Worst case: O(N)
      * @param value - value to insert
      */
     void add(const T& value) {
-      std::array<N*, 32> stack;
+      std::array<N*, MAX_HEIGHT> stack;
       N* u = sentinel_;
       size_t r = sentinel_->height() - 1;
       while (true) {
@@ -97,7 +99,7 @@ namespace gush {
         r -= 1;
       }
 
-      N* n = new Node<T>{value};
+      N* n = new N{value};
       const size_t height = pickHeight();
       n->setHeight(height);
       for (int i = 0; i < height; i++) {
@@ -108,24 +110,26 @@ namespace gush {
 
     /**
      * Checks if set contains some value
-     * Time complexity: O(logN)
+     * Time complexity:
+     *   > Best case: O(logN)
+     *   > Worst case: O(N)
      * @param value value to check
      * @return true if contains, otherwise false
      */
     bool contains(const T& value) {
       N* node = findPredNode(value);
       if (node->nodes_.get(0) == nullptr) { return false; }
-      return node->nodes_.get(0).value_.value == value;
+      return node->nodes_.get(0)->value_.value == value;
     }
 
-    sl_iterator<T> begin() {
+    iterator begin() {
       const auto& next = sentinel_->nodes_.get(0);
-      if (next != nullptr) { return sl_iterator<T>{next}; }
-      return sl_iterator<T>{nullptr};
+      if (next != nullptr) { return iterator{next}; }
+      return iterator{nullptr};
     }
 
-    sl_iterator<T> end() {
-      return sl_iterator<T>{nullptr};
+    iterator end() {
+      return iterator{nullptr};
     }
 
     ~SkiplistSet() {
@@ -137,13 +141,7 @@ namespace gush {
       delete sentinel_;
 
       while (current != nullptr) {
-        auto& nodes = current->nodes_;
-        if (nodes.size() == 0) {
-          delete current;
-          break;
-        }
-
-        auto* next = nodes.get(0);
+        auto* next = current->nodes_.get(0);
         // union requires to explicitly call destructor
         current->value_.value.~T();
         delete current;
@@ -160,7 +158,7 @@ namespace gush {
       size_t r = sentinel_->height() - 1;
       while (true) {
         while (true) {
-          auto& next = u->nodes.get(r);
+          auto& next = u->nodes_.get(r);
           if (next == nullptr) { break; }
           if (next->value_.value < value) { u = next; } else { break; }
         }

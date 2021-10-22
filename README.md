@@ -1,8 +1,9 @@
 ![](https://github.com/vadimgush/algorithms/workflows/CMake/badge.svg)
 
-# Algorithms and data structures
+# Algorithms, data structures and system programming
 
-This repository contains implementation of different algorithms and data structures in C++ and C.
+This repository contains implementation of different algorithms and data structures in C++ and C. Also a couple
+of small projects related to system programming.
 
 ### Data structures
 

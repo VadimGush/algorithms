@@ -7,4 +7,4 @@ set(CMAKE_CXX_STANDARD 20)
 set(EXECUTABLE_OUTPUT_PATH "bin")
 add_compile_options(-Wformat=0)
 
-add_executable(algo main.cpp structures/Vector.h structures/ArrayStack.h structures/DList.h structures/ArrayDeque.h structures/SkiplistSet.h system/Operations.cpp system/Operations.h)
+add_executable(algo main.cpp structures/Vector.h structures/ArrayStack.h structures/DList.h structures/ArrayDeque.h structures/SkiplistSet.h system/Operations.cpp system/Operations.h system/types/FileDescriptor.cpp system/types/FileDescriptor.h system/logging/Logging.cpp system/logging/Logging.h)

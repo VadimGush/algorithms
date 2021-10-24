@@ -16,5 +16,6 @@ void copy(const std::string& from, const std::string& to);
  * @param from - name of the file to copy from
  * @param from_pos - position (in bytes) to start copy from
  * @param to - name of the file to copy to
+ * @param to_pos - position (in bytes) in created file at which data is written
  */
-void copy(const std::string& from, off_t from_pos, const std::string& to);
+void copy(const std::string& from, off_t from_pos, const std::string& to, off_t to_pos);

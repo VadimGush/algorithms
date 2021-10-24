@@ -32,3 +32,12 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 
  * "Open Data Structures (in C++)" by Pat Mortin
  * "The Linux Programming Interface" by Michael Kerrisk
+
+## Building and running
+
+This repository is just a showcase of implementations for different things. It's not written as some kind of
+full project that can be used by anyone.
+
+If you want to just play with code from this repository, you can create a new `main.cpp` class and just 
+build it using CMake. You can also build this code as a library, but you will need to change CMake build file for that.
+And I wouldn't recommend using this code as a library for any projects. Please don't.

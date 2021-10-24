@@ -31,22 +31,18 @@ static constexpr size_t BUFFER_SIZE = 1024;
 using namespace std;
 
 void copy(const string& from, const off_t from_pos, const string& to, const off_t to_pos) {
-  char buffer[BUFFER_SIZE];
   auto fd1 = FileDescriptor{open(from.c_str(), O_RDONLY)};
   if (fd1.fd == -1) { with_errno() <<  "Failed to open the file '" << to << "'" << endl; return; }
 
-  // O_APPEND will guarantee that seek and write will happen atomically
-  // but by now we're just writing from the beginning of the file
   auto fd2 = FileDescriptor{open(to.c_str(),
-      // file mode
-      O_WRONLY | O_CREAT | O_TRUNC,
-      // file permissions
-      S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)};
+      O_WRONLY | O_CREAT | O_TRUNC, // file modes
+      S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)}; // file permissions
   if (fd2.fd == -1) { with_errno() << "Failed to open the file '" << to << "'" << endl; return; }
 
   lseek(fd1.fd, from_pos, SEEK_SET);
   lseek(fd2.fd, to_pos, SEEK_SET);
 
+  char buffer[BUFFER_SIZE];
   ssize_t count;
   ssize_t processed_bytes = 0;
   ssize_t copied_bytes = 0;

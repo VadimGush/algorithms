@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 /**
  * The same as calling copy(from, 0, to).
@@ -19,3 +20,11 @@ void copy(const std::string& from, const std::string& to);
  * @param to_pos - position (in bytes) in created file at which data is written
  */
 void copy(const std::string& from, off_t from_pos, const std::string& to, off_t to_pos);
+
+/**
+ * Writes content of strings to the single file. Write operations are performed using
+ * scatter-gather I/O in one atomic operation.
+ * @param file - file to write content to
+ * @param strings - array of strings
+ */
+void write_strings(const std::string& file, const std::vector<std::string>& strings);

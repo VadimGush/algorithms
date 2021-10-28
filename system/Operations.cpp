@@ -14,8 +14,12 @@
  */
 #include <sys/stat.h>
 /*
- * File control contains definition of file modes
- * such as: O_WRONLY, O_RDONLY and etc.
+ * readv(), writev()
+ */
+#include <sys/uio.h>
+/*
+ * File control: file modes (such as O_WRONLY, O_RDONLY), declaration of fcntl()
+ * function and etc.
  */
 #include <fcntl.h>
 /*
@@ -32,12 +36,13 @@ using namespace std;
 
 void copy(const string& from, const off_t from_pos, const string& to, const off_t to_pos) {
   auto fd1 = FileDescriptor{open(from.c_str(), O_RDONLY)};
-  if (fd1.fd == -1) { with_errno() <<  "Failed to open the file '" << to << "'" << endl; return; }
+  if (fd1.is_invalid()) { with_errno() <<  "Failed to open the file '" << to << "'" << endl; return; }
 
   auto fd2 = FileDescriptor{open(to.c_str(),
-      O_WRONLY | O_CREAT | O_TRUNC, // file modes
-      S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)}; // file permissions
-  if (fd2.fd == -1) { with_errno() << "Failed to open the file '" << to << "'" << endl; return; }
+      O_WRONLY /* access mode */ | O_CREAT | O_TRUNC | O_EXCL, // status flags
+      // TODO: It ignores write mode for groups and others
+      S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)}; // rw-r--r-- file modes
+  if (fd2.is_invalid()) { with_errno() << "Failed to open the file '" << to << "'" << endl; return; }
 
   lseek(fd1.fd, from_pos, SEEK_SET);
   lseek(fd2.fd, to_pos, SEEK_SET);
@@ -66,6 +71,25 @@ void copy(const string& from, const off_t from_pos, const string& to, const off_
   }
   cout << "copy(): Processed " << processed_bytes << " bytes" << endl;
   cout << "        Copied " << copied_bytes << " bytes" << endl;
+}
+
+void write_strings(const string& file, const vector<string>& strings) {
+  auto tfd = FileDescriptor{open(file.c_str(),
+    O_CREAT | O_APPEND | O_EXCL | O_WRONLY,
+    S_IWUSR | S_IRUSR | S_IROTH | S_IRGRP)};
+
+  if (tfd.is_invalid()) { with_errno() << "Failed to create '" << file << "' file"; return; }
+
+  int size = (int) strings.size();
+  iovec buffers[size];
+  for (size_t i = 0; i < strings.size(); i++) {
+    const string& str = strings[i];
+    buffers[i].iov_len = str.size();
+    buffers[i].iov_base = const_cast<char*>(str.c_str());
+  }
+
+  const auto bytes = writev(tfd.fd, buffers, size);
+  cout << "write_strings(): Wrote " << bytes << " bytes" << endl;
 }
 
 void copy(const string& from, const string& to) {

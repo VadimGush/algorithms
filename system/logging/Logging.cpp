@@ -15,6 +15,7 @@ ostream& with_errno() {
     case EBADF: error() << "Bad file descriptor"; break;
     case EINTR: error() << "System call was interrupted"; break;
     case EIO: error() << "I/O error occurred"; break;
+    case EEXIST: error() << "File already exists"; break;
     case ENOSPC: error() << "No space left on the device"; break;
     case EDQUOT: error() << "Disk quota exceeded"; break;
     case EAGAIN: error() << "Resource is temporary unavailable or system call would block"; break;

@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 /**
  * Small wrapper for file descriptors. Makes sure that those file descriptors
@@ -47,8 +48,14 @@ struct FileDescriptor {
    */
   [[nodiscard]] FileDescriptor duplicate() const;
 
+  /**
+   * @return true if file descriptor is not equal to -1
+   */
   [[nodiscard]] bool is_valid() const;
 
+  /**
+   * @return true if file descriptor is equal to -1
+   */
   [[nodiscard]] bool is_invalid() const;
 
   /**

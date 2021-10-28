@@ -44,12 +44,6 @@ bool FileDescriptor::is_write_sync() const {
   return get_flags() & O_SYNC;
 }
 
-/*
-void FileDescriptor::set_flags(const int flags) {
-  fcntl(fd, F_SETFL, flags);
-}
- */
-
 void FileDescriptor::close() {
   if (fd == -1) return;
   if (::close(fd) == -1) { with_errno() << "Failed to close file descriptor: " << fd << std::endl; }
@@ -61,12 +55,15 @@ FileDescriptor::~FileDescriptor() {
 }
 
 FileDescriptor FileDescriptor::duplicate() const {
-  // TODO: Check errors from system calls
-  return FileDescriptor{dup(fd)};
+  const int new_fd = dup(fd);
+  // this should never happen
+  if (new_fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << std::endl; }
+  return FileDescriptor{new_fd};
 }
 
 FileDescriptor FileDescriptor::duplicate(FileDescriptor&& new_fd) const {
-  // TODO: Check errors from system calls
   new_fd.fd = dup2(fd, new_fd.fd);
+  // this should never happen
+  if (new_fd.fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << std::endl; }
   return std::move(new_fd);
 }

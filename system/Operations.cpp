@@ -40,8 +40,7 @@ void copy(const string& from, const off_t from_pos, const string& to, const off_
 
   auto fd2 = FileDescriptor{open(to.c_str(),
       O_WRONLY /* access mode */ | O_CREAT | O_TRUNC | O_EXCL, // status flags
-      // TODO: It ignores write mode for groups and others
-      S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)}; // rw-r--r-- file modes
+      S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)};
   if (fd2.is_invalid()) { with_errno() << "Failed to open the file '" << to << "'" << endl; return; }
 
   lseek(fd1.fd, from_pos, SEEK_SET);
@@ -94,4 +93,17 @@ void write_strings(const string& file, const vector<string>& strings) {
 
 void copy(const string& from, const string& to) {
   copy(from, 0, to, 0);
+}
+
+FileDescriptor create_temporary(const string& pattern) {
+  char new_pattern[pattern.size() + 1];
+  for (size_t i = 0; i < pattern.size(); i++) {
+    new_pattern[i] = pattern.c_str()[i];
+  }
+  new_pattern[pattern.size()] = '\0';
+
+  auto fd = FileDescriptor{mkstemp(new_pattern)};
+  if (fd.is_invalid()) { with_errno() << "Failed to create a temporary file" << endl; }
+  cout << "Generated filename was '" << new_pattern << "'" << endl;
+  return move(fd);
 }

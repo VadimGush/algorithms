@@ -7,6 +7,7 @@ namespace gush {
 
   /**
    * Dynamically sized array.
+   *
    * @tparam I - type of stored values.
    */
   template<class I>
@@ -69,7 +70,8 @@ namespace gush {
 
     /**
      * Inserts and element to the end of the vector.
-     * Time complexity: amortized O(1)
+     * Time complexity: O(1)
+     *
      * @param value - value to insert
      */
     template <class V = T>
@@ -80,6 +82,7 @@ namespace gush {
     /**
      * Inserts a value into the vector
      * Time complexity: O(N - i), where N - number of stored elements, i - position to insert to
+     *
      * @param pos - position to insert a value to
      * @param value - value to insert
      */
@@ -100,6 +103,7 @@ namespace gush {
     /**
      * Returns reference to the element in the vector by id
      * Time complexity: O(1)
+     *
      * @param id - id of the element
      * @return const reference to that element
      */
@@ -110,6 +114,7 @@ namespace gush {
     /**
      * Removes element from the end of the vector
      * Time complexity: O(1)
+     *
      * @return removed element
      */
     std::optional<T> pop_back() {
@@ -119,6 +124,7 @@ namespace gush {
     /**
      * Removes an element from the vector and returns it.
      * Time complexity: O(N - i), where N - number of stored elements, i - position to remove value from
+     *
      * @param id - position from which we want to remove a value
      * @return optional with removed value, or empty optional if id out of bound
      */
@@ -145,6 +151,7 @@ namespace gush {
     /**
      * Checks if the vector contains such element
      * Time complexity: O(N), where N - number of stored elements
+     *
      * @param element - element to find
      * @return true if this vector contains such element, otherwise false
      */
@@ -250,6 +257,7 @@ namespace gush {
      * Resizes the vector to required capacity (it can me smaller or larger than current capacity).
      * If specified capacity will be smaller than number of currently stored elements, resize_to will
      * not take place.
+     *
      * @param capacity - required capacity for the current vector.
      */
     void resize_to(const size_t capacity) {

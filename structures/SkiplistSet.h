@@ -13,8 +13,9 @@ namespace gush {
   };
 
   /**
-   * Implementation of Set based on skiplist structures.
-   * @tparam T - type of stored values. Type should support comparison operators "<" and "==".
+   * Implementation of set based on skiplist structure.
+   *
+   * @tparam T - type of stored values.
    */
   template <class T>
   class SkiplistSet {
@@ -66,14 +67,9 @@ namespace gush {
       N* current_ = nullptr;
     };
 
-
     SkiplistSet() {
       sentinel_ = new N{};
       sentinel_->setHeight(MAX_HEIGHT);
-    }
-
-    [[nodiscard]] size_t size() const {
-      return size_;
     }
 
     /**
@@ -81,6 +77,7 @@ namespace gush {
      * Time complexity:
      *   > Best case: O(logN)
      *   > Worst case: O(N)
+     *
      * @param value - value to insert
      */
     void add(const T& value) {
@@ -109,17 +106,22 @@ namespace gush {
     }
 
     /**
-     * Checks if set contains some value
+     * Checks if set contains a value
      * Time complexity:
      *   > Best case: O(logN)
      *   > Worst case: O(N)
-     * @param value value to check
+     *
+     * @param value - value to check
      * @return true if contains, otherwise false
      */
-    bool contains(const T& value) {
-      N* node = findPredNode(value);
+    [[nodiscard]] bool contains(const T& value) const {
+      const N* node = findPredNode(value);
       if (node->nodes_.get(0) == nullptr) { return false; }
       return node->nodes_.get(0)->value_.value == value;
+    }
+
+    [[nodiscard]] size_t size() const {
+      return size_;
     }
 
     iterator begin() {

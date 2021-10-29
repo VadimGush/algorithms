@@ -32,7 +32,8 @@ void copy(const std::string& from, off_t from_pos, const std::string& to, off_t 
 void write_strings(const std::string& file, const std::vector<std::string>& strings);
 
 /**
- * Creates a temporary file and returns its file descriptor.
+ * Creates a temporary file and returns its file descriptor. This file will be removed
+ * after current process will finish execution.
  *
  * @param pattern - pattern for file name. Should end with XXXXXX
  */

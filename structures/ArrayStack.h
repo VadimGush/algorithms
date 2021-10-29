@@ -5,7 +5,8 @@
 namespace gush {
 
   /**
-   * Stack implementation based on dynamic array.
+   * Stack based on dynamic array.
+   *
    * @tparam T - type of stored values.
    */
   template <class T>
@@ -14,7 +15,8 @@ namespace gush {
 
     /**
      * Inserts value at the front of the stack.
-     * Time complexity: amortized O(1)
+     * Time complexity: O(1)
+     *
      * @param value - value to insert
      */
     template <class U = T>
@@ -24,11 +26,26 @@ namespace gush {
 
     /**
      * Removes value from the front of the stack.
-     * Time complexity: amortized O(1)
+     * Time complexity: O(1)
+     *
      * @return - removed value
      */
     std::optional<T> pop() {
       return data_.pop_back();
+    }
+
+    /**
+     * Checks if collection contains given value.
+     * Time complexity: O(N)
+     *
+     * @param value - value to search for
+     * @return true if collection contains such value, otherwise false
+     */
+    [[nodiscard]] bool contains(const T& value) const {
+      for (const auto& v : *this) {
+        if (v == value) { return true; }
+      }
+      return false;
     }
 
     const T* begin() const {

@@ -5,7 +5,8 @@
 namespace gush {
 
   /**
-   * Doubly linked DList.
+   * Doubly linked list.
+   *
    * @tparam T - type of stored values.
    */
   template <class T>
@@ -49,8 +50,9 @@ namespace gush {
     }
 
     /**
-     * Inserts a value at the and of list
+     * Inserts a value at the end of the list
      * Time complexity: O(1)
+     *
      * @param value - value to insert
      */
     template <class U = T>
@@ -68,6 +70,7 @@ namespace gush {
     /**
      * Inserts a value at the beginning of the list
      * Time complexity: O(1)
+     *
      * @param value - value to insert
      */
     template <class U = T>
@@ -84,6 +87,8 @@ namespace gush {
 
     /**
      * Removes a value from the beginning of the list and returns it.
+     * Time complexity: O(1)
+     *
      * @return optional with value if list is not empty, otherwise empty optional
      */
     std::optional<T> pop_front() {
@@ -105,6 +110,8 @@ namespace gush {
 
     /**
      * Removes a value from the end of the list and returns it.
+     * Time complexity: O(1)
+     *
      * @return optional with value if list is not empty, otherwise empty optional
      */
     std::optional<T> pop_back() {
@@ -124,6 +131,20 @@ namespace gush {
       T result = std::move(current->value);
       delete current;
       return std::move(result);
+    }
+
+    /**
+     * Checks if collection contains given value.
+     * Time complexity: O(N)
+     *
+     * @param value - value to search for
+     * @return true if collection contains such value, otherwise false
+     */
+    [[nodiscard]] bool contains(const T& value) const {
+      for (const auto& v : *this) {
+        if (v == value) { return true; }
+      }
+      return false;
     }
 
     [[nodiscard]] size_t size() const {

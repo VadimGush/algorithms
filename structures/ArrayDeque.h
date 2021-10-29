@@ -8,9 +8,9 @@ namespace gush {
   template <class T>
   class ArrayDeque;
 
-
   /**
-   * Deque based on dynamic array
+   * Deque based on dynamic array.
+   *
    * @tparam T - type of stored values.
    */
   template <class T>
@@ -42,6 +42,12 @@ namespace gush {
       resizeTo(capacity_);
     }
 
+    /**
+     * Removes a value from the the front of the deque
+     * Time complexity: O(1)
+     *
+     * @return optional with a value if the deque is not empty, otherwise an empty optional
+     */
     std::optional<T> pop_front() {
       if (size_ == 0) {
         return {};
@@ -52,6 +58,12 @@ namespace gush {
       return {std::move(data_[index])};
     }
 
+    /**
+     * Removes a value from the back of the deque
+     * Time complexity: O(1)
+     *
+     * @return optional with a value if the deque is not empty, otherwise an empty optional
+     */
     std::optional<T> pop_back() {
       if (size_ == 0) {
         return {};
@@ -61,6 +73,12 @@ namespace gush {
       return {std::move(data_[index])};
     }
 
+    /**
+     * Inserts a value at the back of the deque
+     * Time complexity: O(1)
+     *
+     * @param value  - value to insert
+     */
     template <class V = T>
     void push_back(V&& value) {
       if (size_ == capacity_) {
@@ -71,6 +89,12 @@ namespace gush {
       size_ += 1;
     }
 
+    /**
+     * Inserts a value at the front of the deque
+     * Time complexity: O(1)
+     *
+     * @param value - value to insert
+     */
     template <class V = T>
     void push_front(V&& value) {
       if (size_ == capacity_) {
@@ -80,6 +104,20 @@ namespace gush {
       if (head_ < 0) { head_ = capacity_ - 1; }
       this->data_[head_] = std::forward<V>(value);
       size_ += 1;
+    }
+
+    /**
+     * Checks if collections contains specified value
+     * Time complexity: O(N)
+     *
+     * @param value - value to search for
+     * @return true if value is present in the collection
+     */
+    [[nodiscard]] bool contains(const T& value) const {
+      for (const auto& v : *this) {
+        if (v == value) { return true; }
+      }
+      return false;
     }
 
     iterator begin() {

@@ -24,8 +24,8 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 
 | File | Struct/Function | Description |
 | --- | --- | --- |
-| [FileDescriptor.h](system/types/FileDescriptor.h) | `FileDescriptor` | Wrapper for file descriptors |
-| [Logging.h](system/logging/Logging.h) | | Utils for logging and working with errno variable |
+| [FileDescriptor.h](system/utils/FileDescriptor.h) | `FileDescriptor` | Wrapper for file descriptors |
+| [Logging.h](system/utils/Logging.h) | | Utils for logging and working with errno variable |
 | [Operations.h](system/Operations.h) | `copy(from, to)` | Copies data from one file to another |
 | [Operations.h](system/Operations.h) | `write_strings(file, strings)` | Writes an array of strings to a new file |
 | [Operations.h](system/Operations.h) | `create_temporary(pattern)` | Creates temporary file with given pattern |

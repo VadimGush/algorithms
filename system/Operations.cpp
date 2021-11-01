@@ -1,6 +1,5 @@
 #include "Operations.h"
-#include "types/FileDescriptor.h"
-#include "logging/Logging.h"
+#include "utils/Logging.h"
 #include <iostream>
 
 // === POSIX Standard ===
@@ -23,7 +22,7 @@
  */
 #include <fcntl.h>
 /*
- * Basic types for sizes: size_ts and size_t
+ * Basic utils for sizes: size_ts and size_t
  */
 #include <monetary.h>
 /*
@@ -95,7 +94,7 @@ void copy(const string& from, const string& to) {
   copy(from, 0, to, 0);
 }
 
-FileDescriptor create_temporary(const string& pattern) {
+optional<FileDescriptor> create_temporary(const string& pattern) {
   char new_pattern[pattern.size() + 1];
   for (size_t i = 0; i < pattern.size(); i++) {
     new_pattern[i] = pattern.c_str()[i];
@@ -103,7 +102,7 @@ FileDescriptor create_temporary(const string& pattern) {
   new_pattern[pattern.size()] = '\0';
 
   auto fd = FileDescriptor{mkstemp(new_pattern)};
-  if (fd.is_invalid()) { with_errno() << "Failed to create a temporary file" << endl; }
+  if (fd.is_invalid()) { with_errno() << "Failed to create a temporary file" << endl; return {}; }
   cout << "Generated filename was '" << new_pattern << "'" << endl;
   return move(fd);
 }

@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "types/FileDescriptor.h"
+#include <optional>
+#include "utils/FileDescriptor.h"
 
 /**
  * The same as calling copy(from, 0, to).
@@ -37,4 +38,4 @@ void write_strings(const std::string& file, const std::vector<std::string>& stri
  *
  * @param pattern - pattern for file name. Should end with XXXXXX
  */
-FileDescriptor create_temporary(const std::string& pattern);
+std::optional<FileDescriptor> create_temporary(const std::string& pattern);

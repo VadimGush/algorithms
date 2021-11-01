@@ -30,7 +30,7 @@
  */
 #include <cerrno>
 
-static constexpr size_t BUFFER_SIZE = 1024;
+static constexpr size_t BUFFER_SIZE = 32 * 1024; // 32 Kb
 using namespace std;
 
 void copy(const string& from, const off_t from_pos, const string& to, const off_t to_pos) {

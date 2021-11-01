@@ -1,0 +1,29 @@
+
+                     ==> MEMORY STRUCTURE <==
+
+                 |- --------------------------- -|
+                 | Kernel                        |
+                 | mapped into process virtual   |
+                 | memory, but not accessible    |
+     0xC00000000 |- --------------------------- -|
+                 | argv, environ                 |
+                 |- --------------------------- -|
+                 | Stack                         |
+                 | (grows down)                  |
+    Top of stack |- - - - - - - - - - - - - - - -|
+                 | Unallocated memory            |
+                 |                               |
+                 |                               |
+                 |                               |
+         Program |- - - - - - - - - - - - - - - -|
+          break  | Heap (grows upwards)          |
+                 |                               |
+                 |- --------------------------- -| <- end
+                 | Uninitialized data (bss)      |
+                 |- --------------------------- -| <- edata
+                 | Initialized data              |
+                 |- --------------------------- -| <- text
+                 | Text (program code)           |
+                 |- --------------------------- -|
+                 |                               |
+      0x00000000 |- --------------------------- -|

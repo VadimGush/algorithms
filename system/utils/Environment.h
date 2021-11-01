@@ -20,4 +20,10 @@ namespace Environment {
    */
   void set(const std::string& name, const std::string& value);
 
+  /**
+   * Removes an environment variable
+   * @param name  - name of the variable to remove
+   */
+  void remove(const std::string& name);
+
 };

@@ -22,9 +22,10 @@ More documentation and list of methods you can hopefully find in the source code
 
 Small projects and utils related to UNIX system programming. All placed into `system` directory. 
 
-| File | Struct/Function | Description |
+| File | Struct/Function/Namespace | Description |
 | --- | --- | --- |
 | [FileDescriptor.h](system/utils/FileDescriptor.h) | `FileDescriptor` | Wrapper for file descriptors |
+| [Environment.h](system/utils/Environment.h) | `Environment` | Simple functions to work with environment variables |
 | [Logging.h](system/utils/Logging.h) | | Utils for logging and working with errno variable |
 | [Operations.h](system/Operations.h) | `copy(from, to)` | Copies data from one file to another |
 | [Operations.h](system/Operations.h) | `write_strings(file, strings)` | Writes an array of strings to a new file |

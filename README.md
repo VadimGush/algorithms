@@ -18,6 +18,21 @@ More documentation and list of methods you can hopefully find in the source code
 | `gush::ArrayDeque<T>` | [ArrayDeque.h](structures/ArrayDeque.h) | Deque based on array |
 | `gush::SkiplistSet<T>` | [SkiplistSet.h](structures/SkiplistSet.h) | Set implemented with skiplist |
 
+### Algorithms
+
+| Type | Class| Algorithm | Source file / function |
+| --- | --- | --- | --- |
+| | Sorting algorithms | Insertion Sort | 
+| | | Count Sort |
+| | | Selection sort |  
+| | | Bubble Sort |
+| | | Merge Sort |
+| | Search algorithms | Binary Search |
+| | | Dijkstra's algorithm |
+| | Other | Fast Fibonacci
+| | | Largest Common Subsequence (LCS) |
+
+
 ### System programming
 
 Small projects and utils related to UNIX system programming. All placed into `system` directory. 

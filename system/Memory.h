@@ -7,16 +7,14 @@
 #include <unistd.h>
 using namespace std;
 
-constexpr size_t max_allocs = 100;
-
 struct Block {
-  void* pointer = nullptr;
-  bool free = true;
-  size_t size = 0;
+  size_t size;
+  Block* next;
+  bool free;
 };
 
-// Pointers that we will store
-Block blocks[max_allocs] = {};
+static Block* fblock = nullptr;
+static Block* lblock = nullptr;
 
 /**
  * Allocates new region of memory for particular object
@@ -26,50 +24,46 @@ Block blocks[max_allocs] = {};
  */
 template <class T>
 T* allocate() {
-  const size_t size = sizeof(T);
+  const auto size = sizeof(T);
 
-  Block* free = nullptr;
-  for (auto& block : blocks) {
-    if (block.pointer == nullptr || block.free) {
-      if (block.size >= size || block.size == 0) {
-        free = &block;
-        break;
-      }
-    }
+  if (fblock == nullptr) {
+    cout << "Allocating first block. size = " << sizeof(size) << endl;
+    fblock = (Block*)sbrk(sizeof(Block) + size);
+    fblock->size = size;
+    fblock->next = nullptr;
+    fblock->free = false;
+    lblock = fblock;
+    return (T*)(((char*)fblock) + sizeof(Block));
   }
 
-  if (free == nullptr) {
-    cout << "No more memory available";
-    return nullptr;
+  Block* current = fblock;
+  while (current->next != nullptr) {
+    current = current->next;
+    if (current->free && current->size >= size) { break; }
   }
 
-  if (free->pointer == nullptr) {
-    cout << "[alloc] Allocated new region of size=" << size << endl;
-    free->pointer = sbrk(size);
-    free->size = size;
-    free->free = false;
-  } else {
-    cout << "[alloc] Reused region at " << free->pointer << endl;
-    free->free = false;
+  if (lblock == current) {
+    cout << "Allocating a new block. size = " << sizeof(size) << endl;
+    Block* nblock = (Block*)sbrk(sizeof(Block) + size);
+    nblock->size = size;
+    nblock->next = nullptr;
+    nblock->free = false;
+    current->next = nblock;
+    lblock = nblock;
+    return (T*)(((char*)nblock) + sizeof(Block));
   }
-  cout << "[alloc] Free region at " << free->pointer << " size=" << free->size << endl;
 
-  return (T*)free->pointer;
+  cout << "Found free block. size = " << sizeof(current->size) << endl;
+  current->free = false;
+  return (T*)(((char*)current) + sizeof(Block));
 }
-
 
 /**
  * Frees memory that was used by this object
  *
- * @param pointer - pointer to allocated region
+ * @param ptr - pointer to allocated region
  */
-void deallocate(void* const pointer) {
-  for (auto& block : blocks) {
-    if (block.pointer == pointer) {
-      cout << "[free] Deallocated region at " << block.pointer << " size=" << block.size << endl;
-      block.free = true;
-      return;
-    }
-  }
-  cout << "[free] Invalid pointer" << endl;
+void deallocate(void* const ptr) {
+  Block* block = (Block*)(((char*)ptr) - sizeof(Block));
+  block->free = true;
 }

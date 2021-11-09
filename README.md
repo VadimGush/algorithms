@@ -37,14 +37,14 @@ More documentation and list of methods you can hopefully find in the source code
 
 Small projects and utils related to UNIX system programming. All placed into `system` directory. 
 
-| File | Struct/Function/Namespace | Description |
-| --- | --- | --- |
-| [FileDescriptor.h](system/utils/FileDescriptor.h) | `FileDescriptor` | Wrapper for file descriptors |
-| [Environment.h](system/utils/Environment.h) | `Environment` | Simple functions to work with environment variables |
-| [Logging.h](system/utils/Logging.h) | | Utils for logging and working with errno variable |
-| [Operations.h](system/Operations.h) | `copy(from, to)` | Copies data from one file to another |
-| [Operations.h](system/Operations.h) | `write_strings(file, strings)` | Writes an array of strings to a new file |
-| [Operations.h](system/Operations.h) | `create_temporary(pattern)` | Creates temporary file with given pattern |
+| File | Description |
+| ---  | ----------- |
+| [/system/Operations.h](system/Operations.h) | Implementation of I/O operations |
+| [/system/Memory.h](system/Memory.h) | Simple implementation of memory allocator (like `malloc()`) |
+| [/system/utils/FileDescriptor.h](system/utils/FileDescriptor.h) | Wrapper for file descriptors |
+| [/system/utils/Environment.h](system/utils/Environment.h) | Management of environment variables |
+| [/system/utils/Logging.h](system/utils/Logging.h) | Utils for logging and working with `errno` variable |
+| [/system/utils/Auth.h](system/Auth.h) | Functions for retrieving user and group information |
 
 ### Literature and sources
 

@@ -2,7 +2,7 @@
 #include <optional>
 
 /**
- * Provides simple functions to work with environment variables.
+ * Functions to manage environment variables.
  */
 namespace Environment {
 

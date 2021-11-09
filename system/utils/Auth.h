@@ -5,7 +5,7 @@
 #include <vector>
 
 /**
- * Provides simple functions to work with authentication system
+ * Provides functions for retrieving users and groups information.
  */
 namespace Auth {
 
@@ -60,7 +60,7 @@ namespace Auth {
   std::vector<User> get_users();
 
   /**
-   * Read a user password from terminal
+   * Read a user password from the terminal
    * @param prompt - prompt for that password
    * @return returns a password
    */

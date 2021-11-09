@@ -1,5 +1,5 @@
 /*
- * The most primitive implementation of memory allocator which is painfully slow.
+ * The most primitive implementation of memory allocator which is painfully slow and insufficient
  * allocate() and free() have O(N) time complexity.
  */
 #pragma once

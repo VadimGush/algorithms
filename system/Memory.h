@@ -29,7 +29,8 @@ namespace Memory {
   };
 
   constexpr size_t region_size = 1024;
-  static Header* control = nullptr;
+  static Header* first = nullptr;
+  static Header* last = nullptr;
 
   /**
    * Allocates a new region of memory of a particular size on the heap.
@@ -39,8 +40,7 @@ namespace Memory {
    */
   void* malloc(const size_t size) {
     // find region with enough space
-    Header* current = control;
-    Header* last = nullptr;
+    Header* current = first;
     while (current != nullptr) {
       // TODO: Reuse free space within a region
       if (current->free) {
@@ -54,18 +54,18 @@ namespace Memory {
           return (char*)current + sizeof(Header);
         }
       }
-      last = current;
       current = current->next;
     }
 
     // create a new region
     const size_t regions = ((size + sizeof(Header)) - 1) / region_size + 1;
     auto* const header = (Header*)sbrk((int)(regions * region_size));
-    if (last != nullptr) { last->next = header; }
     header->next = nullptr;
     header->free = false;
 
-    if (control == nullptr) { control = header; }
+    if (last != nullptr) { last->next = header; }
+    if (first == nullptr) { first = header; }
+    last = header;
 
     return (char*)header + sizeof(Header);
   }

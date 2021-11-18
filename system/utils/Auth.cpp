@@ -34,8 +34,8 @@ static Auth::Group get_group(const group* group) {
 }
 
 static void print_get_group_error() {
-  if (errno == 0) { error() << "Group not found" << std::endl; }
-  else { with_errno() << "Failed to retrieve group information" << std::endl; }
+  if (errno == 0) { error() << "Group not found" << ln; }
+  else { with_errno() << "Failed to retrieve group information" << ln; }
 }
 
 std::optional<Auth::Group> Auth::get_group(const gid_t gid) {
@@ -53,8 +53,8 @@ std::optional<Auth::Group> Auth::get_group(const std::string& name) {
 }
 
 static void print_get_user_error() {
-  if (errno == 0) { error() << "User not found" << std::endl; }
-  else { with_errno() << "Failed to retrieve user information" << std::endl; }
+  if (errno == 0) { error() << "User not found" << ln; }
+  else { with_errno() << "Failed to retrieve user information" << ln; }
 }
 
 std::optional<Auth::User> Auth::get_user(const uid_t uid) {
@@ -98,4 +98,37 @@ std::string Auth::read_password(const std::string& prompt) {
   return std::move(password);
 }
 
+Auth::User Auth::Process::get_real_user() {
+  return *Auth::get_user(getuid());
+}
+
+Auth::Group Auth::Process::get_real_group() {
+  return *Auth::get_group(getgid());
+};
+
+Auth::User Auth::Process::get_effective_user() {
+  return *Auth::get_user(geteuid());
+}
+
+Auth::Group Auth::Process::get_effective_group() {
+  return *Auth::get_group(getegid());
+}
+
+bool Auth::Process::set_user(const User& user) {
+  const auto status = setuid(user.uid);
+  if (status != 0) {
+    with_errno() << "Failed to set user id" << ln;
+    return false;
+  }
+  return true;
+}
+
+bool Auth::Process::set_group(const Group& group) {
+  const auto status = setgid(group.id);
+  if (status != 0) {
+    with_errno() << "Failed to set group id" << ln;
+    return false;
+  }
+  return true;
+}
 

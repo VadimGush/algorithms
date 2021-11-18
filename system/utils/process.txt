@@ -29,9 +29,7 @@
       0x00000000 |- --------------------------- -|
 
 
-==> System calls
-
--> Memory management
+=> Memory management
 
  malloc() - allocate block of memory
  free() - free block of memory
@@ -40,7 +38,7 @@
  memalign() / posix_memalign() - allocating at aligned positions
  alloca() - allocate memory on the stack
 
--> Troubleshooting
+=> Troubleshooting
 
  mtrace()
  muntrace()

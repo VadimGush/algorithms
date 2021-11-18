@@ -1,6 +1,5 @@
 #include "Operations.h"
 #include "utils/Logging.h"
-#include <iostream>
 
 // === POSIX Standard ===
 /*
@@ -35,12 +34,12 @@ using namespace std;
 
 void copy(const string& from, const off_t from_pos, const string& to, const off_t to_pos) {
   auto fd1 = FileDescriptor{open(from.c_str(), O_RDONLY)};
-  if (fd1.is_invalid()) { with_errno() <<  "Failed to open the file '" << to << "'" << endl; return; }
+  if (fd1.is_invalid()) { with_errno() <<  "Failed to open the file '" << to << "'" << ln; return; }
 
   auto fd2 = FileDescriptor{open(to.c_str(),
       O_WRONLY /* access mode */ | O_CREAT | O_TRUNC | O_EXCL, // status flags
       S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)};
-  if (fd2.is_invalid()) { with_errno() << "Failed to open the file '" << to << "'" << endl; return; }
+  if (fd2.is_invalid()) { with_errno() << "Failed to open the file '" << to << "'" << ln; return; }
 
   lseek(fd1.fd, from_pos, SEEK_SET);
   lseek(fd2.fd, to_pos, SEEK_SET);
@@ -64,11 +63,11 @@ void copy(const string& from, const off_t from_pos, const string& to, const off_
     } else {
       copied_bytes += count;
       auto w_count = write(fd2.fd, buffer, count);
-      if (w_count == -1) { with_errno() <<  "Failed to write data to '" << to << "' file." << endl; return; }
+      if (w_count == -1) { with_errno() <<  "Failed to write data to '" << to << "' file." << ln; return; }
     }
   }
-  cout << "copy(): Processed " << processed_bytes << " bytes" << endl;
-  cout << "        Copied " << copied_bytes << " bytes" << endl;
+  std_out << "copy(): Processed " << (int)processed_bytes << " bytes" << ln;
+  std_out << "        Copied " << (int)copied_bytes << " bytes" << ln;
 }
 
 void write_strings(const string& file, const vector<string>& strings) {
@@ -87,7 +86,7 @@ void write_strings(const string& file, const vector<string>& strings) {
   }
 
   const auto bytes = writev(tfd.fd, buffers, size);
-  cout << "write_strings(): Wrote " << bytes << " bytes" << endl;
+  std_out << "write_strings(): Wrote " << (int)bytes << " bytes" << ln;
 }
 
 void copy(const string& from, const string& to) {
@@ -102,7 +101,7 @@ optional<FileDescriptor> create_temporary(const string& pattern) {
   new_pattern[pattern.size()] = '\0';
 
   auto fd = FileDescriptor{mkstemp(new_pattern)};
-  if (fd.is_invalid()) { with_errno() << "Failed to create a temporary file" << endl; return {}; }
-  cout << "Generated filename was '" << new_pattern << "'" << endl;
+  if (fd.is_invalid()) { with_errno() << "Failed to create a temporary file" << ln; return {}; }
+  std_out << "Generated filename was '" << new_pattern << "'" << ln;
   return move(fd);
 }

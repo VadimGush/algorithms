@@ -34,6 +34,7 @@ namespace Memory {
 
   /**
    * Allocates a new region of memory of a particular size on the heap.
+   * Time complexity: O(N), where is N - number of allocated memory regions
    *
    * @param size - required size
    * @return pointer to the newly allocated region
@@ -43,6 +44,7 @@ namespace Memory {
     Header* current = first;
     while (current != nullptr) {
       // TODO: Reuse free space within a region
+      // TODO: Use next free regions if space is not big enough for that object
       if (current->free) {
         // Calculate how much memory is available within this region
         auto* const next = current->next == nullptr ? (char*)sbrk(0) : (char*)current->next;
@@ -72,6 +74,7 @@ namespace Memory {
 
   /**
    * Frees memory that was used by this object
+   * Time complexity: O(1)
    *
    * @param ptr - pointer to allocated region
    */

@@ -26,6 +26,61 @@ namespace Auth {
   };
 
   /**
+   * Retrieve information about process privileges
+   */
+  namespace Process {
+    /**
+     * Gets real user id of the process and returns info about that user
+     */
+    User get_real_user();
+
+    /**
+     * Gets real group if of the process and returns info about that group
+     */
+    Group get_real_group();
+
+    /**
+     * Gets effective user id of the process and returns info about that user
+     */
+    User get_effective_user();
+
+    /**
+     * Get effective group id of the process and returns info about that group
+     */
+    Group get_effective_group();
+
+    /**
+     * Sets effective user id to the id of the specified user
+     * @param user - user with required user id
+     * @return true if effective user id is changed successfully
+     */
+    bool set_effective_user(const User& user);
+
+    /**
+     * Set effective group id to the id of the specified group
+     * @param group - group with required group id
+     * @return true if effective group id is changed successfully
+     */
+    bool set_effective_group(const Group& group);
+
+    /**
+     * Sets effective user id for unprivileged user and sets effective/real/saved user id
+     * for privileged user (root).
+     *
+     * @return true if user id is changed for that process
+     */
+    bool set_user(const User& user);
+
+    /**
+     * Sets effective group id for unprivileged user and sets effective/real/saved group id
+     * for privileged user (root).
+     *
+     * @return true if group id is changed for that process
+     */
+    bool set_group(const Group& group);
+  }
+
+  /**
    * Returns user information by username
    * @param name - username
    * @return user information

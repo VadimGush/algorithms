@@ -1,7 +1,6 @@
 #include "FileDescriptor.h"
 #include "Logging.h"
 #include <unistd.h>
-#include <iostream>
 #include <fcntl.h>
 
 FileDescriptor::FileDescriptor(const int fd): fd(fd) {}
@@ -46,7 +45,7 @@ bool FileDescriptor::is_write_sync() const {
 
 void FileDescriptor::close() {
   if (fd == -1) return;
-  if (::close(fd) == -1) { with_errno() << "Failed to close file descriptor: " << fd << std::endl; }
+  if (::close(fd) == -1) { with_errno() << "Failed to close file descriptor: " << fd << ln; }
   fd = -1;
 }
 
@@ -56,12 +55,12 @@ FileDescriptor::~FileDescriptor() {
 
 FileDescriptor FileDescriptor::duplicate() const {
   const int new_fd = dup(fd);
-  if (new_fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << std::endl; }
+  if (new_fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << ln; }
   return FileDescriptor{new_fd};
 }
 
 FileDescriptor FileDescriptor::duplicate(FileDescriptor&& new_fd) const {
   new_fd.fd = dup2(fd, new_fd.fd);
-  if (new_fd.fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << std::endl; }
+  if (new_fd.fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << ln; }
   return std::move(new_fd);
 }

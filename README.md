@@ -43,7 +43,7 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 | [/system/Memory.h](system/Memory.h) | Simple implementations of `malloc()` and `free()` |
 | [/system/utils/FileDescriptor.h](system/utils/FileDescriptor.h) | Wrapper for file descriptors |
 | [/system/utils/Environment.h](system/utils/Environment.h) | Management of environment variables |
-| [/system/utils/Logging.h](system/utils/Logging.h) | Utils for logging and working with `errno` variable |
+| [/system/utils/Logging.h](system/utils/Logging.h) | Implementation for terminal I/O |
 | [/system/utils/Auth.h](system/Auth.h) | Functions for retrieving user and group information |
 
 ### Literature and sources

@@ -2,6 +2,7 @@
 #include <string>
 
 struct OutStream {
+  // TODO: Add buffering
   const OutStream& operator<<(const std::string& message) const;
   const OutStream& operator<<(const char* message) const;
   const OutStream& operator<<(int value) const;

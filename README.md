@@ -18,19 +18,23 @@ More documentation and list of methods you can hopefully find in the source code
 | `gush::ArrayDeque<T>` | [ArrayDeque.h](structures/ArrayDeque.h) | Deque based on array |
 | `gush::SkiplistSet<T>` | [SkiplistSet.h](structures/SkiplistSet.h) | Set implemented with skiplist |
 
-
 ### System programming
 
 Small projects and utils related to UNIX system programming. All placed into `system` directory. 
 
 | File | Description |
 | ---  | ----------- |
-| [/system/Operations.h](system/Operations.h) | Implementation of I/O operations |
+| [/system/Operations.h](system/Operations.h) | Implementation of file system I/O operations |
 | [/system/Memory.h](system/Memory.h) | Simple implementations of `malloc()` and `free()` |
 | [/system/utils/FileDescriptor.h](system/utils/FileDescriptor.h) | Wrapper for file descriptors |
 | [/system/utils/Environment.h](system/utils/Environment.h) | Management of environment variables |
-| [/system/utils/Logging.h](system/utils/Logging.h) | Implementation for terminal I/O |
+| [/system/utils/Logging.h](system/utils/Logging.h) | Implementation for console I/O |
 | [/system/utils/Auth.h](system/Auth.h) | Functions for retrieving user and group information |
+
+### Literature and sources
+
+ * "Open Data Structures (in C++)" by Pat Mortin
+ * "The Linux Programming Interface" by Michael Kerrisk
 
 ## Building and running
 

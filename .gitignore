@@ -2,6 +2,7 @@
 CMakeFiles/
 cmake-build-debug/
 Testing/
+build/
 *.out
 *.cmake
 .cache/

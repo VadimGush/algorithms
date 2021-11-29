@@ -18,20 +18,6 @@ More documentation and list of methods you can hopefully find in the source code
 | `gush::ArrayDeque<T>` | [ArrayDeque.h](structures/ArrayDeque.h) | Deque based on array |
 | `gush::SkiplistSet<T>` | [SkiplistSet.h](structures/SkiplistSet.h) | Set implemented with skiplist |
 
-### Algorithms
-
-| Type | Class| Algorithm | Source file / function |
-| --- | --- | --- | --- |
-| | Sorting algorithms | Insertion Sort | 
-| | | Count Sort |
-| | | Selection sort |  
-| | | Bubble Sort |
-| | | Merge Sort |
-| | Search algorithms | Binary Search |
-| | | Dijkstra's algorithm |
-| | Other | Fast Fibonacci
-| | | Largest Common Subsequence (LCS) |
-
 
 ### System programming
 
@@ -46,11 +32,6 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 | [/system/utils/Logging.h](system/utils/Logging.h) | Implementation for terminal I/O |
 | [/system/utils/Auth.h](system/Auth.h) | Functions for retrieving user and group information |
 
-### Literature and sources
-
- * "Open Data Structures (in C++)" by Pat Mortin
- * "The Linux Programming Interface" by Michael Kerrisk
-
 ## Building and running
 
 This repository is just a showcase of implementations for different things. It's not written as some kind of
@@ -59,3 +40,8 @@ full project that can be used by anyone.
 If you want to just play with code from this repository, you can create a new `main.cpp` file and just 
 build it using CMake. You can also build this code as a library, but you will need to change CMake build file for that.
 And I wouldn't recommend using this code as a library for any projects. Please don't.
+
+## Literature
+
+ * [Open Data Structures (in C++)](https://opendatastructures.org/ods-cpp.pdf)
+ * [The Linux Programming Interface](https://www.amazon.com/Linux-Programming-Interface-System-Handbook-ebook/dp/B004OEJMZM)

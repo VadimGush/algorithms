@@ -82,27 +82,44 @@ namespace gush {
      */
     void add(const T& value) {
       std::array<N*, MAX_HEIGHT> stack;
-      N* u = sentinel_;
-      size_t r = sentinel_->height() - 1;
-      while (true) {
-        while (true) {
-          auto& next = u->nodes_.get(r);
-          if (next == nullptr) break;
-          if (next->value_.value == value) { return; }
-          if (next->value_.value < value) { u = next; } else { break; }
-        }
-        stack[r] = u;
-        if (r == 0) { break; }
-        r -= 1;
-      }
+      if (!fillStack(value, stack, false)) { return; }
 
+      // Create a new node
       N* n = new N{value};
       const size_t height = pickHeight();
       n->setHeight(height);
+      // Go through stack and set pointers to the new node
       for (int i = 0; i < height; i++) {
         n->nodes_.get(i) = stack[i]->nodes_.get(i);
         stack[i]->nodes_.get(i) = n;
       }
+    }
+
+    /**
+     * Removes value from the set.
+     * Time complexity:
+     *   > Best case: O(logN)
+     *   > Worst case: O(N)
+     *
+     * @param value - value to remove
+     */
+    void remove(const T& value) {
+      std::array<N*, MAX_HEIGHT> stack;
+      if (!fillStack(value, stack, true)) { return; }
+
+      // get pointer to the next node and check if it has required value
+      auto* const next = stack[0]->nodes_.get(0);
+      if (next == nullptr || next->value_.value != value) { return; }
+
+      // go through every node and replace pointers
+      for (size_t i = 0; i < MAX_HEIGHT; i++) {
+        if (stack[i]->nodes_.get(i) == next) {
+          stack[i]->nodes_.get(i) = next->nodes_.get(i);
+        } else {
+          break;
+        }
+      }
+      delete next;
     }
 
     /**
@@ -155,6 +172,44 @@ namespace gush {
     size_t size_ = 0;
     N* sentinel_;
 
+    /**
+     * Will fill the stack with pointers to nodes in which values are less then specified value.
+     * If equals flag contains true, this method will not return in case if node with specified value is found.
+     *
+     * @param value - specified value
+     * @param stack - stack to fill
+     * @param equals - if true, then this method will not fail in case if node with specified value is found
+     * @return true in case of success and false in case of fail (if collection has node with specified value for example)
+     */
+    bool fillStack(const T& value, std::array<N*, MAX_HEIGHT>& stack, const bool equals) {
+      N* u = sentinel_;
+      size_t depth = MAX_HEIGHT - 1;
+      while (true) {
+        while (true) {
+          auto *const next = u->nodes_.get(depth);
+          if (next == nullptr) { break; }
+          if (next->value_.value == value) {
+            // when we're removing values, we don't want to return immediately when we found
+            // node with specified value
+            // if we're adding values, then add() should fail if there is already such value in collection
+            if (!equals) { return false; } else { break; }
+          }
+          if (next->value_.value < value) { u = next; } else { break; }
+        }
+        stack[depth] = u;
+        if (depth == 0) { break; }
+        depth -= 1;
+      }
+
+      return true;
+    }
+
+    /**
+     * Finds node which has value that is less than specified
+     * So the next node either has specified value, or has value which is greater than specified.
+     * @param value - specified value
+     * @return pointer to that node
+     */
     N* findPredNode(const T& value) {
       auto* u = sentinel_;
       size_t r = sentinel_->height() - 1;
@@ -176,7 +231,7 @@ namespace gush {
      * random numbers with different distribution (where large numbers are more unlikely).
      *
      * Performance of skiplist depends on distribution of random numbers from this function.
-     *
+     * TODO: Test distribution of that function
      * @return random number
      */
     int pickHeight() {

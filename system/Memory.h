@@ -1,6 +1,5 @@
 /*
  * The most primitive implementation of memory allocator which is painfully slow and insufficient
- * malloc() and free() have O(N) time complexity.
  */
 #pragma once
 #include <iostream>

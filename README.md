@@ -1,4 +1,3 @@
-![](https://github.com/vadimgush/algorithms/workflows/CMake/badge.svg)
 
 # Algorithms, data structures and system programming
 

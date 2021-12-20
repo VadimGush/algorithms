@@ -57,7 +57,7 @@ namespace gush {
      */
     template <class U = T>
     void push_back(U&& value) {
-      auto* n = new node{std::forward<U>(value), end_, nullptr};
+      auto* const n = new node{std::forward<U>(value), end_, nullptr};
       if (end_ != nullptr) {
         end_->next = n;
       } else {

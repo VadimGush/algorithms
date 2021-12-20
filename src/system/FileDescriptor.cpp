@@ -1,7 +1,7 @@
 #include "FileDescriptor.h"
-#include "Logging.h"
 #include <unistd.h>
 #include <fcntl.h>
+using namespace gush;
 
 FileDescriptor::FileDescriptor(const int fd): fd(fd) {}
 
@@ -39,28 +39,25 @@ bool FileDescriptor::is_invalid() const {
   return -1 == fd;
 }
 
-bool FileDescriptor::is_write_sync() const {
-  return get_flags() & O_SYNC;
-}
-
-void FileDescriptor::close() {
-  if (fd == -1) return;
-  if (::close(fd) == -1) { with_errno() << "Failed to close file descriptor: " << fd << ln; }
+bool FileDescriptor::close() {
+  if (fd == -1) { return true; }
+  auto status = ::close(fd);
   fd = -1;
+  return status != -1;
 }
 
 FileDescriptor::~FileDescriptor() {
   close();
 }
 
-FileDescriptor FileDescriptor::duplicate() const {
+std::optional<FileDescriptor> FileDescriptor::duplicate() const {
   const int new_fd = dup(fd);
-  if (new_fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << ln; }
-  return FileDescriptor{new_fd};
+  if (new_fd == -1) { return {}; }
+  return FileDescriptor{ new_fd };
 }
 
-FileDescriptor FileDescriptor::duplicate(FileDescriptor&& new_fd) const {
+std::optional<FileDescriptor> FileDescriptor::duplicate(FileDescriptor&& new_fd) const {
   new_fd.fd = dup2(fd, new_fd.fd);
-  if (new_fd.fd == -1) { with_errno() << "Failed to duplicate file descriptor: " << fd << ln; }
+  if (new_fd.fd == -1) { return {}; }
   return std::move(new_fd);
 }

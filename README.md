@@ -11,11 +11,12 @@ More documentation and list of methods you can hopefully find in the source code
 
 | Class name | Source file  | Description |
 | --- | --- | --- |
-| `gush::DList<T>` | [DList.h](structures/DList.h) | Doubly-linked list |
-| `gush::Vector<T>` | [Vector.h](structures/Vector.h) | Dynamic array |
-| `gush::ArrayStack<T>` | [ArrayStack.h](structures/ArrayStack.h) | Stack based on array |
-| `gush::ArrayDeque<T>` | [ArrayDeque.h](structures/ArrayDeque.h) | Deque based on array |
-| `gush::SkiplistSet<T>` | [SkiplistSet.h](structures/SkiplistSet.h) | Set implemented with skiplist |
+| `gush::DList<T>` | [DList.h](src/structures/DList.h) | Doubly-linked list |
+| `gush::Vector<T>` | [Vector.h](src/structures/Vector.h) | Dynamic array |
+| `gush::ArrayStack<T>` | [ArrayStack.h](src/structures/ArrayStack.h) | Stack based on array |
+| `gush::ArrayDeque<T>` | [ArrayDeque.h](src/structures/ArrayDeque.h) | Deque based on array |
+| `gush::SkiplistSet<T>` | [SkiplistSet.h](src/structures/SkiplistSet.h) | Set implemented with skiplist |
+| `gush::BlockStorage<T>` | [BlockStorage.h](src/structures/BlockStorage.h) | Linked list for storing blocks of binary data |
 
 ### System programming
 
@@ -23,12 +24,12 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 
 | File | Description |
 | ---  | ----------- |
-| [/system/Operations.h](system/Operations.h) | Implementation of file system I/O operations |
-| [/system/Memory.h](system/Memory.h) | Simple implementations of `malloc()` and `free()` |
-| [/system/utils/FileDescriptor.h](system/utils/FileDescriptor.h) | Wrapper for file descriptors |
-| [/system/utils/Environment.h](system/utils/Environment.h) | Management of environment variables |
-| [/system/utils/Logging.h](system/utils/Logging.h) | Implementation for console I/O |
-| [/system/utils/Auth.h](system/Auth.h) | Functions for retrieving user and group information |
+| [/system/FileDescriptor.h](src/system/FileDescriptor.h) | Wrapper for file descriptors |
+| [/system/Environment.h](src/system/Environment.h) | Management of environment variables |
+| [/experiments/Operations.h](src/experiments/Operations.h) | Implementation of file system I/O operations |
+| [/experiments/Memory.h](src/experiments/Memory.h) | Simple implementations of `malloc()` and `free()` |
+| [/experiments/utils/Logging.h](src/experiments/Logging.h) | Implementation for console I/O |
+| [/experiments/utils/Auth.h](src/system/Auth.h) | Functions for retrieving user and group information |
 
 ### Literature and sources
 

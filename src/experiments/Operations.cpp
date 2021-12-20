@@ -1,5 +1,5 @@
 #include "Operations.h"
-#include "utils/Logging.h"
+#include "Logging.h"
 
 // === POSIX Standard ===
 /*
@@ -33,10 +33,10 @@ static constexpr size_t BUFFER_SIZE = 128 * 1024; // 128 Kb
 using namespace std;
 
 void copy(const string& from, const off_t from_pos, const string& to, const off_t to_pos) {
-  auto fd1 = FileDescriptor{open(from.c_str(), O_RDONLY)};
+  auto fd1 = gush::FileDescriptor{open(from.c_str(), O_RDONLY)};
   if (fd1.is_invalid()) { with_errno() <<  "Failed to open the file '" << to << "'" << ln; return; }
 
-  auto fd2 = FileDescriptor{open(to.c_str(),
+  auto fd2 = gush::FileDescriptor{open(to.c_str(),
       /*
        * If we put O_SYNC status flag here, it will inform the kernel
        * to perform synchronized I/O file integrity completion (metadata will be guaranteed to be written at least
@@ -75,7 +75,7 @@ void copy(const string& from, const off_t from_pos, const string& to, const off_
 }
 
 void write_strings(const string& file, const vector<string>& strings) {
-  auto tfd = FileDescriptor{open(file.c_str(),
+  auto tfd = gush::FileDescriptor{open(file.c_str(),
     O_CREAT | O_APPEND | O_EXCL | O_WRONLY,
     S_IWUSR | S_IRUSR | S_IROTH | S_IRGRP)};
 
@@ -97,14 +97,14 @@ void copy(const string& from, const string& to) {
   copy(from, 0, to, 0);
 }
 
-optional<FileDescriptor> create_temporary(const string& pattern) {
+optional<gush::FileDescriptor> create_temporary(const string& pattern) {
   char new_pattern[pattern.size() + 1];
   for (size_t i = 0; i < pattern.size(); i++) {
     new_pattern[i] = pattern.c_str()[i];
   }
   new_pattern[pattern.size()] = '\0';
 
-  auto fd = FileDescriptor{mkstemp(new_pattern)};
+  auto fd = gush::FileDescriptor{mkstemp(new_pattern)};
   if (fd.is_invalid()) { with_errno() << "Failed to create a temporary file" << ln; return {}; }
   std_out << "Generated filename was '" << new_pattern << "'" << ln;
   return move(fd);

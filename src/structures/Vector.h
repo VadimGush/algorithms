@@ -1,6 +1,7 @@
 #pragma once
 #include <utility>
 #include <optional>
+#include <algorithm>
 #define INITIAL_CAPACITY 4
 
 namespace gush {

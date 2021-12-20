@@ -93,6 +93,7 @@ namespace gush {
         n->nodes_.get(i) = stack[i]->nodes_.get(i);
         stack[i]->nodes_.get(i) = n;
       }
+      size_ += 1;
     }
 
     /**
@@ -120,6 +121,7 @@ namespace gush {
         }
       }
       delete next;
+      size_ -= 1;
     }
 
     /**

@@ -1,5 +1,4 @@
 #include "Environment.h"
-
 using namespace std;
 
 optional<string> Environment::get(const string& name) {

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <optional>
-#include "utils/FileDescriptor.h"
+#include "../system/FileDescriptor.h"
 
 /**
  * The same as calling copy(from, 0, to).
@@ -38,4 +38,4 @@ void write_strings(const std::string& file, const std::vector<std::string>& stri
  *
  * @param pattern - pattern for file name. Should end with XXXXXX
  */
-std::optional<FileDescriptor> create_temporary(const std::string& pattern);
+std::optional<gush::FileDescriptor> create_temporary(const std::string& pattern);

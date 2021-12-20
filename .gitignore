@@ -3,6 +3,7 @@ CMakeFiles/
 cmake-build-debug/
 Testing/
 build/
+!build/header.py
 *.out
 *.cmake
 .cache/

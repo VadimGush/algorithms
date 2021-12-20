@@ -1,6 +1,7 @@
 #include "Auth.h"
 #include <grp.h>
 #include <unistd.h>
+using namespace gush;
 
 static Auth::User get_user(const passwd* passwd) {
   return Auth::User {

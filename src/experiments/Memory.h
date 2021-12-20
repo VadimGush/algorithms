@@ -2,9 +2,7 @@
  * The most primitive implementation of memory allocator which is painfully slow and insufficient
  */
 #pragma once
-#include <iostream>
 #include <unistd.h>
-using namespace std;
 
 namespace Memory {
 

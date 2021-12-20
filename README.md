@@ -26,10 +26,10 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 | ---  | ----------- |
 | [/system/FileDescriptor.h](src/system/FileDescriptor.h) | Wrapper for file descriptors |
 | [/system/Environment.h](src/system/Environment.h) | Management of environment variables |
+| [/system/Auth.h](src/system/Auth.h) | Functions for retrieving user and group information |
 | [/experiments/Operations.h](src/experiments/Operations.h) | Implementation of file system I/O operations |
 | [/experiments/Memory.h](src/experiments/Memory.h) | Simple implementations of `malloc()` and `free()` |
 | [/experiments/utils/Logging.h](src/experiments/Logging.h) | Implementation for console I/O |
-| [/experiments/utils/Auth.h](src/system/Auth.h) | Functions for retrieving user and group information |
 
 ### Literature and sources
 

@@ -2,9 +2,9 @@
 #include <utility>
 #include <array>
 #include "Vector.h"
-static constexpr int MAX_HEIGHT = 32;
 
 namespace gush {
+  static constexpr int MAX_HEIGHT = 32;
 
   template <class T>
   union V {

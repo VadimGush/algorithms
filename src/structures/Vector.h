@@ -70,7 +70,7 @@ namespace gush {
     }
 
     /**
-     * Inserts and element to the end of the vector.
+     * Inserts an element to the end of the vector.
      * Time complexity: O(1)
      *
      * @param value - value to insert

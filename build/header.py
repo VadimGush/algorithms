@@ -5,47 +5,93 @@
 import os
 import re
 
-header_names = []
+# First we will collect list of all headers from source files and parse them.
 headers = []
+
+dependency_pattern = re.compile(r"#include \"(.*)\"")
+include_pattern = re.compile(r"#include <.*>")
+pragma_pattern = re.compile(r"#pragma once")
+
+# list of global includes (#include <>)
+# we don't want to duplicate those (because every header has one),
+# so we will collect them into one collection and just insert them separately
+global_includes = set()
+# list of parsed headers
+parsed_headers = []
 
 for subdir, dirs, files in os.walk("../src"):
     for file in files:
         if (file.endswith(".h") or file.endswith(".hpp")) and "experiments" not in subdir:
             filepath = os.path.join(subdir, file)
-            headers.append(filepath)
-            header_names.append(file)
+            # Open this header file
+            f = open(filepath)
+            src_lines = f.readlines()
 
-local_header_pattern = re.compile(r"#include \".*\"")
-include_pattern = re.compile(r"#include <.*>")
-pragma_pattern = re.compile(r"#pragma once")
+            # Every header file might depend on another header file in our project.
+            # This information is every important in order to create a valid single header.
+            # so this this the list of dependencies for every header
+            deps = []
+            # Source code lines that we will include into resulting header without any changes
+            lines = []
 
-content = []
-includes = set()
-for header in headers:
-    f = open(header)
-    lines = f.readlines()
-    for line in lines:
-        if local_header_pattern.match(line):
-            continue
-        if pragma_pattern.match(line):
-            continue
-        if include_pattern.match(line):
-            includes.add(line.replace("\n", ""))
-            continue
-        content.append(line)
-    f.close()
+            for line in src_lines:
+                # Collect dependencies (includes) fot that file and remove them
+                ds = dependency_pattern.match(line)
+                if ds:
+                    for dep in ds.groups():
+                        deps.append(dep.split("/")[-1])
+                    continue
+                # Remove any pragma directives
+                if pragma_pattern.match(line):
+                    continue
+                # Remove any global includes and remember it
+                if include_pattern.match(line):
+                    global_includes.add(line.replace("\n", "").replace(" ", ""))
+                    continue
+                lines.append(line)
 
+            # Store parsed header
+            parsed_headers.append({
+                "name": filepath.split("/")[-1],
+                "lines": lines,
+                "deps": deps,
+            })
+            f.close()
+
+# And now we're going to construction of the header
+
+# Add licence at the begging of the header
 license = open("LICENSE_INCLUDE")
 print("/*")
 for line in license.readlines():
     print(line.replace("\n", ""))
 print("*/\n")
 license.close()
-
 print("#pragma once")
-for header in header_names:
-    print("// " + header)
-for include in includes:
-    print(include.replace("\n", ""))
-for line in content:
-    print(line.replace("\n", ""))
+
+# Insert global includes
+for include in global_includes:
+    print(include)
+
+# We will keep the list of already included files
+included = []
+# And go through all headers until they gone
+while len(parsed_headers) > 0:
+    # Take the first header from the stack
+    file = parsed_headers.pop(0)
+
+    # Check if dependencies of this header are satisfied
+    satisfied = True
+    for dep in file["deps"]:
+        if dep not in included:
+            satisfied = False
+            break
+
+    # If satisfied, we are including this header
+    if satisfied:
+        included.append(file["name"])
+        for line in file['lines']:
+            print(line, end="")
+    else:
+        # If not, we will push that header at the end of the stack
+        parsed_headers.append(file)

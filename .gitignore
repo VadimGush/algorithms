@@ -2,8 +2,9 @@
 CMakeFiles/
 cmake-build-debug/
 Testing/
-build/
-!/build/header.py
+build/*
+!build/header.py
+!build/LICENSE_INCLUDE
 *.out
 *.cmake
 .cache/

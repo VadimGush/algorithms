@@ -4,6 +4,7 @@
 # Run: ./header.py > build/include/gush.h
 import os
 import re
+import sys
 
 # First we will collect list of all headers from source files and parse them.
 headers = []
@@ -75,8 +76,16 @@ for include in global_includes:
 
 # We will keep the list of already included files
 included = []
+skipped = 0
 # And go through all headers until they gone
 while len(parsed_headers) > 0:
+
+    # Check for the edge case when we skipped all header files
+    # and we still can't satisfy anyone's dependencies
+    if skipped == len(parsed_headers):
+        print("Error: can't satisfy dependencies!", file=sys.stderr)
+        exit(1)
+
     # Take the first header from the stack
     file = parsed_headers.pop(0)
 
@@ -89,9 +98,12 @@ while len(parsed_headers) > 0:
 
     # If satisfied, we are including this header
     if satisfied:
+        skipped = 0
         included.append(file["name"])
         for line in file['lines']:
             print(line, end="")
     else:
         # If not, we will push that header at the end of the stack
+        skipped += 1
         parsed_headers.append(file)
+

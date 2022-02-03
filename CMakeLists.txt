@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.20)
 project(Algorithms)
 set(CMAKE_CXX_STANDARD 20)
 add_compile_options(-Wformat=0)
+add_compile_options(-fcoroutines-ts)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)

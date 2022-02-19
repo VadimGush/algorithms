@@ -9,6 +9,9 @@ of small projects related to system programming.
 All data structures are in the `structures` directory. Below is the list of implemented structures.
 More documentation and list of methods you can hopefully find in the source code. 
 
+Those data structures implemented horribly in terms of safety. Any failed malloc or exception will
+result in corrupted state of those classes.
+
 | Class name | Source file  | Description |
 | --- | --- | --- |
 | `gush::DList<T>` | [DList.h](src/structures/DList.h) | Doubly-linked list |

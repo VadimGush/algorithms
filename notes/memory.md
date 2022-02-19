@@ -1,6 +1,7 @@
 
-                     ==> MEMORY STRUCTURE <==
+# Memory structure
 
+```
                  |- --------------------------- -|
                  | Kernel                        |
                  | mapped into process virtual   |
@@ -27,21 +28,22 @@
                  |- --------------------------- -|
                  |                               |
       0x00000000 |- --------------------------- -|
+```
 
 
-=> Memory management
+## Memory management
 
- malloc() - allocate block of memory
- free() - free block of memory
- calloc() - allocate an array
- realloc() - resize existing block of memory
- memalign() / posix_memalign() - allocating at aligned positions
- alloca() - allocate memory on the stack
+ * `malloc()` - allocate block of memory
+ * `free()` - free block of memory
+ * `calloc()` - allocate an array
+ * `realloc()` - resize existing block of memory
+ * `memalign()` / `posix_memalign()` - allocating at aligned positions
+ * `alloca()` - allocate memory on the stack
 
-=> Troubleshooting
+## Troubleshooting
 
- mtrace()
- muntrace()
- mcheck()
- mprobe()
- MALLOC_CHECK_
+ * `mtrace()`
+ * `muntrace()`
+ * `mcheck()`
+ * `mprobe()`
+ * `MALLOC_CHECK_`

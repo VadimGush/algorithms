@@ -21,6 +21,23 @@ Partial specialization (doesn't work for functions)
 template <class T> struct A <T*> {} // specialization for all pointer types
 ```
 
+## Hints
+
+You can make a hint for the compiler when it's trying to deduce type from template constructor:
+```c++
+template <typename T>
+class Vector {
+  template <typename Iter>
+  Vector(Iter b, Iter e) -> Vector<Iter::value_type> {}
+};
+
+// Now instead of this
+collection<int> c{};
+Vector<int>(c.begin(), c.end());
+// you can write just
+Vector(c.begin(), c.end());
+```
+
 ## Function templates
 
 Templates for functions

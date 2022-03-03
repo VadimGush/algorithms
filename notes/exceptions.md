@@ -14,6 +14,7 @@ try {
 catch (T e) {} // catch by value
 catch (const T& e) {} // catch by const reference
 catch (T* e) {} // catch by pointer
+catch (...) {} // will catch any exception
 ```
 
 `noexcept` keyword:

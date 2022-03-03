@@ -1,3 +1,60 @@
+# Types
+
+```c++
+int b = 0;
+
+// decltype() gives declared type of some variable
+decltype(b) a = 0;
+
+// declval() gives you reference of some type
+// even if default constructor is deleted
+decltype(declval<Struct>().foo());
+
+// when you're referencing some type
+// you need to specify "typename" keyword
+// otherwise compiler will treat it as a variable
+typename struct::type a; // if type = int, then "int a" is defined
+```
+
+## Tuples
+
+```c++
+auto tuple = make_tuple(3, 1.14, "Hello world");
+get<0>(tuple); // -> 3
+get<1>(tuple); // -> 1.14
+get<int>(tuple); // -> 3
+
+
+tuple<int, int> foo();
+int a, b;
+tie(a, b) = foo();
+// tie will take references to those variables
+// and update them because of operator=()
+
+// OR
+tuple<int, int> foo();
+auto [a, b] = foo();
+auto&& [a, b] = foo();
+
+int a[2] = {1, 2};
+auto [a, b] = a;
+
+struct {int x, int y} b = {3, 1};
+auto [x, y] = b;
+
+// MAGIC TIME!
+void swap(int& a, int& b, int& c, int& d) {
+  tie(b, c, d, a) = make_tuple(a, b, c, d);
+}
+
+bool compare(const Point& p) {
+  return tie(a, b, c) < tie(p.x, p.y, p.z);
+}
+
+int add(int x, int y) {}
+std::apply(add, make_tuple(0, 1));
+```
+
 # Type deduction
 
 ## Variables

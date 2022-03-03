@@ -24,3 +24,6 @@ If you class doesn't have one of the 5 method, it should not have any of them.
 If you class DOES have one of the 5 method, it should not have any other methods. Which means
 that if your class is a RAII class, it should not do anything except for managing
 resources. (single responsibility principle)
+
+### noexcept for move
+If you have move constructor or move assignment they should be `noexcept`.

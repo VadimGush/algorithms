@@ -119,6 +119,49 @@ Derived d;
 use(d);
 ```
 
+## Variadic parameters
+
+```c++
+template<typename ... Args>
+void function(Args ... args) {
+  // get number of parameters
+  // if 2 arguments, this will return 2
+  sizeof...(Args);
+  sizeof...(args);
+  
+  f(args...); // f(int, int); for example
+  f(&args...); // f(int&, int&); 
+  f(h(args)...); // f(h(int), h(int)); 
+  f(const_cast<const Args*>(&args)...); // f(const_cast<const int*>(), const_cast<const int*>());
+  
+  // if args = x, y, z
+  f(h(args...) + h(args)...); // f(h(x,y,z) + h(x),
+                              //   h(x,y,z) + h(y), 
+                              //   h(x,y,z) + h(z));
+  
+  (cout << ... << args) << endl; 
+  (cout << ... << AddSpaces{args}) << endl;
+  (args + ...);
+}
+```
+
+You can also use it for class templates:
+```c++
+template <typename ... Mixins>
+struct structure : public Mixins... {
+  // PUT ANY OTHER ARGUMENTS BEFORE NOT AFTER
+  structure(int arg, Mixins... ms) : Mixins(ms)... {}
+};
+```
+
+You can make function that just passes everything without any changes
+```c++
+template <typename Function, typename ... Args>
+decltype(auto) transperent(Function function, Args&& ... args) {
+  return function(std::forward<Args>(args)...);
+}
+```
+
 ## Tricky situations
 
 #### 2 phase name resolution

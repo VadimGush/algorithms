@@ -14,3 +14,4 @@ bin/
 Makefile
 *.swp
 old/
+.DS_Store

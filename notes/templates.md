@@ -6,19 +6,24 @@ Note: you can't overload from std namespace, but you can specialize
 
 Templates for structures
 ```c++
-template <class T, class P = int> struct A {} // P has default type
-template <class T, int A> struct A {} // integral, floating-point, enum types also work
+// P has default type
+template <class T, class P = int> struct A {} 
+// Bool, number and enum types also work
+template <bool T, int A> struct A {}
 ```
 
 Specialization for structures
 ```c++
-template <> struct A<int> {} // specialization for only "int" type
-template <class T> struct A<vector<T>> {} // specialization for everything that looks like "vector<T>"
+// Specialization for "int" type
+template <> struct A<int> {} 
+// Specialization for template types
+template <class T> struct A<vector<T>> {}
 ```
 
 Partial specialization (doesn't work for functions)
 ```c++
-template <class T> struct A <T*> {} // specialization for all pointer types
+// Specialization for all pointer types
+template <class T> struct A <T*> {}
 ```
 
 ## Hints

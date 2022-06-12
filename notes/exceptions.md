@@ -1,28 +1,31 @@
 # Exceptions
 
-General view:
+The main things you need to remember about exceptions:
 ```c++
 try {
   // you can throw anything
-  throw 3; // int literal
-  throw object{}; // any object
+  throw 3;            // int literal
+  throw object{};     // any object
   throw new object{}; // ptr to object
 }
-// only if catch has the same EXACT type, then it will handle that exception
-// (except for base classes).
+// catch works only with exact type
+// (except for base classes)
 // order DOES matter
-catch (T e) {} // catch by value
+catch (T e) {}        // catch by value
 catch (const T& e) {} // catch by const reference
-catch (T* e) {} // catch by pointer
-catch (...) {} // will catch any exception
+catch (T* e) {}       // catch by pointer
+catch (...) {}        // will catch anything
 ```
 
 `noexcept` keyword:
 ```c++
-// noexcept is special keyword which tells compiler that
-// we will not throw any exception in this function (which can be false)
+// noexcept - promise to the compiler
+// that we will not throw exceptions
 void foo() noexcept;
+```
 
+You can detect if certain function is `noexcept`:
+```c++
 // Special operator that returns true if case provided <expr> will not throw exceptions (it's noexcept)
 // or false if exceptions are possible
 noexcept(foo()); // -> true

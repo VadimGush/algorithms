@@ -34,12 +34,7 @@ Small projects and utils related to UNIX system programming. All placed into `sy
 | [/experiments/Memory.h](src/experiments/Memory.h) | Simple implementations of `malloc()` and `free()` |
 | [/experiments/Logging.h](src/experiments/Logging.h) | Implementation for console I/O |
 
-### Literature and sources
+## Source Materials
 
- * "Open Data Structures (in C++)" by Pat Mortin
- * "The Linux Programming Interface" by Michael Kerrisk
-
-## Literature
-
- * [Open Data Structures (in C++)](https://opendatastructures.org/ods-cpp.pdf)
- * [The Linux Programming Interface](https://www.amazon.com/Linux-Programming-Interface-System-Handbook-ebook/dp/B004OEJMZM)
+ * [Book "Open Data Structures (in C++)" by Pat Morin](https://opendatastructures.org/ods-cpp.pdf)
+ * [Book "The Linux Programming Interface" by Michael Kerrisk](https://www.amazon.com/Linux-Programming-Interface-System-Handbook-ebook/dp/B004OEJMZM)

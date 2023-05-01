@@ -2,7 +2,7 @@
 // Created by Vadim Gush on 01.05.2023.
 //
 #include <gtest/gtest.h>
-#include "../src/vector.h"
+#include "../source/vector.h"
 
 TEST(VectorTest, empty_vector) {
     gush::vector<int> vec{};

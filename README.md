@@ -9,12 +9,12 @@ Below is the list of implemented structures. Don't use them anywhere. They're no
 
 | Class name | Source file  | Description |
 | --- | --- | --- |
-| `DList<T>` | [DList.h](src/DList.h) | Doubly-linked list |
-| `vector<T>` | [vector.h](src/vector.h) | Dynamic array |
-| `ArrayStack<T>` | [ArrayStack.h](src/ArrayStack.h) | Stack based on array |
-| `ArrayDeque<T>` | [ArrayDeque.h](src/ArrayDeque.h) | Deque based on array |
-| `skiplist_set<T>` | [skiplist_set.h](src/skiplist_set.h) | Set implemented with skiplist |
-| `BlockStorage<T>` | [BlockStorage.h](src/BlockStorage.h) | Linked list for storing blocks of binary data |
+| `DList<T>` | [DList.h](source/DList.h) | Doubly-linked list |
+| `vector<T>` | [vector.h](source/vector.h) | Dynamic array |
+| `ArrayStack<T>` | [ArrayStack.h](source/ArrayStack.h) | Stack based on array |
+| `ArrayDeque<T>` | [ArrayDeque.h](source/ArrayDeque.h) | Deque based on array |
+| `skiplist_set<T>` | [skiplist_set.h](source/skiplist_set.h) | Set implemented with skiplist |
+| `BlockStorage<T>` | [BlockStorage.h](source/BlockStorage.h) | Linked list for storing blocks of binary data |
 
 ## Resources
 

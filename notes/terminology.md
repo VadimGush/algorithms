@@ -5,7 +5,7 @@ When writing exception safe method you need to be able to draw "Kalb line". Or p
 you need to divide your code into 2 blocks: one that throws exception but doesn't change class state, and
 other that changes state but doesn't throw exceptions.
 ```c++
-// Let's look at push() method for Vector class
+// Let's look at push() method for vector class
 void push(const T& t) {
   if (used_ == size_) {
     vector tmp{size_ * 2 + 1};

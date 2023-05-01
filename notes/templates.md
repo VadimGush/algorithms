@@ -31,16 +31,16 @@ template <class T> struct A <T*> {}
 You can make a hint for the compiler when it's trying to deduce type from template constructor:
 ```c++
 template <typename T>
-class Vector {
+class vector {
   template <typename Iter>
-  Vector(Iter b, Iter e) -> Vector<Iter::value_type> {}
+  vector(Iter b, Iter e) -> vector<Iter::value_type> {}
 };
 
 // Now instead of this
 collection<int> c{};
-Vector<int>(c.begin(), c.end());
+vector<int>(c.begin(), c.end());
 // you can write just
-Vector(c.begin(), c.end());
+vector(c.begin(), c.end());
 ```
 
 ## Function templates
@@ -66,14 +66,14 @@ template <> void function<int>() = delete; // delete function for type int
 ```c++
 template <template <typename> typename S, typename E>
 struct Stack {};
-Stack<Vector, int> s;
+Stack<vector, int> s;
 ```
 
 With power of C++ you can write the most unreadable code possible:
 ```c++
 template <template <template <typename> typename, typename> typename Stack, template <typename> typename S, typename E>
 struct StackMachine {};
-StackMachine<Stack, Vector, int> a;
+StackMachine<Stack, vector, int> a;
 ```
 
 ## Pointer as template parameter

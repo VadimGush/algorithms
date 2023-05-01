@@ -1,14 +1,21 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.25)
 
-project(Algorithms)
+project(algorithms)
 set(CMAKE_CXX_STANDARD 20)
-add_compile_options(-Wformat=0)
-add_compile_options(-fcoroutines-ts)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+# GOOGLE TESTS
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+FetchContent_MakeAvailable(googletest)
+enable_testing()
 
-set(sources src/structures/Vector.h src/system/Errno.cpp src/structures/BlockStorage.h src/structures/ArrayStack.h src/structures/DList.h src/structures/ArrayDeque.h src/structures/SkiplistSet.h src/experiments/Operations.cpp src/experiments/Operations.h src/system/FileDescriptor.cpp src/system/FileDescriptor.h src/experiments/Logging.cpp src/experiments/Logging.h src/system/Environment.cpp src/system/Environment.h src/experiments/Memory.h src/system/Auth.cpp src/system/Auth.h)
-add_executable(algo main.cpp ${sources})
+add_executable(algo_test test/vector_test.cpp test/skiplist_set_test.cpp)
+target_link_libraries(algo_test GTest::gtest_main)
 
-add_library(gush STATIC ${sources})
+include(GoogleTest)
+gtest_discover_tests(algo_test)
+
+add_executable(algo main.cpp)

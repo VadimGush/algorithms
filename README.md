@@ -9,12 +9,12 @@ Below is the list of implemented structures. Don't use them anywhere. They're no
 
 | Class name | Source file  | Description |
 | --- | --- | --- |
-| `DList<T>` | [DList.h](source/DList.h) | Doubly-linked list |
+| `dlist<T>` | [dlist.h](source/dlist.h) | Doubly-linked list |
 | `vector<T>` | [vector.h](source/vector.h) | Dynamic array |
-| `ArrayStack<T>` | [ArrayStack.h](source/ArrayStack.h) | Stack based on array |
-| `ArrayDeque<T>` | [ArrayDeque.h](source/ArrayDeque.h) | Deque based on array |
+| `array_stack<T>` | [array_stack.h](source/array_stack.h) | Stack based on array |
+| `array_deque<T>` | [array_deque.h](source/array_deque.h) | Deque based on array |
 | `skiplist_set<T>` | [skiplist_set.h](source/skiplist_set.h) | Set implemented with skiplist |
-| `BlockStorage<T>` | [BlockStorage.h](source/BlockStorage.h) | Linked list for storing blocks of binary data |
+| `block_storage<T>` | [block_storage.h](source/block_storage.h) | Linked list for storing blocks of binary data |
 
 ## Resources
 

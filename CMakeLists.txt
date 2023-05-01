@@ -12,10 +12,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 enable_testing()
 
-add_executable(algo_test test/vector_test.cpp test/skiplist_set_test.cpp)
+add_executable(algo_test test/vector_test.cpp test/skiplist_set_test.cpp test/dlist_test.cpp test/block_storage_test.cpp test/array_stack_test.cpp test/array_deque_test.cpp)
 target_link_libraries(algo_test GTest::gtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(algo_test)
-
-add_executable(algo main.cpp)

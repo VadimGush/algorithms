@@ -5,7 +5,8 @@
 namespace gush {
 
     /**
-     * Stack based on dynamic array.
+     * Stack based on an array.
+	 *
      * @tparam T - type of stored values.
      */
     template <class T>

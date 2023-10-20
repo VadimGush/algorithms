@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.21)
 
 project(algorithms)
 set(CMAKE_CXX_STANDARD 20)
 
-# GOOGLE TESTS
+# => GOOGLE TESTS
 include(FetchContent)
 FetchContent_Declare(
         googletest
@@ -11,6 +11,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 enable_testing()
+# => GOOGLE TESTS
 
 add_executable(algo_test test/vector_test.cpp test/skiplist_set_test.cpp test/dlist_test.cpp test/block_storage_test.cpp test/array_stack_test.cpp test/array_deque_test.cpp)
 target_link_libraries(algo_test GTest::gtest_main)

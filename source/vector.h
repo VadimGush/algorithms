@@ -8,6 +8,7 @@ namespace gush {
 
     /**
      * Dynamically sized array.
+	 *
      * @tparam I - type of stored values.
      */
     template<class I>
@@ -96,8 +97,8 @@ namespace gush {
         /**
          * Get the element from the array by id
          */
-        const T& get(const size_t& id) const {
-            return data_[id];
+		std::optional<T> get(const size_t& id) const {
+			return this->operator[](id);
         }
 
         /**
@@ -106,6 +107,13 @@ namespace gush {
         std::optional<T> pop_back() {
             return remove(size_ - 1);
         }
+
+		std::optional<T> operator[](const size_t i) const {
+			if (i < size_ && i >= 0) {
+				return data_[i];
+			}
+			return {};
+		}
 
         /**
          * Removes element from the given position and returns it

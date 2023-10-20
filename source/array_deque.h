@@ -1,12 +1,11 @@
 #pragma once
 #include <iostream>
 #include <utility>
-#include "vector.h"
 
 namespace gush {
 
     /**
-     * Deque based on dynamic array.
+     * Deque based an array. Constant time on front insert and back insert.
      *
      * @tparam T - type of stored values.
      */
@@ -16,8 +15,15 @@ namespace gush {
         struct iterator {
             iterator(const array_deque<T>& queue, const size_t id): queue_(queue), id_(id) {}
 
-            void operator++() {
+			iterator& operator++() {
+				id_ += 1;
+				return *this;
+			}
+
+            iterator operator++(int) {
+				iterator copy = *this;
                 id_ += 1;
+				return copy;
             }
 
             bool operator!=(const iterator iterator) {
@@ -135,20 +141,32 @@ namespace gush {
             capacity_ = 0;
         }
 
+		size_t size() const {
+			return size_;
+		}
+
     private:
         size_t size_ = 0;
-        size_t head_ = 0;
         size_t capacity_ = 4;
-        T* data_;
+        int head_ = 0;
+        T* data_ = nullptr;
 
         void resize_to(const size_t capacity) {
+			// Allocate new memory
             T* const new_data = static_cast<T*>(malloc(sizeof(T) * capacity));
 
+			if (data_ == nullptr) {
+				data_ = new_data;
+				return;
+			}
+
+			// Copy old elements to the new memory
             for (size_t i = 0; i < size_; i++) {
                 const size_t index = (head_ + i) % this->capacity_;
                 new_data[i] = std::move(this->data_[index]);
             }
 
+			// Delete old data and update capacity
             delete[] this->data_;
             this->data_ = new_data;
             this->capacity_ = capacity;

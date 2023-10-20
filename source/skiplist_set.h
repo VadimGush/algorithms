@@ -14,7 +14,7 @@ namespace gush {
     };
 
     /**
-     * Implementation of set based on skiplist structure.
+	 * Set based on skiplist.
      */
     template <class T>
     class skiplist_set {
@@ -164,7 +164,7 @@ namespace gush {
 
     private:
         size_t size_ = 0;
-        N* sentinel_;
+        N* sentinel_ = nullptr;
 
         /**
          * Will fill the stack with pointers to nodes in which values are less then specified value.

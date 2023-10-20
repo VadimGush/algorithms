@@ -6,6 +6,7 @@ namespace gush {
 
     /**
      * Doubly linked list.
+	 *
      * @tparam T - type of stored values.
      */
     template <class T>
@@ -24,16 +25,26 @@ namespace gush {
         struct iterator {
             explicit iterator(const node* ptr): current_(ptr) {}
 
-            bool operator!=(const iterator& other) {
+            bool operator!=(const iterator& other) const {
                 return other.current_ != current_;
             }
+
+			bool operator==(const iterator& other) const {
+				return other.current_ == current_;
+			}
+
+			iterator operator++(int) {
+				iterator copy = *this;
+				operator++();
+				return copy;
+			}
 
             iterator& operator++() {
                 if (current_ != nullptr) { current_ = current_->next; }
                 return *this;
             }
 
-            const T& operator*() {
+            const T& operator*() const {
                 return current_->value;
             }
 
@@ -152,6 +163,7 @@ namespace gush {
 
         ~dlist() {
             node* current_node = begin_;
+			// Do everything in a loop to avoid stackoverflow
             while (current_node != nullptr) {
                 node* next = current_node->next;
                 delete current_node;

@@ -16,7 +16,7 @@ Below is the list of implemented structures. Don't use them anywhere. They're no
 | `skiplist_set<T>` | [skiplist_set.h](source/skiplist_set.h) | Set implemented with skiplist |
 | `block_storage<T>` | [block_storage.h](source/block_storage.h) | Linked list for storing blocks of binary data |
 
-## How to test
+### How to test
 
 To run tests using GTest suite:
 ```sh

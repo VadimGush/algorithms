@@ -20,7 +20,12 @@ Below is the list of implemented structures. Don't use them anywhere. They're no
 
 To run tests using GTest suite:
 ```sh
+mkdir build
+cd build
 
+cmake ../
+cmake --build .
+ctest
 ```
 
 ## Resources
